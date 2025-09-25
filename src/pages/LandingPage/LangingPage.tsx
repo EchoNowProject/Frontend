@@ -5,7 +5,6 @@ export default function LandingPage() {
   return (
     <div id="main">
       <Navbar />
-      asd
     </div>
   );
 }
