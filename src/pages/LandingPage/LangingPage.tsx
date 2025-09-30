@@ -7,11 +7,11 @@ export default function LandingPage() {
   return (
     <div id="main">
       <Navbar />
-      <div className="bg-blue-200">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-6">
-            <Card />
-            <Card />
+      <h1>Habla, conecta, comparte. Todo en vivo.</h1>
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-6">
+          <div className="m-5">
+            <Card card={{ title: 'HOLA MUNDO', text: 'asdasdasdad', hasImage: false }} />
           </div>
         </div>
       </div>
