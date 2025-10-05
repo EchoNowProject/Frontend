@@ -6,8 +6,6 @@ import Message3Text from '@/icons/Message3Text';
 export default function LandingPage() {
   return (
     <div id="main">
-      <Navbar />
-
       {/* Container */}
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
         {/* Title */}
@@ -23,22 +21,6 @@ export default function LandingPage() {
             <Message3Text />
           </h1>
         </div>
-
-        {/* Grid */}
-        {/* <div className="grid grid-cols-2 gap-6">
-          <div className="m-5">
-            <Card
-              card={{
-                title: 'HOLA MUNDO',
-                text: 'asdasdasdad',
-                hasImage: false,
-                className: 'bg-slate-600',
-              }}
-            />
-          </div>
-          <div></div>
-          <div>ad</div>
-        </div> */}
       </div>
     </div>
   );
