@@ -42,13 +42,12 @@ export default function Navbar() {
             <div className="hidden sm:ml-6 sm:flex items-center h-16">
               <div className="flex space-x-6">
                 {navigation.map((item) => (
-                  <NavLink to={item.route}>
-                    <a
-                      key={item.name}
-                      className="options bg-gray-950/50 text-white rounded-full px-6 py-2 text-sm sm:text-base lg:text-lg"
-                    >
-                      {item.name}
-                    </a>
+                  <NavLink
+                    to={item.route}
+                    key={item.name}
+                    className="options bg-gray-950/50 text-white rounded-full px-6 py-2 text-sm sm:text-base lg:text-lg"
+                  >
+                    {item.name}
                   </NavLink>
                 ))}
               </div>

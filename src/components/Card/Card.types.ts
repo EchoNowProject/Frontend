@@ -1,6 +1,6 @@
 export interface CardProps {
     title: string;
-    text: string;
+    text: React.ReactNode;
     hasImage: boolean;
     imageUrl?: string;
     linkUrl?: string;
