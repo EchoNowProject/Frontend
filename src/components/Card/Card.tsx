@@ -4,7 +4,11 @@ import { CardProps } from './Card.types';
 export default function Card({ card }: { card: CardProps }) {
   return (
     <div>
-      <div className="max-w-sm rounded-2xl text-gray-200 p-5 bg-purple-800 overflow-hidden shadow-lg">
+      <div
+        className={
+          card.className + ' max-w-sm rounded-2xl text-gray-200 p-5 overflow-hidden shadow-lg'
+        }
+      >
         {card.hasImage && (
           <img
             className="w-full"

@@ -2,12 +2,13 @@ import React from 'react';
 import './Navbar.css';
 import { Disclosure, DisclosureButton, DisclosurePanel, Button } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { NavLink } from 'react-router';
 
 const navigation = [
-  { name: 'Información', href: '#' },
-  { name: 'Planes', href: '#' },
-  { name: 'Desarrolladores', href: '#' },
-  { name: 'Asistencia', href: '#' },
+  { name: 'Información', route: '/' },
+  { name: 'Planes', route: '/planes' },
+  { name: 'Desarrolladores', route: '#' },
+  { name: 'Asistencia', route: '#' },
 ];
 
 export default function Navbar() {
@@ -41,13 +42,14 @@ export default function Navbar() {
             <div className="hidden sm:ml-6 sm:flex items-center h-16">
               <div className="flex space-x-6">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="options bg-gray-950/50 text-white rounded-full px-6 py-2 text-sm sm:text-base lg:text-lg"
-                  >
-                    {item.name}
-                  </a>
+                  <NavLink to={item.route}>
+                    <a
+                      key={item.name}
+                      className="options bg-gray-950/50 text-white rounded-full px-6 py-2 text-sm sm:text-base lg:text-lg"
+                    >
+                      {item.name}
+                    </a>
+                  </NavLink>
                 ))}
               </div>
             </div>
@@ -69,8 +71,6 @@ export default function Navbar() {
           {navigation.map((item) => (
             <DisclosureButton
               key={item.name}
-              as="a"
-              href={item.href}
               className="text-gray-300 hover:bg-white/5 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
             >
               {item.name}

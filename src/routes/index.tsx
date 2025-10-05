@@ -1,6 +1,5 @@
-// src/routes.js
-import Home from '../pages/Home';
-import LandingPage from '../pages/LandingPage/LangingPage';
+import React from 'react';
+import { LandingPage, Home, Planes } from '@/pages';
 // import otros componentes
 
 const routes = [
@@ -14,7 +13,11 @@ const routes = [
     element: <Home />,
     // podrías agregar loader, errorElement, etc.
   },
-  // etc.
+  {
+    path: '/planes',
+    element: <Planes />,
+    // podrías agregar loader, errorElement, etc.
+  },
 ];
 
 export default routes;
