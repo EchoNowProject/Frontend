@@ -1,10 +1,10 @@
+/* Contenedor principal */
 #main {
+  position: relative;
+  min-height: 100vh; /* permite que el contenido crezca y la página haga scroll */
+  width: 100%; /* evita horizontales raros por 100vw */
   background-image: url('/src/assets/images/landing-page.webp');
   background-size: cover;
-  background-position: center;
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
