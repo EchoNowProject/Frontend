@@ -48,7 +48,7 @@ export default function Planes() {
                   <ul role="list" className="space-y-5 my-7">
                     {basicPlan.map((item) => (
                       <li className="flex items-center">
-                        <CheckCircle1 color="#1A43D6" size={20} />
+                        <CheckCircle1 color="#7f22fe" size={20} />
 
                         <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">
                           {item}
@@ -86,7 +86,7 @@ export default function Planes() {
                   <ul role="list" className="space-y-5 my-7">
                     {basicPlan.map((item) => (
                       <li className="flex items-center">
-                        <CheckCircle1 color="#1A43D6" size={20} />
+                        <CheckCircle1 color="#7f22fe" size={20} />
 
                         <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">
                           {item}
@@ -96,7 +96,7 @@ export default function Planes() {
 
                     {purpleTeam.map((item) => (
                       <li className="flex items-center">
-                        <CheckCircle1 color="#1A43D6" size={20} />
+                        <CheckCircle1 color="#7f22fe" size={20} />
 
                         <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">
                           {item}

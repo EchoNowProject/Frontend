@@ -57,9 +57,11 @@ export default function Navbar() {
           {/* login */}
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Botón login */}
-            <Button className="options ml-3 rounded-full bg-violet-600 px-6 py-1.5 text-xs text-white sm:px-4 sm:py-2 sm:text-sm lg:px-5 lg:py-2.5 lg:text-base">
-              <b>Iniciar Sesión</b>
-            </Button>
+            <NavLink to={'/login'}>
+              <Button className="options ml-3 rounded-full bg-violet-600 px-6 py-1.5 text-xs text-white sm:px-4 sm:py-2 sm:text-sm lg:px-5 lg:py-2.5 lg:text-base">
+                <b>Iniciar Sesión</b>
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>

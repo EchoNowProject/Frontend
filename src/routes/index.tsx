@@ -1,5 +1,5 @@
 import React from 'react';
-import { Template, LandingPage, Home, Planes } from '@/pages';
+import { Template, LandingPage, Home, Planes, Login } from '@/pages';
 // import otros componentes
 
 const routes = [
@@ -7,10 +7,10 @@ const routes = [
     path: '/',
     element: <Template />,
     children: [
-      { index: true, element: <LandingPage /> }, // Página principal
-      { path: '/planes', element: <Planes /> }, // Otra página
+      { index: true, element: <LandingPage /> },
+      { path: '/planes', element: <Planes /> },
+      { path: '/login', element: <Login /> },
     ],
-    // podrías agregar loader, errorElement, etc.
   },
   {
     path: '/home',
