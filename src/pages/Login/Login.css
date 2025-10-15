@@ -1,0 +1,15 @@
+img.logoEchoNowLogin {
+  display: block; /* evita saltos por línea base */
+  margin: 0 auto; /* centrado si está en línea */
+  animation: mover 8s ease-in-out infinite alternate;
+  will-change: transform; /* mejora el rendimiento */
+}
+
+@keyframes mover {
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(-20px);
+  }
+}
