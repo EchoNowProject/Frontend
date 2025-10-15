@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@/components/UI/Button';
+import './Login.css';
 
 export default function Login() {
   return (
@@ -11,7 +12,7 @@ export default function Login() {
           src="/assets/images/logo-blanco.png"
           width={220}
           alt="EchoNow"
-          className="mb-6 w-40 sm:w-56 md:w-64"
+          className="logoEchoNowLogin mb-6 w-40 sm:w-56 md:w-64"
         />
 
         {/* Texto */}
