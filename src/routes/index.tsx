@@ -1,5 +1,5 @@
 import React from 'react';
-import { Template, LandingPage, Home, Planes, Login } from '@/pages';
+import { Template, LandingPage, Home, Planes, AuthMain } from '@/pages';
 // import otros componentes
 
 const routes = [
@@ -9,7 +9,7 @@ const routes = [
     children: [
       { index: true, element: <LandingPage /> },
       { path: '/planes', element: <Planes /> },
-      { path: '/login', element: <Login /> },
+      { path: '/login', element: <AuthMain /> },
     ],
   },
   {

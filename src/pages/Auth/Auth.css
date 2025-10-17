@@ -5,6 +5,29 @@ img.logoEchoNowLogin {
   will-change: transform; /* mejora el rendimiento */
 }
 
+/* Efecto 3D */
+.perspective {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Cuando el reverso está visible */
+.auth-card.flipped > .back {
+  z-index: 2;
+}
+
 @keyframes mover {
   from {
     transform: translateX(20px);
