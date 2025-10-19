@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@/components/UI/Button';
+import Button, { ButtonType } from '@/components/UI/Button';
 
 export default function Login({ onFlip }: { onFlip: () => void }) {
   return (
@@ -44,6 +44,7 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
 
         <div className="mt-4">
           <Button
+            type={ButtonType.Submit}
             textButton="Iniciar Sesión"
             className="w-full text-lg text-white bg-violet-500 hover:bg-violet-700 transition-all duration-200 rounded-xl py-2"
           />
