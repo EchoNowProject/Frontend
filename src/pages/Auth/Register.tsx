@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Input } from '@/components/UI';
 import { InputType } from '@/components/UI/Input';
 import { ButtonType } from '@/components/UI/Button';
-import { User } from '@/types/User';
+import { useUser } from '@/hooks/useUser';
 
 export default function Register({ onFlip }: { onFlip: () => void }) {
-  const [user, setUser] = useState<User>({} as User);
-
-  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // 👈 hace que no se recarge el form
-    console.log(user);
-  };
+  const { user, handleChanges, handleSubmit } = useUser();
 
   return (
     <div className="back absolute w-full h-full backface-hidden rotate-y-180 bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">

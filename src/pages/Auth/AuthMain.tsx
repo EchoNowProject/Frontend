@@ -1,15 +1,20 @@
+import './Auth.css';
 import React, { useState } from 'react';
 import Login from './Login';
 import Register from './Register';
-import './Auth.css';
+import Toast from '@/components/UI/Toast/Toast';
+import { useHelper } from '@/hooks/useHelper';
 
 export default function AuthCard() {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const { showToast, closeToast } = useHelper();
 
   const handleFlip = () => setIsFlipped(!isFlipped);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
+      <Toast text="TEXT" show={showToast} onClose={closeToast} />
       {/* Lado izquierdo */}
       <div className="flex flex-col items-center justify-center text-center md:text-left px-6 py-10 md:w-1/2">
         <img
