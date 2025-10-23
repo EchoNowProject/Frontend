@@ -17,6 +17,7 @@
     "@lineiconshq/react-native-lineicons": "^0.0.3",
     "@tailwindcss/vite": "^4.1.13",
     "animejs": "^4.1.4",
+    "axios": "^1.12.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-native-svg": "^15.13.0",

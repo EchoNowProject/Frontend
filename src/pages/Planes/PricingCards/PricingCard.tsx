@@ -1,6 +1,6 @@
 import React from 'react';
 import { PricingCardProps } from './PricingCard.types';
-import Button from '@/components/UI/Button';
+import Button, { ButtonType } from '@/components/UI/Button';
 
 export default function PricingCard({ pricingCard }: { pricingCard: PricingCardProps }) {
   return (
@@ -25,6 +25,7 @@ export default function PricingCard({ pricingCard }: { pricingCard: PricingCardP
       </div>
       <div className="mt-15">{pricingCard.texto}</div>
       <Button
+        type={ButtonType.Button}
         textButton={pricingCard.buttonText}
         className="text-white bg-violet-600 hover:bg-violet-900 focus:ring-2 focus:outline-none font-medium"
         onclick={pricingCard.onclick}
