@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2022",
     "lib": ["dom", "es5", "es6"],
     "jsx": "react",
     "sourceMap": true,
@@ -19,5 +19,5 @@
       "@icons/*": ["src/icons/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "vite-env.d.ts"]
 }
