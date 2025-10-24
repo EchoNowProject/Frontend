@@ -1,24 +1,31 @@
 import React from 'react';
 import Button, { ButtonType } from '@/components/UI/Button';
+import { Input } from '@/components/UI';
+import { InputType } from '@/components/UI/Input';
+import { useUser } from '@/hooks/useUser';
 
 export default function Login({ onFlip }: { onFlip: () => void }) {
+  const { user, handleChanges, handleSubmit } = useUser();
+
   return (
     <div className="front absolute w-full h-full backface-hidden bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
       <h1 className="mb-6 font-bold text-white text-2xl sm:text-3xl text-center">
         Iniciar Sesión en EchoNow
       </h1>
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={(event) => handleSubmit('login', event)}>
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-1 text-gray-100 text-sm sm:text-base">
             <b>
               Correo Electrónico <span className="text-red-400">*</span>
             </b>
           </label>
-          <input
-            type="email"
+          <Input
+            type={InputType.Email}
             id="email"
-            required
+            required={true}
+            value={user.email}
+            onChange={handleChanges}
             className="p-2 rounded-lg border border-violet-800 outline-none text-white bg-violet-700 focus:ring-2 focus:ring-violet-400 shadow-lg"
           />
         </div>
@@ -34,10 +41,12 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
               ¿Olvidaste tu contraseña?
             </a>
           </div>
-          <input
-            type="password"
+          <Input
+            type={InputType.Password}
             id="password"
-            required
+            required={true}
+            onChange={handleChanges}
+            value={user.password}
             className="p-2 rounded-lg border border-violet-800 outline-none text-white bg-violet-700 focus:ring-2 focus:ring-violet-400 shadow-lg"
           />
         </div>

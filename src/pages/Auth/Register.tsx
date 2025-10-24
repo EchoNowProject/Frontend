@@ -13,7 +13,7 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
         Crear cuenta en EchoNow
       </h1>
 
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4" onSubmit={(event) => handleSubmit('register', event)}>
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-gray-100 text-sm sm:text-base">
             <b>Username</b>
