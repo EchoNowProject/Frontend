@@ -9,11 +9,3 @@ export const getUser = async (id: number): Promise<User> => {
         return error;
     })
 }
-
-export const registerUser = async (user: User): Promise<void> => {
-    return axios.post(`/users`, user).then((response: AxiosResponse) => {
-        return response.data
-    }).catch((error: AxiosError) => {
-        return error;
-    })
-} 
