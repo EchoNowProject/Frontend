@@ -1,11 +1,11 @@
 import React from 'react';
-import { Template, LandingPage, Home, Planes, AuthMain } from '@/pages';
+import { Template as LandingPageTemplate, LandingPage, Home, Planes, AuthMain } from '@/pages';
 // import otros componentes
 
 const routes = [
   {
     path: '/',
-    element: <Template />,
+    element: <LandingPageTemplate />,
     children: [
       { index: true, element: <LandingPage /> },
       { path: '/planes', element: <Planes /> },
