@@ -22,7 +22,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
+          
+      # 👇Limpia las dependencias de node
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install
       # 👇 Instala dependencias
       - name: Install dependencies
         run: npm ci
