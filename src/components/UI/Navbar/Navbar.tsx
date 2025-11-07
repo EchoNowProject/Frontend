@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router';
 import './Navbar.css';
-import 'preline/preline';
 import MenuHamburger1 from '@/icons/MenuHamburger1';
 import Xmark from '@/icons/Xmark';
 
