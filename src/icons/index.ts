@@ -1,7 +1,8 @@
-export {default as CheckCircle1} from './CheckCircle1'
-export {default as ChevronLeft} from './ChevronLeft'
-export {default as MenuHamburger1} from './MenuHamburger1'
-export {default as Message3Text} from './Message3Text'
-export {default as Rocket5} from './Rocket5'
-export {default as StarFat} from './StarFat'
-export {default as Xmark} from './Xmark'
+export { default as CheckCircle1 } from './CheckCircle1';
+export { default as ChevronLeft } from './ChevronLeft';
+export { default as MenuHamburger1 } from './MenuHamburger1';
+export { default as MenuMeatballs1 } from './MenuMeatballs1';
+export { default as Message3Text } from './Message3Text';
+export { default as Rocket5 } from './Rocket5';
+export { default as StarFat } from './StarFat';
+export { default as Xmark } from './Xmark';
