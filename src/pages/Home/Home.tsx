@@ -17,11 +17,9 @@ export default function Home() {
 
               {/* Separador */}
 
-              <li className="inline-flex items-center relative text-white pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-neutral-700 after:rounded-full after:-translate-y-1/2 after:rotate-12"></li>
-
               {/* ------------------------ Grupos (optional) ------------------------*/}
 
-              {/* <Group /> */}
+              <Group />
             </ul>
 
             <ul className="flex flex-row items-center gap-x-3 ms-auto">

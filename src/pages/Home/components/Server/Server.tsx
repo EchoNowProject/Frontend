@@ -12,7 +12,7 @@ export default function Server() {
             <div className="flex justify-center">
               <button
                 type="button"
-                className="p-2 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200 text-gray-200"
+                className="p-2 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
                 aria-label="Dropdown"
               >
                 Server
