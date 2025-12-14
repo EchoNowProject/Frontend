@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
 
 export default function Server() {
   const [open, setOpen] = useState(false);
+
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', () => {
+      setOpen(false);
+    });
+  }, [menuRef]);
 
   return (
     <>
@@ -13,7 +21,7 @@ export default function Server() {
               <button
                 type="button"
                 className="p-2 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
-                aria-label="Dropdown"
+                onClick={() => setOpen(!open)}
               >
                 Server
                 <MenuMeatballs1 />
@@ -22,7 +30,10 @@ export default function Server() {
 
             {/* Mas Opciones */}
             {open && (
-              <div className="w-64 transition-[opacity,margin] duration opacity-100 z-20 bg-white border border-gray-200 rounded-xl shadow-xl">
+              <div
+                className="absolute top-full start-0 mt-2 w-50 z-10 bg-violet-700 border border-violet-700 rounded-xl shadow-xl"
+                ref={menuRef}
+              >
                 <div className="p-1">
                   <div className="flex flex-col gap-y-1">
                     <label

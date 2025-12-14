@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
 
 export default function Group() {
+  const menuRef = useRef(null);
+
   const [open, setOpen] = useState<boolean>(false);
+
+  // 3. Hook para manejar clics fuera del menú
+  useEffect(() => {
+    document.addEventListener('mousedown', () => {
+      setOpen(false);
+    });
+  }, [menuRef]);
 
   return (
     <>
@@ -13,7 +22,7 @@ export default function Group() {
               <button
                 type="button"
                 className="p-2 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
-                aria-label="Dropdown"
+                onClick={() => setOpen(!open)}
               >
                 Group
                 <MenuMeatballs1 />
@@ -21,7 +30,10 @@ export default function Group() {
             </div>
 
             {open && (
-              <div className="w-64 transition-[opacity,margin] duration opacity-100 z-20 bg-white border border-gray-200 rounded-xl shadow-xl dark:bg-neutral-900 dark:border-neutral-700">
+              <div
+                ref={menuRef}
+                className="absolute top-full start-0 mt-2 w-50 z-10 bg-violet-700 border border-violet-700 rounded-xl shadow-xl"
+              >
                 <div className="p-1">
                   <span className="block pt-2 pb-2 ps-2.5 text-sm text-gray-500 dark:text-neutral-500">
                     Canales (1)
