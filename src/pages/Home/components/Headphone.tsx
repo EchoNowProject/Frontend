@@ -1,7 +1,7 @@
-import { Microphone1 } from '@/icons';
+import { HeadPhone1 } from '@/icons';
 import React, { useState } from 'react';
 
-export const Microphone = () => {
+export const Headphone = () => {
   const [enabled, setEnabled] = useState(true);
 
   return (
@@ -19,7 +19,7 @@ export const Microphone = () => {
             ${enabled ? 'scale-100 opacity-100' : 'scale-110 opacity-90'}
           `}
         >
-          <Microphone1 color={enabled ? '#1c1917' : '#e7000b'} />
+          <HeadPhone1 color={enabled ? '#1c1917' : '#e7000b'} />
 
           {/* tachado encima */}
           {!enabled && (

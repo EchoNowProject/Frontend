@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowDoubleLeft } from '@icons/index';
-import { Server, Group, Profile, Microphone } from './components';
+import { Server, Group, Profile, Microphone, Headphone } from './components';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(true);
@@ -57,12 +57,8 @@ export default function Home() {
               {/* Microfono */}
               <Microphone />
 
-              <a
-                className="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-                href="#"
-              >
-                API
-              </a>
+              {/* HeadPhone */}
+              <Headphone />
 
               {/* Profile */}
               <Profile />
@@ -78,7 +74,7 @@ export default function Home() {
             className={`
               hidden lg:flex
               flex-col
-              ${stateSidebar ? 'lg:w-64' : 'lg:w-25'}
+              ${stateSidebar ? 'lg:w-64' : 'lg:w-15'}
               min-w-10
               bg-neutral-800
               rounded-lg
@@ -91,7 +87,7 @@ export default function Home() {
             {/* Contenedor */}
             <div className="flex flex-col h-full w-full break-words overflow-hidden">
               {/* Chats  y Servers */}
-              <div className="h-full">adsasd</div>
+              <div className="h-full">Side</div>
 
               {/* collapase del sidebar */}
               <button

@@ -20,7 +20,7 @@ export const Server = () => {
             <div className="flex justify-center">
               <button
                 type="button"
-                className="p-2 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
+                className="p-1.5 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
                 onClick={() => setOpen(!open)}
               >
                 Server
