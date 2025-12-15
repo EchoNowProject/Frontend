@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { ArrowDoubleLeft } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone } from './components';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(true);
+
+  useHotkeys('ctrl+k', (e: Event) => {
+    e.preventDefault();
+    // Sacar Modal
+  });
 
   return (
     <>
