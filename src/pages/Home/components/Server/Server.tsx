@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
 
-export default function Server() {
+export const Server = () => {
   const [open, setOpen] = useState(false);
 
   const menuRef = useRef(null);
@@ -77,4 +77,4 @@ export default function Server() {
       </li>
     </>
   );
-}
+};

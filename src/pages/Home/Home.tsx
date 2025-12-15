@@ -1,8 +1,10 @@
-import React from 'react';
-import { ChevronLeft } from '@icons/index';
-import { Server, Group } from './components';
+import React, { useState } from 'react';
+import { ArrowDoubleLeft } from '@icons/index';
+import { Server, Group, Profile, Microphone } from './components';
 
 export default function Home() {
+  const [stateSidebar, setStateSidebar] = useState<boolean>(true);
+
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50 bg-violet-700 h-10 flex items-center text-sm">
@@ -24,7 +26,7 @@ export default function Home() {
                     placeholder="Search"
                     className="h-7 w-full px-2 pr-16 text-xs text-white bg-violet-800 border border-neutral-800 rounded-md focus:outline-none"
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] uppercase px-1.5 py-0.5 rounded bg-violet-400 text-black">
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] uppercase px-1.5 py-0.5 rounded bg-violet-400/50 text-black">
                     Ctrl + K
                   </span>
                 </div>
@@ -50,37 +52,20 @@ export default function Home() {
                   </svg>
                   Ask AI
                 </button>
-
-                <a
-                  className="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-                  href="#"
-                >
-                  Docs
-                </a>
-
-                <a
-                  className="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-                  href="#"
-                >
-                  API
-                </a>
               </li>
 
-              <li className="inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
-                <div className="relative inline-flex text-start">
-                  <button
-                    type="button"
-                    className="p-0.5 inline-flex shrink-0 items-center gap-x-3 text-start rounded-full hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-                    aria-label="Dropdown"
-                  >
-                    <img
-                      className="shrink-0 size-7 rounded-full"
-                      src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
-                      alt="Avatar"
-                    />
-                  </button>
-                </div>
-              </li>
+              {/* Microfono */}
+              <Microphone />
+
+              <a
+                className="flex items-center gap-x-1.5 py-1.5 px-2 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+                href="#"
+              >
+                API
+              </a>
+
+              {/* Profile */}
+              <Profile />
             </ul>
           </div>
         </nav>
@@ -90,27 +75,31 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row h-full px-3 pb-3 gap-3">
           {/* ============ SIDEBAR ============ */}
           <section
-            className="
+            className={`
               hidden lg:flex
               flex-col
-              lg:w-64
+              ${stateSidebar ? 'lg:w-64' : 'lg:w-25'}
               min-w-10
               bg-neutral-800
               rounded-lg
               border-2
               border-violet-600
               p-2
-            "
+              transition-all delay-150 duration-200 ease-in-out
+            `}
           >
             {/* Contenedor */}
             <div className="flex flex-col h-full w-full break-words overflow-hidden">
               {/* Chats  y Servers */}
-              <div className="h-full ">adsasd</div>
+              <div className="h-full">adsasd</div>
 
               {/* collapase del sidebar */}
-              <button className="flex flex-row justify-start items-center bg-neutral-900 p-2 rounded-lg ">
-                <ChevronLeft />
-                Collapse sidebar
+              <button
+                className="flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px]"
+                onClick={() => setStateSidebar(!stateSidebar)}
+              >
+                <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
+                {stateSidebar && <span>Collapse sidebar</span>}
               </button>
             </div>
           </section>

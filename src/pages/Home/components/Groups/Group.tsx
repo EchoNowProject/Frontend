@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
 
-export default function Group() {
+export const Group = () => {
   const menuRef = useRef(null);
 
   const [open, setOpen] = useState<boolean>(false);
@@ -98,4 +98,4 @@ export default function Group() {
       </li>
     </>
   );
-}
+};

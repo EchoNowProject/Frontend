@@ -1,2 +1,4 @@
-export { default as Server } from './Server/Server';
-export { default as Group } from './Groups/Group';
+export { Server } from './Server/Server';
+export { Profile } from './Profile/Profile';
+export { Group } from './Groups/Group';
+export { Microphone } from './Microphone';
