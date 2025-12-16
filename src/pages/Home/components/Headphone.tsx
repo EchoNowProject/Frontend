@@ -1,8 +1,25 @@
 import { HeadPhone1 } from '@/icons';
 import React, { useState } from 'react';
+import useSound from 'use-sound';
+
+/* Sounds */
+import popEnter from '@assets/sounds/pop-enter.mp3';
+import popOut from '@assets/sounds/pop-out.mp3';
 
 export const Headphone = () => {
   const [enabled, setEnabled] = useState(true);
+  const [playOut] = useSound(popOut);
+  const [playEnter] = useSound(popEnter);
+
+  const handleClick = () => {
+    if (enabled) {
+      playOut();
+    } else {
+      playEnter();
+    }
+
+    setEnabled(!enabled); // 🧩 Siempre se cambia el estado
+  };
 
   return (
     <div className="flex justify-center">
@@ -11,7 +28,7 @@ export const Headphone = () => {
         className={`flex items-center rounded-md p-1 hover:bg-violet-900 
           ${enabled ? '' : 'bg-violet-900 shadow-lg'}
         `}
-        onClick={() => setEnabled(!enabled)}
+        onClick={() => handleClick()}
       >
         {/* Icono */}
         <span

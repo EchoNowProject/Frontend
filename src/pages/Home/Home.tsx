@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft } from '@icons/index';
+import { ArrowDoubleLeft, MenuHamburger1 } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone } from './components';
 
 export default function Home() {
-  const [stateSidebar, setStateSidebar] = useState<boolean>(true);
+  const [stateSidebar, setStateSidebar] = useState<boolean>(false);
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
     // Sacar Modal
   });
 
+  const toggleSidebar = () => {
+    setStateSidebar(!stateSidebar);
+  };
+
   return (
     <>
       <header className="fixed top-0 inset-x-0 z-50 bg-violet-700 h-10 flex items-center text-sm">
         <nav className="px-4 sm:px-6 flex items-center h-full w-full">
           <div className="w-full flex items-center gap-x-2">
+            {/* ================= BOTÓN DE HAMBURGUESA (MÓVIL) ================= */}
+            <button
+              type="button"
+              className="lg:hidden text-white"
+              onClick={toggleSidebar}
+              aria-label="Toggle Sidebar"
+            >
+              <MenuHamburger1 className="size-5" /> {/* Usa un icono de menú/hamburguesa */}
+            </button>
+
             {/* ================= IZQUIERDA ================= */}
             <ul className="flex items-center gap-1.5 shrink-0">
               <Server />
@@ -39,7 +53,8 @@ export default function Home() {
               </li>
             </ul>
 
-            {/* items de la parte superior derecha */}
+            {/* ================= DERECHA ================= */}
+
             <ul className="flex flex-row items-center gap-x-3 ms-auto">
               <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
                 <button
@@ -78,27 +93,28 @@ export default function Home() {
           {/* ============ SIDEBAR ============ */}
           <section
             className={`
-              hidden lg:flex
-              flex-col
-              ${stateSidebar ? 'lg:w-64' : 'lg:w-15'}
-              min-w-10
-              bg-neutral-800
-              rounded-lg
-              border-2
-              border-violet-600
+              fixed top-10 bottom-0 left-0 z-40
+              lg:static
+              flex flex-col
+              h-full
+              w-64 min-w-10
+              ${stateSidebar ? 'translate-x-0 lg:w-64' : '-translate-x-full lg:w-15'}
+              lg:translate-x-0
+              bg-neutral-900 lg:bg-neutral-800
               p-2
-              transition-all delay-150 duration-200 ease-in-out
-            `}
+              lg:rounded-lg
+              lg:border-2 lg:border-violet-600   
+              transition-all duration-300 ease-in-out`}
           >
             {/* Contenedor */}
-            <div className="flex flex-col h-full w-full break-words overflow-hidden">
-              {/* Chats  y Servers */}
+            <div className="flex flex-col h-full w-full wrap-break-word overflow-hidden">
+              {/* Chats  y Servers */}
               <div className="h-full">Side</div>
 
-              {/* collapase del sidebar */}
+              {/* collapase del sidebar (solo visible en LG) */}
               <button
-                className="flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px]"
-                onClick={() => setStateSidebar(!stateSidebar)}
+                className="hidden lg:flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px]"
+                onClick={toggleSidebar}
               >
                 <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
                 {stateSidebar && <span>Collapse sidebar</span>}
@@ -120,7 +136,7 @@ export default function Home() {
               p-2
               w-full
               min-w-10
-              break-words overflow-hidden
+              wrap-break-word overflow-hidden
             "
           >
             Hello World
