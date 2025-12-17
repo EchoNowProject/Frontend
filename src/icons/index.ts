@@ -8,3 +8,8 @@ export { default as Microphone1 } from './Microphone1';
 export { default as Rocket5 } from './Rocket5';
 export { default as StarFat } from './StarFat';
 export { default as Xmark } from './Xmark';
+export { default as LocationArrowRight } from './LocationArrowRight';
+export { default as PaperClip1 } from './PaperClip1';
+export { default as Photos } from './Photos';
+export { default as EmojiSmileSunglass } from './EmojiSmileSunglass';
+export { default as Plus } from './Plus';

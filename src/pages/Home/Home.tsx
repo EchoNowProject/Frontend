@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ArrowDoubleLeft, MenuHamburger1 } from '@icons/index';
-import { Server, Group, Profile, Microphone, Headphone } from './components';
+import { Server, Group, Profile, Microphone, Headphone, ToolBarChat } from './components';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
@@ -139,7 +139,13 @@ export default function Home() {
               wrap-break-word overflow-hidden
             "
           >
-            Hello World
+            {/* Contenedor de Chats */}
+            <div className="flex h-full break-all">Chats</div>
+
+            {/* ToolBar */}
+            <div className="flex flex-row bg-neutral-900 p-2.5 rounded-md text-[10px] shadow-lg">
+              <ToolBarChat />
+            </div>
           </main>
         </div>
       </div>
