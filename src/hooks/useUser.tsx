@@ -1,16 +1,19 @@
 import { loginUser, registerUser } from '@/api/authApi';
 import { User } from '@/types/User';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 type handleSubmitType = 'register' | 'login';
 
 export const useUser = () => {
   const [user, setUser] = useState<User>({} as User);
+  const navigate = useNavigate();
 
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
+  /* Funcion que recoge los datos y hace una peticion a la API  */
   const handleSubmit = async (typeSubmit: handleSubmitType, e: React.FormEvent) => {
     let response: string = '';
 
@@ -20,6 +23,7 @@ export const useUser = () => {
       response = await registerUser(user);
     } else if (typeSubmit === 'login') {
       response = await loginUser(user);
+      navigate('/home');
     }
   };
 
