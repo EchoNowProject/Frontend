@@ -3,6 +3,7 @@ import React from 'react';
 interface PlusProps {
   size?: number;
   className?: string;
+  color?: string;
 }
 
 export default function Plus(props: PlusProps) {
@@ -18,18 +19,18 @@ export default function Plus(props: PlusProps) {
     >
       <path
         d="M12 4.875C12.6213 4.875 13.125 5.37868 13.125 6V10.8752V13.1252V18.0007C13.125 18.622 12.6213 19.1257 12 19.1257C11.3787 19.1257 10.875 18.622 10.875 18.0007V13.1252V10.8752V6C10.875 5.37868 11.3787 4.875 12 4.875Z"
-        fill="#7008e7"
+        fill={props.color ?? '#7008e7'}
         fillRule="evenodd"
         clipRule="evenodd"
       />
       <g opacity="0.4">
         <path
           d="M18.0007 10.875H13.1252V13.125H18.0007C18.622 13.125 19.1257 12.6213 19.1257 12C19.1257 11.3787 18.622 10.875 18.0007 10.875Z"
-          fill="#7008e7"
+          fill={props.color ?? '#7008e7'}
         />
         <path
           d="M6 13.125H10.8752V10.875H6C5.37868 10.875 4.875 11.3787 4.875 12C4.875 12.6213 5.37868 13.125 6 13.125Z"
-          fill="#7008e7"
+          fill={props.color ?? '#7008e7'}
         />
       </g>
     </svg>
