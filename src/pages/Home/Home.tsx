@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone, ToolBarChat } from './components';
@@ -152,13 +153,7 @@ export default function Home() {
               wrap-break-word overflow-hidden
             "
           >
-            {/* Contenedor de Chats */}
-            <div className="flex h-full break-all">Chats</div>
-
-            {/* ToolBar */}
-            <div className="flex flex-row bg-neutral-900 p-2.5 rounded-md text-[10px] shadow-lg">
-              <ToolBarChat />
-            </div>
+            <Outlet />
           </main>
         </div>
       </div>

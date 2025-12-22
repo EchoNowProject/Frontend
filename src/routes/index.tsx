@@ -1,8 +1,10 @@
+import { createBrowserRouter } from 'react-router-dom';
 import React from 'react';
 import { Template as LandingPageTemplate, LandingPage, Home, Planes, AuthMain } from '@/pages';
-// import otros componentes
+import { Empty } from '@/pages/Home/Empty';
+import { Chat } from '@/pages/Chats/Chats';
 
-const routes = [
+export const router = createBrowserRouter([
   {
     path: '/',
     element: <LandingPageTemplate />,
@@ -15,8 +17,9 @@ const routes = [
   {
     path: '/home',
     element: <Home />,
-    // podrías agregar loader, errorElement, etc.
+    children: [
+      { index: true, element: <Empty /> },
+      { path: 'chat', element: <Chat /> },
+    ],
   },
-];
-
-export default routes;
+]);
