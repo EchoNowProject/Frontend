@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft, MenuHamburger1 } from '@icons/index';
-import { Server, Group, Profile, Microphone, Headphone, ToolBarChat } from './components';
+import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
+import { Server, Group, Profile, Microphone, Headphone } from './components';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
@@ -108,12 +110,28 @@ export default function Home() {
           >
             {/* Contenedor */}
             <div className="flex flex-col h-full w-full wrap-break-word overflow-hidden">
-              {/* Chats  y Servers */}
-              <div className="h-full">Side</div>
+              {/* ============ Chats  y Servers ============ */}
+
+              <div className="h-full">
+                {/* ============ Boton de mas servers ============ */}
+                <div className="flex flex-col">
+                  <button
+                    onClick={() => navigate('server/new')}
+                    className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
+                  >
+                    <Plus color="#fff" />
+                    <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
+                      New Server
+                    </span>
+                  </button>
+                  {/* ============ Servers ============ */}
+                  <div className="my-2">Side</div>
+                </div>
+              </div>
 
               {/* collapase del sidebar (solo visible en LG) */}
               <button
-                className="hidden lg:flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px]"
+                className="hidden lg:flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px] mb-2"
                 onClick={toggleSidebar}
               >
                 <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
@@ -139,13 +157,7 @@ export default function Home() {
               wrap-break-word overflow-hidden
             "
           >
-            {/* Contenedor de Chats */}
-            <div className="flex h-full break-all">Chats</div>
-
-            {/* ToolBar */}
-            <div className="flex flex-row bg-neutral-900 p-2.5 rounded-md text-[10px] shadow-lg">
-              <ToolBarChat />
-            </div>
+            <Outlet />
           </main>
         </div>
       </div>
