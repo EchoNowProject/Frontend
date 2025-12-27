@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
-import { Server, Group, Profile, Microphone, Headphone, ToolBarChat } from './components';
+import { Server, Group, Profile, Microphone, Headphone } from './components';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
@@ -114,7 +115,10 @@ export default function Home() {
               <div className="h-full">
                 {/* ============ Boton de mas servers ============ */}
                 <div className="flex flex-col">
-                  <button className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2">
+                  <button
+                    onClick={() => navigate('server/new')}
+                    className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
+                  >
                     <Plus color="#fff" />
                     <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
                       New Server

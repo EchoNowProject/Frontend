@@ -3,6 +3,7 @@ import React from 'react';
 import { Template as LandingPageTemplate, LandingPage, Home, Planes, AuthMain } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
+import { CreateServerPage } from '@/pages/Servers/CreateServerPage';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Empty /> },
       { path: 'chat', element: <Chat /> },
+      { path: 'server/new', element: <CreateServerPage /> },
     ],
   },
 ]);
