@@ -16,7 +16,7 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
       <form className="flex flex-col gap-4" onSubmit={(event) => handleSubmit('register', event)}>
         <div className="flex flex-col">
           <label htmlFor="name" className="mb-1 text-gray-100 text-sm sm:text-base">
-            <b>Username</b>
+            <b>Username</b> <span className="text-red-400">*</span>
           </label>
           <Input
             type={InputType.Text}
@@ -30,7 +30,7 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
 
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-1 text-gray-100 text-sm sm:text-base">
-            <b>Correo electrónico</b>
+            <b>Correo electrónico</b> <span className="text-red-400">*</span>
           </label>
           <Input
             type={InputType.Email}
@@ -45,7 +45,7 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
 
         <div className="flex flex-col mb-1">
           <label htmlFor="password" className="mb-1 text-gray-100 text-sm sm:text-base">
-            <b>Contraseña</b>
+            <b>Contraseña</b> <span className="text-red-400">*</span>
           </label>
           <Input
             type={InputType.Password}

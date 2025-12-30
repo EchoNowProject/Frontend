@@ -4,11 +4,17 @@ import { Template as LandingPageTemplate, LandingPage, Home, Planes, AuthMain } 
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
 import { CreateServerPage } from '@/pages/Servers/CreateServerPage';
+import { PublicRoute } from './PublicRoute';
+import { AuthenticatedRoute } from './AuthenticatedRoute';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPageTemplate />,
+    element: (
+      <PublicRoute>
+        <LandingPageTemplate />
+      </PublicRoute>
+    ),
     children: [
       { index: true, element: <LandingPage /> },
       { path: '/planes', element: <Planes /> },
@@ -17,7 +23,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home />,
+    element: (
+      <AuthenticatedRoute>
+        <Home />
+      </AuthenticatedRoute>
+    ),
     children: [
       { index: true, element: <Empty /> },
       { path: 'chat', element: <Chat /> },
