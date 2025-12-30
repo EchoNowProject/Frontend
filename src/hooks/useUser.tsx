@@ -15,7 +15,7 @@ export const useUser = () => {
 
   /* Funcion que recoge los datos y hace una peticion a la API  */
   const handleSubmit = async (typeSubmit: handleSubmitType, e: React.FormEvent) => {
-    let response: string = '';
+    let response;
 
     e.preventDefault(); // 👈 hace que no se recarge el form
 
@@ -23,7 +23,18 @@ export const useUser = () => {
       response = await registerUser(user);
     } else if (typeSubmit === 'login') {
       response = await loginUser(user);
-      navigate('/home');
+      try {
+        localStorage.setItem(
+          'auth',
+          JSON.stringify({
+            token: response.access_token,
+            user: response.user,
+          })
+        );
+        navigate('/home');
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 

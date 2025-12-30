@@ -1,18 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Exit } from '@/icons';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Profile = () => {
   const [active, setActive] = useState<boolean>(false);
+  const { logout } = useAuth();
 
-  const moreOptionsRef = useRef(null);
+  //Usamos HTMLLIElement porque el ref irá en la etiqueta <li>
+  const containerRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    document.addEventListener('mousedown', () => {
-      setActive(false);
-    });
-  }, [moreOptionsRef]);
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      if (containerRef.current && !containerRef.current.contains(target)) {
+        setActive(false);
+      }
+    };
+
+    if (active) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [active]);
 
   return (
-    <li className="inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
+    <li
+      ref={containerRef}
+      className="inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12"
+    >
       <div className="relative inline-flex text-start">
         <button
           type="button"
@@ -21,7 +40,7 @@ export const Profile = () => {
         >
           <img
             className="shrink-0 size-7 rounded-full"
-            src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+            src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
             alt="Avatar"
           />
         </button>
@@ -29,44 +48,26 @@ export const Profile = () => {
 
       {/* Mas Opciones */}
       {active && (
-        <div
-          className="absolute top-full -end-3 mt-3 w-50 z-10 bg-violet-700 border border-violet-700 rounded-xl shadow-xl"
-          ref={moreOptionsRef}
-        >
+        <div className="absolute top-full -end-3 mt-3 w-48 z-10 text-white bg-violet-700 border border-violet-700 rounded-xl shadow-xl">
           <div className="p-1">
             <div className="flex flex-col gap-y-1">
-              <label
-                htmlFor="project-1"
-                className="py-2 px-2.5 group flex justify-start items-center gap-x-3 rounded-lg cursor-pointer text-[13px] text-gray-200 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+              <button
+                type="button"
+                className="w-full py-2 px-2.5 flex justify-start items-center gap-x-3 rounded-lg cursor-pointer text-[13px] text-gray-200 hover:bg-violet-600 focus:outline-none"
               >
-                <span className="grow block text-sm font-medium text-neutral-200">
-                  Ajustes del Server
-                </span>
-              </label>
+                <span className="text-sm font-medium">Ajustes del Server</span>
+              </button>
             </div>
           </div>
 
-          <div className="p-1 border-t border-gray-200">
+          <div className="p-1 border-t border-violet-600">
             <button
               type="button"
-              className="w-full flex items-center gap-x-3 py-2 px-2.5 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+              className="w-full flex items-center gap-x-3 py-2 px-2.5 rounded-lg text-sm hover:bg-violet-900 focus:outline-none"
+              onClick={() => logout()}
             >
-              <svg
-                className="shrink-0 size-4"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              Manage projects
+              <Exit />
+              Cerrar Sesión
             </button>
           </div>
         </div>
