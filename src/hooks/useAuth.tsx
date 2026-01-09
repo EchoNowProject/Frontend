@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { logout as logoutApi } from '@/api/authApi';
+import { logout as logoutApi } from '@/api/AuthApi';
 import { redirect } from 'react-router';
 
 export const useAuth = () => {

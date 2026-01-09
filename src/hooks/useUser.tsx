@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from '@/api/authApi';
+import { loginUser, registerUser } from '@/api/AuthApi';
 import { User } from '@/types/User';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';

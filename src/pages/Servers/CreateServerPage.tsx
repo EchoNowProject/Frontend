@@ -2,9 +2,11 @@ import EchoNowlogo from '@/assets/images/logo-blanco.png';
 import React from 'react';
 import { useCreateServer } from '@/hooks/server/useCreateServer';
 import { Globe1, UserMultiple4, Camera1 } from '@/icons';
+import { TypeServer } from '@/types';
 
 export const CreateServerPage = () => {
-  const { audience, setAudience, updateNameServer, saveServer } = useCreateServer();
+  const { audience, setAudience, updateNameServer, updateTypeServer, createServer, server } =
+    useCreateServer();
 
   return (
     <div className="relative min-h-screen">
@@ -83,7 +85,31 @@ export const CreateServerPage = () => {
                 </div>
               </section>
 
-              <h5 className="mb-8 text-3xl font-bold text-white">Nombre del Servidor</h5>
+              <h5 className="text-3xl font-bold text-white">Nombre del Servidor</h5>
+
+              <div className="my-8 flex gap-5">
+                {/* Botón Público */}
+                <button
+                  type="button"
+                  className={`w-full inline-flex justify-center items-center text-white hover:bg-neutral-700 hover:scale-[1.03] font-bold rounded-xl text-xl px-6 py-4 transition-all shadow-lg focus:outline-0 border-2 border-violet-600 ${
+                    server.type_server === TypeServer.PUBLIC ? 'bg-neutral-700' : 'bg-brand'
+                  }`}
+                  onClick={() => updateTypeServer(TypeServer.PUBLIC)}
+                >
+                  Público
+                </button>
+
+                {/* Botón Privado */}
+                <button
+                  type="button"
+                  className={`w-full inline-flex justify-center items-center text-white hover:bg-neutral-700 hover:scale-[1.03] font-bold rounded-xl text-xl px-6 py-4 transition-all shadow-lg focus:outline-0 border-2 border-violet-600 ${
+                    server.type_server === TypeServer.PRIVATE ? 'bg-neutral-700' : 'bg-brand'
+                  }`}
+                  onClick={() => updateTypeServer(TypeServer.PRIVATE)}
+                >
+                  Privado
+                </button>
+              </div>
 
               <div className="space-y-6">
                 {/* Ejemplo de Input si lo necesitas para rellenar el espacio */}
@@ -97,7 +123,7 @@ export const CreateServerPage = () => {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center items-center text-white bg-brand hover:bg-neutral-700 hover:neutral-700 hover:scale-[1.03] font-bold rounded-xl text-xl px-6 py-4 transition-all shadow-lg focus:outline-0"
-                  onClick={() => saveServer()}
+                  onClick={() => createServer()}
                 >
                   Crear Servidor
                 </button>
