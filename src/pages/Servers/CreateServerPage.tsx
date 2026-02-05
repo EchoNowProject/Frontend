@@ -1,12 +1,12 @@
 import EchoNowlogo from '@/assets/images/logo-blanco.png';
 import React from 'react';
-import { useCreateServer } from '@/hooks/server/useCreateServer';
+import { useServer } from '@/hooks/useServer';
 import { Globe1, UserMultiple4, Camera1 } from '@/icons';
 import { TypeServer } from '@/types';
 
 export const CreateServerPage = () => {
   const { audience, setAudience, updateNameServer, updateTypeServer, createServer, server } =
-    useCreateServer();
+    useServer();
 
   return (
     <div className="relative min-h-screen">

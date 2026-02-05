@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { logout as logoutApi } from '@/api/AuthApi';
-import { redirect } from 'react-router';
+import { logout as logoutApi } from '@/api/authApi';
+import { useNavigate } from 'react-router';
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const authtoken = localStorage.getItem('auth');
@@ -14,7 +15,7 @@ export const useAuth = () => {
     try {
       await logoutApi();
       localStorage.removeItem('auth');
-      redirect('/login');
+      navigate('/login');
     } catch (error) {
       return error;
     }
