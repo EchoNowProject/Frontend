@@ -1,6 +1,6 @@
 // Fichero para importar el serverContext y poder usar la variables del serverContext en otros componentes
 import { useContext } from 'react';
-import { ServerContext } from '@/context/ServerContext';
+import { ServerContext } from '@/context/Server/ServerContext';
 
 export const useServer = () => {
   const context = useContext(ServerContext);

@@ -4,6 +4,8 @@ import React, { ReactNode, useState } from 'react';
 import { createNewServer } from '@/api/ServerApi';
 import { useNavigate } from 'react-router-dom';
 import { ServerAudience, ServerContext } from './ServerContext';
+import { ToastProvider } from '../Toast/ToastProvider';
+import { useToast } from '@/hooks/useToast';
 
 const NAMEDEFAULT = 'Servidor de Nombre de Usuario';
 
@@ -11,6 +13,7 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
   const [servers, setServers] = useState<Server[]>([]);
   const [server, setServer] = useState<Server>({} as Server);
   const [audience, setAudience] = useState<ServerAudience>();
+  const { setShowToast, setTextToast } = useToast();
   const navigate = useNavigate();
 
   /* Crear Servidor */
@@ -20,6 +23,8 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
       navigate('/home');
       getServers();
     } catch (error) {
+      setTextToast('' + error);
+      setShowToast(true);
       console.error(error);
     }
   };

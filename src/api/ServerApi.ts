@@ -8,7 +8,7 @@ export const createNewServer = async (newServer: Server): Promise<string> => {
       return reponse.data;
     })
     .catch((error: AxiosError) => {
-      throw error.message;
+      throw error.response?.data;
     });
 };
 
