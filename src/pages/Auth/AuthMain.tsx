@@ -14,7 +14,7 @@ export default function AuthCard() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      <Toast text="TEXT" show={showToast} onClose={closeToast} />
+      {/* <Toast text="TEXT" show={showToast} onClose={closeToast} /> */}
       {/* Lado izquierdo */}
       <div className="flex flex-col items-center justify-center text-center md:text-left px-6 py-10 md:w-1/2">
         <img

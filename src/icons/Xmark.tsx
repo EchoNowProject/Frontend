@@ -3,13 +3,14 @@ import React from 'react';
 
 interface XmarkProps {
   className?: string;
+  size?: number;
 }
 
-export default function Xmark({ className }: XmarkProps) {
+export default function Xmark({ className, size }: XmarkProps) {
   return (
     <svg
-      width="80"
-      height="80"
+      width={size ?? 80}
+      height={size ?? 80}
       className={className}
       viewBox="0 0 24 24"
       fill="none"
