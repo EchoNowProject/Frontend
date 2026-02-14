@@ -7,7 +7,8 @@ export const Profile = () => {
   const [active, setActive] = useState<boolean>(false);
   const [showStatusContainer, setshowStatusContainer] = useState<boolean>(false);
   const { logout } = useAuth();
-  const { getAllUserStatus, statusUser, statusUserAll, getUserStatus, changeStatusUser } = useStatusUser();
+  const { getAllUserStatus, statusUser, statusUserAll, getUserStatus, changeStatusUser } =
+    useStatusUser();
 
   //Usamos HTMLLIElement porque el ref irá en la etiqueta <li>
   const containerRef = useRef<HTMLLIElement>(null);
@@ -24,16 +25,21 @@ export const Profile = () => {
     };
 
     if (active) {
-      getAllUserStatus();
       document.addEventListener('mousedown', handleClickOutside);
     }
-
-    getUserStatus();
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [active]);
+
+  useEffect(() => {
+    getUserStatus();
+  }, []);
+
+  useEffect(() => {
+    getAllUserStatus();
+  }, [statusUser]);
 
   const extraInfoStatus = (statusId: number) => {
     switch (statusId) {

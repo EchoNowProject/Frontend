@@ -6,6 +6,7 @@ import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from '.
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import { ToastProvider } from '@/context/Toast/ToastProvider';
 import Toast from '@/components/UI/Toast/Toast';
+import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
 
 export default function Home() {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
@@ -91,7 +92,9 @@ export default function Home() {
                   <Headphone />
 
                   {/* Profile */}
-                  <Profile />
+                  <StatusUserProvider>
+                    <Profile />
+                  </StatusUserProvider>
                 </ul>
               </div>
             </nav>
