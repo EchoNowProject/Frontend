@@ -2,10 +2,12 @@ import React from 'react';
 import { Button, Input } from '@/components/UI';
 import { InputType } from '@/components/UI/Input';
 import { ButtonType } from '@/components/UI/Button';
+import { useAuth } from '@/hooks/useAuth';
 import { useUser } from '@/hooks/useUser';
 
 export default function Register({ onFlip }: { onFlip: () => void }) {
-  const { user, handleChanges, handleSubmit } = useUser();
+  const { user } = useUser();
+  const { handleChanges, handleSubmit } = useAuth();
 
   return (
     <div className="back absolute w-full h-full backface-hidden rotate-y-180 bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">

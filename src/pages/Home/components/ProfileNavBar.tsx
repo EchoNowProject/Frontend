@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Exit, Xmark } from '@/icons';
 import { useAuth } from '@/hooks/useAuth';
 import { useStatusUser } from '@/hooks/useStatusUser';
+import { useNavigate } from 'react-router';
 
 export const Profile = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState<boolean>(false);
   const [showStatusContainer, setshowStatusContainer] = useState<boolean>(false);
   const { logout } = useAuth();
@@ -13,6 +15,7 @@ export const Profile = () => {
   //Usamos HTMLLIElement porque el ref irá en la etiqueta <li>
   const containerRef = useRef<HTMLLIElement>(null);
 
+  /* Gestion de si el dropdown esta activo o no */
   useEffect(() => {
     setshowStatusContainer(false);
 
@@ -33,10 +36,12 @@ export const Profile = () => {
     };
   }, [active]);
 
+  /* Para Regocer el estado el usuario en la primera carga y guardarlo en el contexto  */
   useEffect(() => {
     getUserStatus();
   }, []);
 
+  // Para actualizar el listado de los estados disponibles cada vez que cambiamos el estado actual
   useEffect(() => {
     getAllUserStatus();
   }, [statusUser]);
@@ -85,6 +90,7 @@ export const Profile = () => {
               <button
                 type="button"
                 className="w-full flex items-center gap-x-3 py-2 px-2.5 rounded-lg text-sm bg-violet-600 hover:bg-violet-900 focus:outline-none"
+                onClick={() => navigate('profile')}
               >
                 <span className="text-sm font-semibold">Editar perfil</span>
               </button>

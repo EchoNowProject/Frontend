@@ -3,9 +3,11 @@ import Button, { ButtonType } from '@/components/UI/Button';
 import { Input } from '@/components/UI';
 import { InputType } from '@/components/UI/Input';
 import { useUser } from '@/hooks/useUser';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Login({ onFlip }: { onFlip: () => void }) {
-  const { user, handleChanges, handleSubmit } = useUser();
+  const { handleChanges, handleSubmit } = useAuth();
+  const { user } = useUser();
 
   return (
     <div className="front absolute w-full h-full backface-hidden bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
@@ -24,7 +26,7 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
             type={InputType.Email}
             id="email"
             required={true}
-            value={user.email}
+            value={user?.email}
             onChange={handleChanges}
             className="p-2 rounded-lg border border-violet-800 outline-none text-white bg-violet-700 focus:ring-2 focus:ring-violet-400 shadow-lg"
           />
@@ -46,7 +48,7 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
             id="password"
             required={true}
             onChange={handleChanges}
-            value={user.password}
+            value={user?.password}
             className="p-2 rounded-lg border border-violet-800 outline-none text-white bg-violet-700 focus:ring-2 focus:ring-violet-400 shadow-lg"
           />
         </div>

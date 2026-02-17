@@ -15,7 +15,7 @@ export const registerUser = async (user: User): Promise<string> => {
       return response.data;
     })
     .catch((error: AxiosError) => {
-      return error;
+      return error.response?.data;
     });
 };
 
@@ -26,7 +26,7 @@ export const loginUser = async (user: User): Promise<AuthResponseLogin> => {
       return response.data;
     })
     .catch((error: AxiosError) => {
-      throw error.message;
+      throw error.response?.data;
     });
 };
 
@@ -37,7 +37,7 @@ export const logout = async (): Promise<string> => {
       return response.data;
     })
     .catch((error: AxiosError) => {
-      return error.message;
+      return error.response?.data;
     });
 };
 
@@ -48,6 +48,6 @@ export const me = async (): Promise<User> => {
       return response.data;
     })
     .catch((error: AxiosError) => {
-      return error.message;
+      return error.response?.data;
     });
 };

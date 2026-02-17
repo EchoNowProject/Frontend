@@ -17,3 +17,4 @@ export { default as Globe1 } from './Globe1';
 export { default as UserMultiple4 } from './UserMultiple4';
 export { default as Camera1 } from './Camera1';
 export { default as Exit } from './Exit';
+export { default as User } from './User';
