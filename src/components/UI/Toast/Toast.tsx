@@ -4,17 +4,23 @@ import { useToast } from '@/hooks/useToast';
 import { useEffect } from 'react';
 import useSound from 'use-sound';
 import errorSound from '@/assets/sounds/error-sound.mp3';
+import successSound from '@/assets/sounds/success-sound.mp3';
 import discardSound from '@/assets/sounds/discard-sound.mp3';
 
 export default function Toast() {
-  const { showToast, setShowToast, setTextToast, textToast, handleOnClick } = useToast();
-  const [playEnter] = useSound(errorSound);
+  const { showToast, setShowToast, setTextToast, textToast, handleOnClick, success } = useToast();
+  const [playEnterErrorSound] = useSound(errorSound);
+  const [playEnterSuccessSound] = useSound(successSound);
   const [playOut] = useSound(discardSound);
 
   /* ADD SOUND EFFECTS AND CLOSE DE TOAST BY TIME  */
   useEffect(() => {
     if (showToast) {
-      playEnter();
+      if (success) {
+        playEnterSuccessSound();
+      } else {
+        playEnterErrorSound();
+      }
     } else {
       playOut();
     }

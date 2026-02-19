@@ -22,6 +22,7 @@ interface InputInterface {
   value?: string;
   placeholder?: string;
   required?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -38,6 +39,7 @@ export default function Input(inputProps: InputInterface) {
         placeholder={inputProps.placeholder}
         required={inputProps.required}
         onChange={inputProps.onChange}
+        disabled={inputProps.disabled}
       />
     </>
   );

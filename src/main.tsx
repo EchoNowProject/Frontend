@@ -6,13 +6,16 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@/routes';
 import { UserProvider } from './context/User/UserProvider';
+import { ToastProvider } from './context/Toast/ToastProvider';
 
 const root = document.getElementById('root') as HTMLElement;
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
+    <ToastProvider>
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
+    </ToastProvider>
   </React.StrictMode>
 );

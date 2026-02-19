@@ -4,7 +4,7 @@ import { Button, ButtonType, Input, InputType } from '@/components/UI';
 import { User } from '@/icons';
 
 export const EditProfileForm = () => {
-  const { user, setUser } = useUser();
+  const { user, setUser, saveUserState } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setUser({
@@ -16,7 +16,7 @@ export const EditProfileForm = () => {
   return (
     <div className="w-full bg-violet-500 rounded-lg shadow-md p-6">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Editar Perfil</h2>
-      <form className="space-y-4">
+      <div className="space-y-4">
         {/* imagen y inputs */}
         <div className="flex justify-between">
           {/* Inputs */}
@@ -47,10 +47,10 @@ export const EditProfileForm = () => {
           </div>
 
           {/* Imagen   */}
-          <div className="flex w-32 h-32 me-10 bg-violet-400 rounded-lg shadow-lg justify-center items-center">
-            {user?.avatar_img ? (
+          <div className="flex w-40 h-40 me-10 bg-violet-400 rounded-lg shadow-lg justify-center items-center">
+            {user?.file_avatar_image ? (
               <img
-                src={user.avatar_img}
+                src={`data:${user.file_avatar_image.mime_type};base64,${user.file_avatar_image.base64}`}
                 alt="User Image"
                 className="w-full h-full object-cover rounded-lg"
               />
@@ -70,7 +70,8 @@ export const EditProfileForm = () => {
             id="email"
             value={user?.email}
             onChange={handleChange}
-            className="outline-0 w-3/5 rounded-md shadow-lg bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500"
+            className="outline-0 w-fit rounded-md shadow-lg text-neutral-300 bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500 cursor-not-allowed"
+            disabled={true}
           />
         </div>
 
@@ -93,9 +94,10 @@ export const EditProfileForm = () => {
             type={ButtonType.Submit}
             textButton="Guardar Cambios"
             className="bg-violet-700 hover:bg-violet-800 hover:scale-105 transition-all ease-in-out duration-400 text-white font-bold py-2 px-4 rounded"
+            onclick={() => saveUserState()}
           />
         </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { User } from '@/types/User';
+import { User } from '@/types';
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
 
 interface AuthResponseLogin {
