@@ -1,7 +1,4 @@
 import React from 'react';
-import Button, { ButtonType } from '@/components/UI/Button';
-import { Input } from '@/components/UI';
-import { InputType } from '@/components/UI/Input';
 import { useUser } from '@/hooks/useUser';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -22,8 +19,8 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
               Correo Electrónico <span className="text-red-400">*</span>
             </b>
           </label>
-          <Input
-            type={InputType.Email}
+          <input
+            type="email"
             id="email"
             required={true}
             value={user?.email}
@@ -43,8 +40,8 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
               ¿Olvidaste tu contraseña?
             </a>
           </div>
-          <Input
-            type={InputType.Password}
+          <input
+            type="password"
             id="password"
             required={true}
             onChange={handleChanges}
@@ -54,11 +51,12 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
         </div>
 
         <div className="mt-4">
-          <Button
-            type={ButtonType.Submit}
-            textButton="Iniciar Sesión"
+          <button
+            type="submit"
             className="w-full text-lg text-white bg-violet-500 hover:bg-violet-700 transition-all duration-200 rounded-xl py-2"
-          />
+          >
+            Iniciar Sesión
+          </button>
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 text-sm sm:text-base">

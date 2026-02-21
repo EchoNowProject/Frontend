@@ -1,6 +1,5 @@
 import React from 'react';
 import { useUser } from '@/hooks/useUser';
-import { Button, ButtonType, Input, InputType } from '@/components/UI';
 import { User } from '@/icons';
 
 export const EditProfileForm = () => {
@@ -24,8 +23,8 @@ export const EditProfileForm = () => {
             <label htmlFor="username" className="flex text-md font-medium text-neutral-900 mb-2">
               Nombre de usuario
             </label>
-            <Input
-              type={InputType.Text}
+            <input
+              type="text"
               name="username"
               id="username"
               value={user?.username}
@@ -36,8 +35,8 @@ export const EditProfileForm = () => {
             <label htmlFor="username" className="flex text-md font-medium text-neutral-900 mb-2">
               Alias
             </label>
-            <Input
-              type={InputType.Text}
+            <input
+              type="text"
               name="display_name"
               id="display_name"
               value={user?.display_name}
@@ -64,8 +63,8 @@ export const EditProfileForm = () => {
           <label htmlFor="email" className="flex text-md font-medium text-neutral-900 mb-2">
             Correo Electrónico
           </label>
-          <Input
-            type={InputType.Email}
+          <input
+            type="email"
             name="email"
             id="email"
             value={user?.email}
@@ -90,12 +89,13 @@ export const EditProfileForm = () => {
         </div>
 
         <div className="pt-4 flex justify-end">
-          <Button
-            type={ButtonType.Submit}
-            textButton="Guardar Cambios"
+          <button
+            type="submit"
             className="bg-violet-700 hover:bg-violet-800 hover:scale-105 transition-all ease-in-out duration-400 text-white font-bold py-2 px-4 rounded"
-            onclick={() => saveUserState()}
-          />
+            onClick={() => saveUserState()}
+          >
+            Guardar Cambios
+          </button>
         </div>
       </div>
     </div>

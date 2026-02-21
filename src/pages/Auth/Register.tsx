@@ -1,7 +1,4 @@
 import React from 'react';
-import { Button, Input } from '@/components/UI';
-import { InputType } from '@/components/UI/Input';
-import { ButtonType } from '@/components/UI/Button';
 import { useAuth } from '@/hooks/useAuth';
 import { useUser } from '@/hooks/useUser';
 
@@ -20,8 +17,8 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
           <label htmlFor="name" className="mb-1 text-gray-100 text-sm sm:text-base">
             <b>Username</b> <span className="text-red-400">*</span>
           </label>
-          <Input
-            type={InputType.Text}
+          <input
+            type="text"
             id="username"
             value={user?.username}
             required={true}
@@ -34,8 +31,8 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
           <label htmlFor="email" className="mb-1 text-gray-100 text-sm sm:text-base">
             <b>Correo electrónico</b> <span className="text-red-400">*</span>
           </label>
-          <Input
-            type={InputType.Email}
+          <input
+            type="email"
             id="email"
             value={user?.email}
             placeholder="echonow@example.com"
@@ -49,8 +46,8 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
           <label htmlFor="password" className="mb-1 text-gray-100 text-sm sm:text-base">
             <b>Contraseña</b> <span className="text-red-400">*</span>
           </label>
-          <Input
-            type={InputType.Password}
+          <input
+            type="password"
             id="password"
             value={user?.password}
             required={true}
@@ -60,11 +57,12 @@ export default function Register({ onFlip }: { onFlip: () => void }) {
         </div>
 
         <div>
-          <Button
-            type={ButtonType.Submit}
-            textButton="Registrarse"
+          <button
+            type="submit"
             className="w-full text-lg text-white bg-violet-500 hover:bg-violet-700 transition-all duration-200 rounded-xl py-2"
-          />
+          >
+            Registrarse
+          </button>
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 text-sm sm:text-base">
