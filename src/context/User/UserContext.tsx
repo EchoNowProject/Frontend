@@ -3,7 +3,7 @@ import { createContext } from 'react';
 
 interface UserType {
   user: User | null;
-  setUser: (u: User) => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   saveUserState: () => void;
 }
 

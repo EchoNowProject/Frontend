@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { EditProfileForm } from './EditProfile';
+import { EditProfileForm } from './components/EditProfile';
+import { EditNotifications } from './components/EditNotifications';
 
 interface ProfileSidebarProps {
   activeTab: string;
@@ -15,13 +16,13 @@ const ProfileSidebar = ({ activeTab, setActiveTab }: ProfileSidebarProps) => {
   return (
     // Agregamos md:sticky, md:top-6 y h-fit
     <div className="w-full md:w-1/4 bg-violet-500 rounded-lg shadow-lg p-4 h-fit">
-      <h2 className="text-xl font-bold mb-4 text-gray-800">Ajustes del Perfil</h2>
+      <h2 className="text-3xl font-bold mb-4 text-white">Ajustes del Perfil</h2>
       <ul className="space-y-2">
         {menuItems.map((item) => (
           <li key={item.id}>
             <button
               onClick={() => setActiveTab(item.id)}
-              className={`w-full text-left px-4 py-2 rounded-md transition-colors duration-300
+              className={`w-full text-lg text-left px-4 py-2 rounded-md transition-colors duration-300
                 ${activeTab === item.id ? 'bg-violet-700 font-bold' : 'hover:bg-violet-600'}
               `}
             >
@@ -48,6 +49,7 @@ export const Profile = () => {
           {/* Menus */}
           <div className="w-full md:w-3/4">
             {activeTab === 'edit-profile' && <EditProfileForm />}
+            {activeTab === 'notifications' && <EditNotifications />}
           </div>
         </div>
       </div>

@@ -14,13 +14,13 @@ export const EditProfileForm = () => {
 
   return (
     <div className="w-full bg-violet-500 rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Editar Perfil</h2>
+      <h2 className="text-2xl font-bold mb-6 text-white">Editar Perfil</h2>
       <div className="space-y-4">
         {/* imagen y inputs */}
         <div className="flex justify-between">
           {/* Inputs */}
           <div>
-            <label htmlFor="username" className="flex text-md font-medium text-neutral-900 mb-2">
+            <label htmlFor="username" className="flex text-md font-medium text-white mb-2">
               Nombre de usuario
             </label>
             <input
@@ -32,7 +32,7 @@ export const EditProfileForm = () => {
               className="outline-0 rounded-md shadow-lg bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500 mb-3"
             />
 
-            <label htmlFor="username" className="flex text-md font-medium text-neutral-900 mb-2">
+            <label htmlFor="username" className="flex text-md font-medium text-white mb-2">
               Alias
             </label>
             <input
@@ -60,7 +60,7 @@ export const EditProfileForm = () => {
         </div>
 
         <div>
-          <label htmlFor="email" className="flex text-md font-medium text-neutral-900 mb-2">
+          <label htmlFor="email" className="flex text-md font-medium text-white mb-2">
             Correo Electrónico
           </label>
           <input
@@ -75,7 +75,7 @@ export const EditProfileForm = () => {
         </div>
 
         <div>
-          <label htmlFor="biografia" className="flex text-md font-medium text-neutral-900 mb-2">
+          <label htmlFor="biografia" className="flex text-md font-medium text-white mb-2">
             Biografía
           </label>
           <textarea

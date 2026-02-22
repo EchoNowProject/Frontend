@@ -1,4 +1,4 @@
-import { User } from '@/types';
+import { User, UserNotificationSettings } from '@/types';
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
 
 interface ResponseUpdateError {
@@ -24,4 +24,15 @@ export const updateUser = async (user: User): Promise<User> => {
   } catch (error: any) {
     throw new Error(error.response?.data?.error);
   }
+};
+
+export const getUserNotificationsSettings = async (): Promise<UserNotificationSettings> => {
+  return axios
+    .get(`/user-notifications-settings/get`)
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      return error.response?.data;
+    });
 };

@@ -17,4 +17,18 @@ export interface User {
   two_factor_recovery_codes: null;
   two_factor_confirmed_at: null;
   file_avatar_image?: FileImage | null;
+  user_notification_settings?: UserNotificationSettings;
+}
+
+export interface UserNotificationSettings {
+  user_id: number;
+  email_notifications: boolean;
+  push_notifications: boolean;
+  notify_friend_requests: boolean;
+  sound_enabled: boolean;
+  show_message_preview: boolean;
+  notify_direct_messages: boolean;
+  notify_mentions: boolean;
+  created_at: string;
+  updated_at: string;
 }
