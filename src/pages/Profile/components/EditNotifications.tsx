@@ -22,14 +22,14 @@ export const EditNotifications: React.FC = () => {
   ];
 
   const handleToggle = (key: keyof UserNotificationSettings): void => {
-    if (!user || !user.user_notification_settings) return;
+    if (!user || !user.notification_settings) return;
 
     // Usamos una función de actualización para asegurar que trabajamos con el estado más reciente
     setUser({
       ...user,
-      user_notification_settings: {
-        ...(user.user_notification_settings || {}),
-        [key]: !user.user_notification_settings?.[key],
+      notification_settings: {
+        ...(user.notification_settings || {}),
+        [key]: !user.notification_settings?.[key],
       },
     });
   };
@@ -55,7 +55,7 @@ export const EditNotifications: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {notificationOptions.map((option) => {
-              const isChecked = !!user?.user_notification_settings?.[option.key];
+              const isChecked = !!user?.notification_settings?.[option.key];
               const inputId = `checkbox-${option.key}`;
 
               return (
@@ -102,7 +102,7 @@ export const EditNotifications: React.FC = () => {
           <button
             type="button"
             className="bg-white text-violet-700 hover:bg-violet-100 active:scale-95 transition-all duration-200 font-bold py-3 px-8 rounded-xl shadow-lg"
-            onClick={() => alert('Hacer el guardado')}
+            onClick={() => console.log(user?.notification_settings)}
           >
             Guardar Cambios
           </button>

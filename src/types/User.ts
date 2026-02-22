@@ -17,7 +17,7 @@ export interface User {
   two_factor_recovery_codes: null;
   two_factor_confirmed_at: null;
   file_avatar_image?: FileImage | null;
-  user_notification_settings?: UserNotificationSettings;
+  notification_settings?: UserNotificationSettings;
 }
 
 export interface UserNotificationSettings {
