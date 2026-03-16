@@ -1,51 +1,58 @@
 import React, { useEffect } from 'react';
 import { useUser } from '@/hooks/useUser';
-import { type UserNotificationSettings } from '@/types';
 import { useUserNotificationsSettings } from '@/hooks/useUserNotificationsSettings';
 
 export const EditNotifications: React.FC = () => {
-  const { user, setUser } = useUser();
-  const { getNotificationsSettings } = useUserNotificationsSettings();
+  const { user } = useUser();
+  const {
+    notificationOptions,
+    getNotificationsSettings,
+    updateGeneralNotification,
+    updateOneNotification,
+    saveNotificationsChanges,
+    disableNotificationOptionsIfNeeded,
+  } = useUserNotificationsSettings();
 
   useEffect(() => {
     getNotificationsSettings();
+    disableNotificationOptionsIfNeeded();
   }, []);
-
-  const notificationOptions: { key: keyof UserNotificationSettings; label: string }[] = [
-    { key: 'email_notifications', label: 'Notificaciones por correo' },
-    { key: 'push_notifications', label: 'Notificaciones Push' },
-    { key: 'notify_friend_requests', label: 'Solicitudes de amistad' },
-    { key: 'sound_enabled', label: 'Sonido habilitado' },
-    { key: 'show_message_preview', label: 'Vista previa de mensajes' },
-    { key: 'notify_direct_messages', label: 'Mensajes directos' },
-    { key: 'notify_mentions', label: 'Menciones' },
-  ];
-
-  const handleToggle = (key: keyof UserNotificationSettings): void => {
-    if (!user || !user.notification_settings) return;
-
-    // Usamos una función de actualización para asegurar que trabajamos con el estado más reciente
-    setUser({
-      ...user,
-      notification_settings: {
-        ...(user.notification_settings || {}),
-        [key]: !user.notification_settings?.[key],
-      },
-    });
-  };
 
   return (
     <div className="w-full bg-violet-500 rounded-xl shadow-lg p-6">
       <h2 className="text-2xl font-bold mb-6 text-white">Panel de Notificaciones</h2>
 
-      <span className="text-sm font-medium text-white group-hover:text-white/90">
-        Habilitar notificaciones
-      </span>
+      {/* Notificaciones generales */}
+      <label className="flex items-center mb-6 gap-5 cursor-pointer">
+        <span className="text-lg font-medium text-white group-hover:text-white/90">
+          Habilitar notificaciones
+        </span>
 
-      <h1>
-        Meter la settigns del usuario que controle que todos los controles de notificaciones esta
-        activados user_settings table{' '}
-      </h1>
+        <div className="relative inline-flex items-center">
+          <input
+            type="checkbox"
+            className="sr-only cursor-pointer"
+            checked={user?.general_settings?.notifications_enable ?? false}
+            onChange={() =>
+              updateGeneralNotification(!user?.general_settings?.notifications_enable)
+            }
+          />
+
+          {/* Track */}
+          <div
+            className={`w-11 h-6 rounded-full transition-colors duration-200 ease-in-out ${
+              user?.general_settings?.notifications_enable ? 'bg-violet-950' : 'bg-violet-300'
+            }`}
+          />
+
+          {/* Thumb */}
+          <div
+            className={`absolute left-1 w-4 h-4 rounded-full bg-white shadow-md transform transition-transform duration-200 ease-in-out ${
+              user?.general_settings?.notifications_enable ? 'translate-x-5' : 'translate-x-0'
+            }`}
+          />
+        </div>
+      </label>
 
       <div className="space-y-6">
         <div className="pt-6 border-t border-violet-400/40">
@@ -56,12 +63,12 @@ export const EditNotifications: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {notificationOptions.map((option) => {
               const isChecked = !!user?.notification_settings?.[option.key];
+              const isDisabled = option.disabled;
               const inputId = `checkbox-${option.key}`;
 
               return (
                 <label
                   key={option.key}
-                  htmlFor={inputId}
                   className="flex items-center justify-between bg-violet-600/30 p-4 rounded-xl border border-violet-400/20 hover:bg-violet-600/50 transition-all cursor-pointer group"
                 >
                   <span className="text-sm font-medium text-white group-hover:text-white/90">
@@ -74,14 +81,18 @@ export const EditNotifications: React.FC = () => {
                       type="checkbox"
                       className="sr-only"
                       checked={isChecked}
-                      onChange={() => handleToggle(option.key)}
-                      disabled={!user}
+                      onChange={() => updateOneNotification(option.key)}
+                      disabled={option.disabled}
                     />
 
                     {/* Track */}
                     <div
                       className={`w-11 h-6 rounded-full transition-colors duration-200 ease-in-out ${
-                        isChecked ? 'bg-violet-950' : 'bg-violet-300'
+                        isDisabled
+                          ? 'bg-neutral-950/50'
+                          : isChecked
+                            ? 'bg-violet-950'
+                            : 'bg-violet-300'
                       }`}
                     />
 
@@ -102,7 +113,7 @@ export const EditNotifications: React.FC = () => {
           <button
             type="button"
             className="bg-white text-violet-700 hover:bg-violet-100 active:scale-95 transition-all duration-200 font-bold py-3 px-8 rounded-xl shadow-lg"
-            onClick={() => console.log(user?.notification_settings)}
+            onClick={() => saveNotificationsChanges()}
           >
             Guardar Cambios
           </button>

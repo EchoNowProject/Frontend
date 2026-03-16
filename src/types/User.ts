@@ -16,6 +16,7 @@ export interface User {
   two_factor_secret: null;
   two_factor_recovery_codes: null;
   two_factor_confirmed_at: null;
+  general_settings: GeneralSettings;
   file_avatar_image?: FileImage | null;
   notification_settings?: UserNotificationSettings;
 }
@@ -29,6 +30,16 @@ export interface UserNotificationSettings {
   show_message_preview: boolean;
   notify_direct_messages: boolean;
   notify_mentions: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GeneralSettings {
+  user_id: number;
+  theme: string;
+  notifications_enable: boolean;
+  sound_enable: boolean;
+  volume: number;
   created_at: string;
   updated_at: string;
 }
