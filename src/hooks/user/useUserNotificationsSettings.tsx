@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useUser } from './useUser';
 import { getUserNotificationsSettings, saveUserNotificationsSettings } from '@/api/UserApi';
 import { UserNotificationSettings } from '@/types';
-import { useToast } from './useToast';
+import { useToast } from '@/hooks/useToast';
 
 export const useUserNotificationsSettings = () => {
   const { user, setUser } = useUser();

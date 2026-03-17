@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { loginUser, logout as logoutApi, registerUser } from '@/api/authApi';
 import { useNavigate } from 'react-router';
-import { useUser } from './useUser';
+import { useUser } from '@/hooks/user/useUser';
 
 type handleSubmitType = 'register' | 'login';
 

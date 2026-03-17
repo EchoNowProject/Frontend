@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/user/useUser';
 import { User } from '@/icons';
 
 export const EditProfileForm = () => {

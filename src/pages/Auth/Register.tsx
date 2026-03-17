@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/user/useUser';
 
 export default function Register({ onFlip }: { onFlip: () => void }) {
   const { user } = useUser();
