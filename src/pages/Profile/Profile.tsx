@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EditProfileForm } from './components/EditProfile';
 import { EditNotifications } from './components/EditNotifications';
+import { EditPrivacity } from './components/EditPrivacity';
 
 interface ProfileSidebarProps {
   activeTab: string;
@@ -11,6 +12,7 @@ const ProfileSidebar = ({ activeTab, setActiveTab }: ProfileSidebarProps) => {
   const menuItems = [
     { id: 'edit-profile', label: 'Editar Perfil' },
     { id: 'notifications', label: 'Notificaciones' },
+    { id: 'privacity', label: 'Privacidad' },
   ];
 
   return (
@@ -50,6 +52,7 @@ export const Profile = () => {
           <div className="w-full md:w-3/4">
             {activeTab === 'edit-profile' && <EditProfileForm />}
             {activeTab === 'notifications' && <EditNotifications />}
+            {activeTab === 'privacity' && <EditPrivacity />}
           </div>
         </div>
       </div>

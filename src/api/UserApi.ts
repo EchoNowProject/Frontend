@@ -1,4 +1,4 @@
-import { User, UserNotificationSettings } from '@/types';
+import { User, UserNotificationSettings, UserPrivacitySettings } from '@/types';
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
 
 export const getUser = async (id: number): Promise<User> => {
@@ -21,6 +21,8 @@ export const updateUser = async (user: User): Promise<User> => {
   }
 };
 
+/* ------------------------- Notification Settings ------------------------- */
+
 export const getUserNotificationsSettings = async (): Promise<UserNotificationSettings> => {
   return axios
     .get(`/user-notifications-settings`)
@@ -37,6 +39,32 @@ export const saveUserNotificationsSettings = async (user: User): Promise<number>
     .put(`/user-notifications-settings`, {
       general_settings: user.general_settings,
       notification_settings: user.notification_settings,
+    })
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      return error.response?.data;
+    });
+};
+
+/* ------------------------- Privacity Settings ------------------------- */
+
+export const getUserPrivacitySettings = async (): Promise<UserPrivacitySettings> => {
+  return axios
+    .get(`/user-privacity-settings`)
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      return error.response?.data;
+    });
+};
+
+export const saveUserPrivacitySettings = async (user: User): Promise<number> => {
+  return axios
+    .put(`/user-privacity-settings`, {
+      privacity_settings: user.privacity_settings,
     })
     .then((response: AxiosResponse) => {
       return response.data;

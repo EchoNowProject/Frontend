@@ -19,6 +19,7 @@ export interface User {
   general_settings: GeneralSettings;
   file_avatar_image?: FileImage | null;
   notification_settings?: UserNotificationSettings;
+  privacity_settings?: UserPrivacitySettings;
 }
 
 export interface UserNotificationSettings {
@@ -40,6 +41,18 @@ export interface GeneralSettings {
   notifications_enable: boolean;
   sound_enable: boolean;
   volume: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserPrivacitySettings {
+  user_id: number;
+  friend_request_permission: boolean;
+  direct_message_permission: boolean;
+  allow_search_by_email: boolean;
+  allow_search_by_phone: boolean;
+  show_online_status: boolean;
+  show_activity: boolean;
   created_at: string;
   updated_at: string;
 }
