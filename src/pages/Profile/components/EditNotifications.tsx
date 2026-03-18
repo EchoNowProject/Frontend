@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useUser } from '@/hooks/user/useUser';
 import { useUserNotificationsSettings } from '@/hooks/user/useUserNotificationsSettings';
 
-export const EditNotifications: React.FC = () => {
+export const EditNotifications = () => {
   const { user } = useUser();
   const {
     notificationOptions,

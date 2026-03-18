@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useUser } from './useUser';
 import { getUserNotificationsSettings, saveUserNotificationsSettings } from '@/api/UserApi';
 import { UserNotificationSettings } from '@/types';
@@ -24,12 +24,11 @@ export const useUserNotificationsSettings = () => {
     { key: 'notify_mentions', label: 'Menciones', disabled: false },
   ]);
 
+  // Actualiza notification_settings del usuario si existe
   const getNotificationsSettings = async () => {
     try {
       let data = await getUserNotificationsSettings();
-
       setUser((prev) => (prev ? { ...prev, notification_settings: data } : prev));
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +69,7 @@ export const useUserNotificationsSettings = () => {
     });
   };
 
+  // Guarda los cambios realizados de los ajustes de notificaciones
   const saveNotificationsChanges = async () => {
     try {
       if (user && user.notification_settings) {
@@ -81,6 +81,7 @@ export const useUserNotificationsSettings = () => {
     }
   };
 
+  // Desactiva todas los switches si en las opciones generales del usuario no tenemos permitidas las notificaciones
   const disableNotificationOptionsIfNeeded = () => {
     if (!user?.general_settings.notifications_enable) {
       notificationOptions.forEach((option) => {
