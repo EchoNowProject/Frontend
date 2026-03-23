@@ -13,12 +13,14 @@ export const getUser = async (id: number): Promise<User> => {
 };
 
 export const updateUser = async (user: User): Promise<User> => {
-  try {
-    const response = await axios.put(`/user/update`, user);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.error);
-  }
+  return axios
+    .put(`/user/update`, user)
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error;
+    });
 };
 
 /* ------------------------- Notification Settings ------------------------- */

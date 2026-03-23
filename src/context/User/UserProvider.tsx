@@ -32,8 +32,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setUser(userUpdated);
       initiateToast('¡Actualización Exitosa!', true);
     } catch (error: any) {
-      // Se accede con message porque el emtodo updateUser se hace con try-catch
-      initiateToast(error.message, false);
+      setUser(error.response.data.user);
+      initiateToast(error.response.data.error, false);
     }
   };
 

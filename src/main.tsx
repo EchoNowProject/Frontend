@@ -11,11 +11,11 @@ import { ToastProvider } from './context/Toast/ToastProvider';
 const root = document.getElementById('root') as HTMLElement;
 
 ReactDOM.createRoot(root).render(
-  <React.StrictMode>
+  <React.Activity>
     <ToastProvider>
       <UserProvider>
         <RouterProvider router={router} />
       </UserProvider>
     </ToastProvider>
-  </React.StrictMode>
+  </React.Activity>
 );

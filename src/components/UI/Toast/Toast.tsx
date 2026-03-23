@@ -43,7 +43,7 @@ export default function Toast() {
       {showToast && (
         <div
           id="toast-default"
-          className="fixed m-10 right-5 flex items-center w-auto p-4 bg-violet-500 rounded-lg shadow-lg text-white z-50"
+          className="fixed m-10 right-5 flex items-center w-auto p-4 bg-neutral-800 border-4 border-violet-400 rounded-lg shadow-lg text-white z-50"
           role="alert"
         >
           <div className="flex text-sm font-normal justify-items-end text-white me-5">

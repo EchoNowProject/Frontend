@@ -7,6 +7,8 @@ export interface User {
   password: string;
   display_name: string;
   biography: string;
+  telephone_number: string;
+  prefix_telephone_number: string;
   avatar_img: null;
   verified: boolean;
   status: RelationShipDefault;

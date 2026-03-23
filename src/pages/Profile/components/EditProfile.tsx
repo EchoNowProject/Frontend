@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUser } from '@/hooks/user/useUser';
 import { User } from '@/icons';
+import { phonePrefixes } from '@/hooks/user/data/phonePrefixes';
 
 export const EditProfileForm = () => {
   const { user, setUser, saveUserState } = useUser();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setUser({
-      ...user,
-      [e.target.id]: e.target.value,
-    } as any);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setUser((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        [name]: value.trim(),
+      };
+    });
   };
 
   return (
@@ -20,26 +29,28 @@ export const EditProfileForm = () => {
         <div className="flex justify-between">
           {/* Inputs */}
           <div>
+            {/* Username */}
             <label htmlFor="username" className="flex text-md font-medium text-white mb-2">
-              Nombre de usuario
+              Nombre de usuario <span className="text-red-400 ms-2">*</span>
             </label>
             <input
               type="text"
               name="username"
               id="username"
-              value={user?.username}
+              value={user?.username || ''}
               onChange={handleChange}
               className="outline-0 rounded-md shadow-lg bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500 mb-3"
             />
 
-            <label htmlFor="username" className="flex text-md font-medium text-white mb-2">
+            {/* Display NAme */}
+            <label htmlFor="display_name" className="flex text-md font-medium text-white mb-2">
               Alias
             </label>
             <input
               type="text"
               name="display_name"
               id="display_name"
-              value={user?.display_name}
+              value={user?.display_name || ''}
               onChange={handleChange}
               className="outline-0 w-4/5 rounded-md shadow-lg bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500"
             />
@@ -59,21 +70,23 @@ export const EditProfileForm = () => {
           </div>
         </div>
 
+        {/* Email */}
         <div>
           <label htmlFor="email" className="flex text-md font-medium text-white mb-2">
-            Correo Electrónico
+            Correo Electrónico <span className="text-red-400 ms-2">*</span>
           </label>
           <input
             type="email"
             name="email"
             id="email"
-            value={user?.email}
+            value={user?.email || ''}
             onChange={handleChange}
             className="outline-0 w-fit rounded-md shadow-lg text-neutral-300 bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500 cursor-not-allowed"
             disabled={true}
           />
         </div>
 
+        {/* Biografia */}
         <div>
           <label htmlFor="biografia" className="flex text-md font-medium text-white mb-2">
             Biografía
@@ -82,10 +95,42 @@ export const EditProfileForm = () => {
             name="biography"
             id="biography"
             rows={4}
-            value={user?.biography}
+            value={user?.biography || ''}
             onChange={handleChange}
             className="outline-0 w-full rounded-md shadow-lg bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500"
           />
+        </div>
+
+        {/* Numeros telefonicos */}
+
+        <label htmlFor="phoneNumber" className="flex text-md font-medium text-white mb-2">
+          Número de Teléfono
+        </label>
+        <input
+          type="text"
+          name="telephone_number"
+          id="telephone_number"
+          value={user?.telephone_number || ''}
+          onChange={handleChange}
+          className="outline-0 w-50 rounded-md shadow-lg text-white bg-violet-400 p-1 focus:border-violet-500 focus:ring-violet-500"
+        />
+
+        {/* Prefijo telefonico */}
+        <div className="flex flex-col gap-2">
+          <label htmlFor="prefix_telephone_number">Prefijo Telefónico</label>
+          <select
+            name="prefix_telephone_number"
+            value={user?.prefix_telephone_number || ''}
+            onChange={handleChange}
+            className="outline-0 w-60 rounded-md shadow-lg text-white bg-violet-400 p-1"
+          >
+            <option value="">Asignar Prefijo</option>
+            {phonePrefixes.map((item) => (
+              <option key={item.code} value={item.prefix.replace('+', '')}>
+                {item.flagEmoji} {item.name} {item.prefix}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="pt-4 flex justify-end">
