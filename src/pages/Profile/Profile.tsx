@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { EditProfileForm } from './components/EditProfile';
-import { EditNotifications } from './components/EditNotifications';
-import { EditPrivacity } from './components/EditPrivacity';
+import { EditProfile, EditNotifications, EditPrivacity } from '@/pages';
 
 interface ProfileSidebarProps {
   activeTab: string;
@@ -50,7 +48,7 @@ export const Profile = () => {
 
           {/* Menus */}
           <div className="w-full md:w-3/4">
-            {activeTab === 'edit-profile' && <EditProfileForm />}
+            {activeTab === 'edit-profile' && <EditProfile />}
             {activeTab === 'notifications' && <EditNotifications />}
             {activeTab === 'privacity' && <EditPrivacity />}
           </div>

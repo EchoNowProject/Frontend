@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useUser } from '@/hooks/user/useUser';
 import { User } from '@/icons';
 import { phonePrefixes } from '@/hooks/user/data/phonePrefixes';
+import { useNavigate } from 'react-router';
 
-export const EditProfileForm = () => {
+export const EditProfile = () => {
   const { user, setUser, saveUserState } = useUser();
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -131,6 +133,18 @@ export const EditProfileForm = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Contraseña y Autenticación */}
+        <h4 className="text-2xl mt-10">Contraseña y Autenticación</h4>
+        <div>
+          <button
+            type="submit"
+            className="bg-violet-400 hover:bg-violet-800 hover:border-2 hover:border-red-400 hover:scale-105 transition-all ease-in-out duration-400 text-white font-bold py-2 px-4 rounded"
+            onClick={() => navigate('/home/profile/change-password')}
+          >
+            Cambiar contraseña
+          </button>
         </div>
 
         <div className="pt-4 flex justify-end">

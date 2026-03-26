@@ -13,6 +13,7 @@ import { Chat } from '@/pages/Chats/Chats';
 import { CreateServerPage } from '@/pages/Servers/CreateServerPage';
 import { PublicRoute } from './PublicRoute';
 import { AuthenticatedRoute } from './AuthenticatedRoute';
+import { ChangePassword } from '@/pages/index';
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'profile/change-password',
+        element: <ChangePassword />,
       },
     ],
   },

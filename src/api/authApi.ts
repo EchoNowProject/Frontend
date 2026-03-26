@@ -51,3 +51,24 @@ export const me = async (): Promise<User> => {
       return error.response?.data;
     });
 };
+
+export const updatePassword = async (
+  actualPassword: string,
+  newPassword: string,
+  confirmPassword: string
+): Promise<string> => {
+  return axios
+    .post('/update-password', {
+      data: {
+        actualPassword: actualPassword,
+        newPassword: newPassword,
+        newPassword_confirmation: confirmPassword,
+      },
+    })
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};
