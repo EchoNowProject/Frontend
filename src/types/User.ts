@@ -9,7 +9,7 @@ export interface User {
   biography: string;
   telephone_number: string;
   prefix_telephone_number: string;
-  avatar_img: null;
+  avatar_img: string;
   verified: boolean;
   status: RelationShipDefault;
   plan: RelationShipDefault;

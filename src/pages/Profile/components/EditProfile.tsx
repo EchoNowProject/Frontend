@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useUser } from '@/hooks/user/useUser';
-import { User } from '@/icons';
+import { Pencil, Trash, Upload, User } from '@/icons';
 import { phonePrefixes } from '@/hooks/user/data/phonePrefixes';
 import { useNavigate } from 'react-router';
+import { deleteUserImage, updateUserImage } from '@/api/UserApi';
+import { useToast } from '@/hooks/useToast';
+import { useFileImage } from '@/hooks/utils/useFileimage';
 
 export const EditProfile = () => {
   const { user, setUser, saveUserState } = useUser();
+  const { initiateToast } = useToast();
+  const { convertToBase64 } = useFileImage();
+
   const navigate = useNavigate();
 
   const handleChange = (
@@ -21,6 +27,39 @@ export const EditProfile = () => {
         [name]: value.trim(),
       };
     });
+  };
+
+  const deleteImage = async () => {
+    try {
+      if (user && user.avatar_img) {
+        const userUpdated = await deleteUserImage(user.avatar_img);
+        setUser(userUpdated);
+        initiateToast('La foto de perfil se ha borrado con éxito', true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+
+    if (user && target.files && target.files[0]) {
+      const file = await convertToBase64(target.files[0]);
+      try {
+        const newImage = await updateUserImage(file);
+
+        setUser({
+          ...user,
+          file_avatar_image: newImage.fileImage,
+          avatar_img: newImage.avatar_img,
+        });
+
+        initiateToast('La foto se ha cambiado con exito', true);
+      } catch (error) {
+        initiateToast(String(error), false);
+      }
+    }
   };
 
   return (
@@ -58,17 +97,50 @@ export const EditProfile = () => {
             />
           </div>
 
-          {/* Imagen   */}
-          <div className="flex w-40 h-40 me-10 bg-violet-400 rounded-lg shadow-lg justify-center items-center">
-            {user?.file_avatar_image ? (
-              <img
-                src={`data:${user.file_avatar_image.mime_type};base64,${user.file_avatar_image.base64}`}
-                alt="User Image"
-                className="w-full h-full object-cover rounded-lg"
+          {/* Contenedor de Imagen y Botones (Mantiene disposición vertical) */}
+          <div className="flex flex-col items-center w-fit">
+            {/* Contenedor de la Imagen */}
+            <div className="relative w-32 h-32 md:w-40 md:h-40 bg-violet-400 rounded-lg shadow-lg overflow-hidden flex justify-center items-center">
+              {user?.file_avatar_image ? (
+                <img
+                  src={`data:${user.file_avatar_image.mime_type};base64,${user.file_avatar_image.base64}`}
+                  alt="User Image"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              ) : (
+                <User className="w-3/4 h-3/4 text-white" />
+              )}
+            </div>
+
+            {/* Contenedor de Botones - Reactivo y alineado */}
+            <div className="flex flex-row gap-3 mt-4 w-full justify-center">
+              <label
+                htmlFor="editImage"
+                className="flex-1 flex justify-center items-center p-2 bg-violet-600 hover:bg-violet-700 text-white rounded-md shadow-md transition-all active:scale-95 cursor-pointer"
+              >
+                <div>
+                  {user?.file_avatar_image && <Pencil size={20} />}
+                  {!user?.file_avatar_image && <Upload size={20} />}
+                </div>
+              </label>
+
+              <input
+                type="file"
+                id="editImage"
+                className="hidden"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateImage(e)}
               />
-            ) : (
-              <User className="w-3/4 h-3/4 text-white" />
-            )}
+
+              {user?.file_avatar_image && (
+                <button
+                  className="flex-1 flex justify-center items-center p-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-md transition-all active:scale-95"
+                  title="Eliminar"
+                  onClick={() => deleteImage()}
+                >
+                  <Trash size={20} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 

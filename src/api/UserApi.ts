@@ -1,5 +1,6 @@
-import { User, UserNotificationSettings, UserPrivacitySettings } from '@/types';
+import { FileImage, User, UserNotificationSettings, UserPrivacitySettings } from '@/types';
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
+import { UpdateUserImageResponse } from '@/types/FileImage';
 
 export const getUser = async (id: number): Promise<User> => {
   return axios
@@ -20,6 +21,29 @@ export const updateUser = async (user: User): Promise<User> => {
     })
     .catch((error: AxiosError) => {
       throw error;
+    });
+};
+
+export const deleteUserImage = async (avatar_img: string): Promise<User> => {
+  return axios
+    .delete(`/user/delete-image?avatar_img=${avatar_img}`)
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};
+
+export const updateUserImage = async (fileImage: FileImage): Promise<UpdateUserImageResponse> => {
+  return axios
+    .put(`/user/update-image`, fileImage)
+    .then((response: AxiosResponse) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
     });
 };
 

@@ -18,3 +18,6 @@ export { default as UserMultiple4 } from './UserMultiple4';
 export { default as Camera1 } from './Camera1';
 export { default as Exit } from './Exit';
 export { default as User } from './User';
+export { default as Trash } from './Trash';
+export { default as Pencil } from './Pencil';
+export { default as Upload } from './Upload';

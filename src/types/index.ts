@@ -6,4 +6,4 @@ export {
   type GeneralSettings,
   type UserPrivacitySettings,
 } from './User';
-export { type FileImage } from './FileImage';
+export { type FileImage, type UpdateUserImageResponse } from './FileImage';
