@@ -9,8 +9,8 @@ export default function MenuHamburger1({ className, color }: IconProps) {
   return (
     <>
       <svg
-        width="80"
-        height="80"
+        width="20"
+        height="20"
         className={className}
         viewBox="0 0 25 24"
         fill="none"

@@ -13,7 +13,7 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
   const [servers, setServers] = useState<Server[]>([]);
   const [server, setServer] = useState<Server>({} as Server);
   const [audience, setAudience] = useState<ServerAudience>();
-  const { setShowToast, setTextToast } = useToast();
+  const { initiateToast } = useToast();
   const navigate = useNavigate();
 
   /* Crear Servidor */
@@ -23,8 +23,7 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
       navigate('/home');
       getServers();
     } catch (error) {
-      setTextToast('' + error);
-      setShowToast(true);
+      initiateToast(String(error), false);
       console.error(error);
     }
   };
