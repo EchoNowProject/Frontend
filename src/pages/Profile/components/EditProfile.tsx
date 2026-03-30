@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router';
 import { deleteUserImage, updateUserImage } from '@/api/UserApi';
 import { useToast } from '@/hooks/useToast';
 import { useFileImage } from '@/hooks/utils/useFileimage';
+import { useLoading } from '@/hooks/useLoading';
 
 export const EditProfile = () => {
   const { user, setUser, saveUserState } = useUser();
   const { initiateToast } = useToast();
   const { convertToBase64 } = useFileImage();
+  const { setShowLoading } = useLoading();
 
   const navigate = useNavigate();
 
@@ -47,6 +49,7 @@ export const EditProfile = () => {
     if (user && target.files && target.files[0]) {
       const file = await convertToBase64(target.files[0]);
       try {
+        setShowLoading(true);
         const newImage = await updateUserImage(file);
 
         setUser({
@@ -54,7 +57,7 @@ export const EditProfile = () => {
           file_avatar_image: newImage.fileImage,
           avatar_img: newImage.avatar_img,
         });
-
+        setShowLoading(false);
         initiateToast('La foto se ha cambiado con exito', true);
       } catch (error) {
         initiateToast(String(error), false);

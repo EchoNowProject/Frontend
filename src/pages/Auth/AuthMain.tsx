@@ -1,14 +1,10 @@
 import './Auth.css';
 import React, { useState } from 'react';
-import Login from './Login';
-import Register from './Register';
+import { Login, Register } from '@/pages';
 import Toast from '@/components/UI/Toast/Toast';
-import { useHelper } from '@/hooks/useHelper';
 
-export default function AuthCard() {
+export const AuthMain = () => {
   const [isFlipped, setIsFlipped] = useState(false);
-
-  const { showToast, closeToast } = useHelper();
 
   const handleFlip = () => setIsFlipped(!isFlipped);
 
@@ -42,4 +38,4 @@ export default function AuthCard() {
       </div>
     </div>
   );
-}
+};

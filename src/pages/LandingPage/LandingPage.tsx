@@ -1,8 +1,8 @@
 import React from 'react';
 import './LandingPage.css';
-import Message3Text from '@/icons/Message3Text';
+import { Message3Text } from '@/icons';
 
-export default function LandingPage() {
+export const LandingPage = () => {
   return (
     <div id="main">
       {/* Container */}
@@ -23,4 +23,4 @@ export default function LandingPage() {
       </div>
     </div>
   );
-}
+};

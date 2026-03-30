@@ -1,8 +1,6 @@
 import React from 'react';
-import PricingCard from './PricingCards/PricingCard';
-import Rocket5 from '@/icons/Rocket5';
-import CheckCircle1 from '@/icons/CheckCircle1';
-import StarFat from '@/icons/StarFat';
+import { PricingCard } from '@/pages';
+import { Rocket5, CheckCircle1, StarFat } from '@/icons';
 
 const basicPlan = [
   'Mensajería ilimitada',
@@ -31,7 +29,7 @@ const purpleTeam = [
   'Backup automático de chats y archivos',
 ];
 
-export default function Planes() {
+export const Planes = () => {
   return (
     <div>
       {/* Title */}
@@ -122,4 +120,4 @@ export default function Planes() {
       </div>
     </div>
   );
-}
+};

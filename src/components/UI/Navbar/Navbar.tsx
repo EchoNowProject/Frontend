@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router';
 import './Navbar.css';
-import MenuHamburger1 from '@/icons/MenuHamburger1';
-import Xmark from '@/icons/Xmark';
+import { MenuHamburger1, Xmark } from '@/icons';
 
 const navigation = [
   { name: 'Información', route: '/' },

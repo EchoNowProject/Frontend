@@ -2,7 +2,7 @@ import React from 'react';
 import { useUser } from '@/hooks/user/useUser';
 import { useAuth } from '@/hooks/useAuth';
 
-export default function Login({ onFlip }: { onFlip: () => void }) {
+export const Login = ({ onFlip }: { onFlip: () => void }) => {
   const { handleChanges, handleSubmit } = useAuth();
   const { user } = useUser();
 
@@ -72,4 +72,4 @@ export default function Login({ onFlip }: { onFlip: () => void }) {
       </form>
     </div>
   );
-}
+};

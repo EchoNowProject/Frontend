@@ -2,6 +2,7 @@ import { updatePassword } from '@/api/authApi';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useToast } from '@/hooks/useToast';
+
 export const ChangePassword = () => {
   const [actualPassword, setActualPassword] = useState<string>();
   const [newPassword, setNewPassword] = useState<string>();

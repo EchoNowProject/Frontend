@@ -1,7 +1,7 @@
 import React from 'react';
 import { PricingCardProps } from './PricingCard.types';
 
-export default function PricingCard({ pricingCard }: { pricingCard: PricingCardProps }) {
+export const PricingCard = ({ pricingCard }: { pricingCard: PricingCardProps }) => {
   return (
     <div className=" p-4 border-4 border-violet-600 rounded-2xl shadow-lg sm:p-8 bg-gray-800">
       <h5 className="mb-4 text-2xl font-extrabold text-gray-500 text-center text-shadow-lg">
@@ -32,4 +32,4 @@ export default function PricingCard({ pricingCard }: { pricingCard: PricingCardP
       </button>
     </div>
   );
-}
+};

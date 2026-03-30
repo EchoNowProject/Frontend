@@ -6,8 +6,9 @@ import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from '.
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
 import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
+import { Loading } from '@/components/UI/Loading/Loading';
 
-export default function Home() {
+export const Home = () => {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -164,8 +165,10 @@ export default function Home() {
               w-full
               min-w-10
               wrap-break-word overflow-hidden
-            "
+              "
             >
+              <Loading />
+
               <Outlet />
             </main>
           </div>
@@ -173,4 +176,4 @@ export default function Home() {
       </ServerProvider>
     </>
   );
-}
+};
