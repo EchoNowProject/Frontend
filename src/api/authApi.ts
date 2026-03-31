@@ -10,12 +10,12 @@ interface AuthResponseLogin {
 
 export const registerUser = async (user: User): Promise<string> => {
   return axios
-    .post(`/users`, user)
+    .post(`/users/new`, user)
     .then((response: AxiosResponse) => {
       return response.data;
     })
     .catch((error: AxiosError) => {
-      return error.response?.data;
+      throw error.response?.data;
     });
 };
 

@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react';
 import { loginUser, logout as logoutApi, registerUser } from '@/api/authApi';
 import { useNavigate } from 'react-router';
 import { useUser } from '@/hooks/user/useUser';
+import { useToast } from './useToast';
+import { User } from '@/types';
 
 type handleSubmitType = 'register' | 'login';
 
 export const useAuth = () => {
   const { user, setUser } = useUser();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const { initiateToast } = useToast();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +23,7 @@ export const useAuth = () => {
     try {
       await logoutApi();
       localStorage.removeItem('auth');
+      setUser({} as User);
       navigate('/login');
     } catch (error) {
       return error;
@@ -45,6 +50,7 @@ export const useAuth = () => {
     try {
       if (typeSubmit === 'register') {
         response = await registerUser(user);
+        initiateToast(response, true);
       } else if (typeSubmit === 'login') {
         response = await loginUser(user);
 
@@ -64,7 +70,7 @@ export const useAuth = () => {
         }
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Error desconocido');
+      initiateToast(String(error), false);
     }
   };
 
