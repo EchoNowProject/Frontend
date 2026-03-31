@@ -3,6 +3,7 @@ import { loginUser, logout as logoutApi, registerUser } from '@/api/authApi';
 import { useNavigate } from 'react-router';
 import { useUser } from '@/hooks/user/useUser';
 import { useToast } from './useToast';
+import { User } from '@/types';
 
 type handleSubmitType = 'register' | 'login';
 
@@ -22,6 +23,7 @@ export const useAuth = () => {
     try {
       await logoutApi();
       localStorage.removeItem('auth');
+      setUser({} as User);
       navigate('/login');
     } catch (error) {
       return error;
