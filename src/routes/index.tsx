@@ -7,6 +7,7 @@ import {
   Planes,
   AuthMain,
   Profile,
+  SelectNewConversation,
 } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Empty />,
+      },
+      {
+        path: 'select-conversation',
+        element: <SelectNewConversation />,
       },
       {
         path: 'chat',

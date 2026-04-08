@@ -28,10 +28,10 @@ export const Home = () => {
     console.log('entra');
 
     // Suscribirse a un canal público de ejemplo
-    const channel = echo.channel('test-channel'); // cualquier canal público
+    const channel = echo.channel('friend-request'); // cualquier canal público
 
     channel.subscribed(() => {
-      console.log('✅ Suscrito al canal test');
+      console.log('✅ Suscrito al canal friend');
       channel.listen('.TestEvent', (e: any) => {
         console.log('📡:', e.message);
       });
@@ -151,12 +151,12 @@ export const Home = () => {
                   {/* ============ Boton de mas servers ============ */}
                   <div className="flex flex-col">
                     <button
-                      onClick={() => navigate('server/new')}
+                      onClick={() => navigate('select-conversation')}
                       className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
                     >
                       <Plus color="#fff" />
                       <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
-                        New Server
+                        Nueva Conversación
                       </span>
                     </button>
                     {/* ============ Servers ============ */}
@@ -191,6 +191,7 @@ export const Home = () => {
               w-full
               min-w-10
               wrap-break-word overflow-hidden
+              
               "
             >
               <Loading />

@@ -2,6 +2,8 @@ import { FileImage, User, UserNotificationSettings, UserPrivacitySettings } from
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
 import { UpdateUserImageResponse } from '@/types/FileImage';
 
+/* ------------------------- Search Users ------------------------- */
+
 export const getUser = async (id: number): Promise<User> => {
   return axios
     .get(`/users/${id}`)
@@ -12,6 +14,8 @@ export const getUser = async (id: number): Promise<User> => {
       return error.response?.data;
     });
 };
+
+/* ------------------------- CRUD ------------------------- */
 
 export const updateUser = async (user: User): Promise<User> => {
   return axios

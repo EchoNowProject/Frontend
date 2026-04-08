@@ -14,6 +14,7 @@ import { Chat } from './Chats/Chats';
 import { Empty } from './Home/Empty';
 import { PricingCard } from './LandingPage/Planes/PricingCards/PricingCard';
 import { CreateServerPage } from './Servers/CreateServerPage';
+import { SelectNewConversation } from './Home/components/SelectNewConversation';
 
 export {
   LandingPage,
@@ -32,4 +33,5 @@ export {
   Empty,
   PricingCard,
   CreateServerPage,
+  SelectNewConversation,
 };
