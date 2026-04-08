@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
@@ -7,10 +7,12 @@ import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
 import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
 import { Loading } from '@/components/UI/Loading/Loading';
+import useEcho from '@/websockets/useEcho';
 
 export const Home = () => {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
   const navigate = useNavigate();
+  const echo = useEcho();
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
@@ -20,6 +22,30 @@ export const Home = () => {
   const toggleSidebar = () => {
     setStateSidebar(!stateSidebar);
   };
+
+  useEffect(() => {
+    if (!echo) return;
+    console.log('entra');
+
+    // Suscribirse a un canal público de ejemplo
+    const channel = echo.channel('test-channel'); // cualquier canal público
+
+    channel.subscribed(() => {
+      console.log('✅ Suscrito al canal test');
+      channel.listen('.TestEvent', (e: any) => {
+        console.log('📡:', e.message);
+      });
+    });
+
+    channel.error((err: any) => {
+      console.error('❌ Error en suscripción:', err);
+    });
+
+    // Escuchar todos los eventos del canal
+    channel.listenToAll((event: any, data: any) => {
+      console.log('📡 Evento recibido:', event, data);
+    });
+  }, [echo]);
 
   return (
     <>
