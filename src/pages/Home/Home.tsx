@@ -8,9 +8,11 @@ import Toast from '@/components/UI/Toast/Toast';
 import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
 import { Loading } from '@/components/UI/Loading/Loading';
 import useEcho from '@/websockets/useEcho';
+import { useUser } from '@/hooks/user/useUser';
 
 export const Home = () => {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
+  const { user } = useUser();
   const navigate = useNavigate();
   const echo = useEcho();
 
@@ -24,16 +26,18 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (!echo) return;
+    if (!echo || !user?.id) return;
+
     console.log('entra');
 
-    // Suscribirse a un canal público de ejemplo
-    const channel = echo.channel('friend-request'); // cualquier canal público
+    // 👇 IMPORTANTE: usar private en vez de channel
+    const channel = echo.private(`friend-request.${user.id}`);
 
     channel.subscribed(() => {
-      console.log('✅ Suscrito al canal friend');
+      console.log('✅ Suscrito al canal privado friend-request');
+
       channel.listen('.TestEvent', (e: any) => {
-        console.log('📡:', e.message);
+        console.log('📡 Evento:', e.message);
       });
     });
 
@@ -41,11 +45,15 @@ export const Home = () => {
       console.error('❌ Error en suscripción:', err);
     });
 
-    // Escuchar todos los eventos del canal
     channel.listenToAll((event: any, data: any) => {
       console.log('📡 Evento recibido:', event, data);
     });
-  }, [echo]);
+
+    // Limpieza al desmontar
+    return () => {
+      echo.leave(`private-friend-request.${user.id}`);
+    };
+  }, [echo, user?.id]);
 
   return (
     <>
