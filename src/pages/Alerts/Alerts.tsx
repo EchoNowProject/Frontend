@@ -17,13 +17,14 @@ export const Alerts = () => {
 
       <div className="p-5 mx-10 rounded-2xl border-2 border-violet-500">
         <table className="w-full table-fixed text-sm border-collapse">
-          <thead className="bg-violet-500/10 text-violet-300 uppercase text-xs">
-            <tr>
-              {/* 👇 más espacio para el mensaje */}
-              <th className="px-6 py-3 w-3/4 text-start">Mensaje</th>
-              <th className="px-6 py-3 w-1/4 text-right">Acción</th>
-            </tr>
-          </thead>
+          {userAlerts && userAlerts.length !== 0 && (
+            <thead className="bg-violet-500/10 text-violet-300 uppercase text-xs">
+              <tr>
+                <th className="px-6 py-3 w-3/4 text-start">Mensaje</th>
+                <th className="px-6 py-3 w-1/4 text-right">Acción</th>
+              </tr>
+            </thead>
+          )}
 
           <tbody>
             {(!userAlerts || userAlerts.length === 0) && (
