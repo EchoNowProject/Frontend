@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
+import { ArrowDoubleLeft, Bell, MenuHamburger1, Plus } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -99,6 +99,21 @@ export const Home = () => {
               {/* ================= DERECHA ================= */}
 
               <ul className="flex flex-row items-center gap-x-3 ms-auto">
+                <div className="relative mx-2">
+                  <button
+                    type="button"
+                    className="flex items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('alerts');
+                    }}
+                  >
+                    <Bell size={20} color="#000" />
+                  </button>
+
+                  {/* Círculo rojo */}
+                  <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
+                </div>
+
                 <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
                   <button
                     type="button"

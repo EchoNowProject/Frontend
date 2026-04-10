@@ -1,12 +1,12 @@
-import { strict } from 'assert';
 import React from 'react';
 
 interface XmarkProps {
   className?: string;
   size?: number;
+  color?: string;
 }
 
-export default function Xmark({ className, size }: XmarkProps) {
+export default function Xmark({ className, size, color }: XmarkProps) {
   return (
     <svg
       width={size ?? 80}
@@ -19,7 +19,7 @@ export default function Xmark({ className, size }: XmarkProps) {
     >
       <path
         d="M6.75 17.249L17.2479 6.75111M6.75 6.75098L17.2479 17.2489"
-        stroke="#000000"
+        stroke={color ?? '#000000'}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

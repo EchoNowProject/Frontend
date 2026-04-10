@@ -58,3 +58,13 @@ export interface UserPrivacitySettings {
   created_at: string;
   updated_at: string;
 }
+
+export interface UserAlert {
+  id: number;
+  source_user_id: number;
+  target_user_id: number;
+  type: string;
+  message: null;
+  created_at: string;
+  updated_at: string;
+}

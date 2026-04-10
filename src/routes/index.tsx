@@ -8,6 +8,7 @@ import {
   AuthMain,
   Profile,
   SelectNewConversation,
+  Alerts,
 } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: 'profile/change-password',
         element: <ChangePassword />,
+      },
+      {
+        path: 'alerts',
+        element: <Alerts />,
       },
     ],
   },

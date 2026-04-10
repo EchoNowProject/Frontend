@@ -5,5 +5,6 @@ export {
   type UserNotificationSettings,
   type GeneralSettings,
   type UserPrivacitySettings,
+  type UserAlert,
 } from './User';
 export { type FileImage, type UpdateUserImageResponse } from './FileImage';

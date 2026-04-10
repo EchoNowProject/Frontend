@@ -2,7 +2,7 @@ import { User } from '@/types';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { UserContext } from '@/context/User/UserContext';
 import { me } from '@/api/authApi';
-import { updateUser } from '@/api/UserApi';
+import { updateUser } from '@/api/User/UserApi';
 import { useToast } from '@/hooks/useToast';
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {

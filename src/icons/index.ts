@@ -23,3 +23,4 @@ export { default as Pencil } from './Pencil';
 export { default as Upload } from './Upload';
 export { default as Server } from './Server';
 export { default as Search } from './Search';
+export { default as Bell } from './Bell';

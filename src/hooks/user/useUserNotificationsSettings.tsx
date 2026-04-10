@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useUser } from './useUser';
-import { getUserNotificationsSettings, saveUserNotificationsSettings } from '@/api/UserApi';
+import { getUserNotificationsSettings, saveUserNotificationsSettings } from '@/api/User/UserApi';
 import { UserNotificationSettings } from '@/types';
 import { useToast } from '@/hooks/useToast';
 
