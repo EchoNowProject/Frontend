@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft, MenuHamburger1, Plus } from '@icons/index';
+import { ArrowDoubleLeft, Bell, MenuHamburger1, Plus, UserMultiple4 } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
 import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
 import { Loading } from '@/components/UI/Loading/Loading';
 import useEcho from '@/websockets/useEcho';
+import { useUser } from '@/hooks/user/useUser';
+import { useFriendRequestWS } from '@/websockets/useFriendRequestWS';
 
 export const Home = () => {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
+  const { user } = useUser();
   const navigate = useNavigate();
   const echo = useEcho();
+  const { conectFriendRequestWebsocket } = useFriendRequestWS();
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
@@ -24,28 +28,8 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (!echo) return;
-    console.log('entra');
-
-    // Suscribirse a un canal público de ejemplo
-    const channel = echo.channel('test-channel'); // cualquier canal público
-
-    channel.subscribed(() => {
-      console.log('✅ Suscrito al canal test');
-      channel.listen('.TestEvent', (e: any) => {
-        console.log('📡:', e.message);
-      });
-    });
-
-    channel.error((err: any) => {
-      console.error('❌ Error en suscripción:', err);
-    });
-
-    // Escuchar todos los eventos del canal
-    channel.listenToAll((event: any, data: any) => {
-      console.log('📡 Evento recibido:', event, data);
-    });
-  }, [echo]);
+    conectFriendRequestWebsocket();
+  }, [echo, user?.id]);
 
   return (
     <>
@@ -74,8 +58,20 @@ export const Home = () => {
 
               {/* ================= CENTRO (SEARCH) ================= */}
               <ul className="hidden lg:flex flex-1 justify-center px-4">
-                <li className="w-full max-w-xl">
-                  <div className="relative">
+                <li className="w-full max-w-xl flex items-center gap-3">
+                  {/* Icono campana */}
+                  <button
+                    type="button"
+                    className="flex items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('alerts');
+                    }}
+                  >
+                    <UserMultiple4 size={20} color="#fff" />
+                  </button>
+
+                  {/* Input */}
+                  <div className="relative flex-1">
                     <input
                       type="search"
                       placeholder="Search"
@@ -91,6 +87,21 @@ export const Home = () => {
               {/* ================= DERECHA ================= */}
 
               <ul className="flex flex-row items-center gap-x-3 ms-auto">
+                <div className="relative mx-2">
+                  <button
+                    type="button"
+                    className="flex items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('alerts');
+                    }}
+                  >
+                    <Bell size={20} color="#000" />
+                  </button>
+
+                  {/* Círculo rojo */}
+                  <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
+                </div>
+
                 <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
                   <button
                     type="button"
@@ -151,12 +162,12 @@ export const Home = () => {
                   {/* ============ Boton de mas servers ============ */}
                   <div className="flex flex-col">
                     <button
-                      onClick={() => navigate('server/new')}
+                      onClick={() => navigate('select-conversation')}
                       className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
                     >
                       <Plus color="#fff" />
                       <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
-                        New Server
+                        Nueva Conversación
                       </span>
                     </button>
                     {/* ============ Servers ============ */}
@@ -191,6 +202,7 @@ export const Home = () => {
               w-full
               min-w-10
               wrap-break-word overflow-hidden
+              
               "
             >
               <Loading />

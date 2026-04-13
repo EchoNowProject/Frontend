@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useUser } from './useUser';
 import { useToast } from '@/hooks/useToast';
 import { UserPrivacitySettings } from '@/types';
-import { getUserPrivacitySettings, saveUserPrivacitySettings } from '@/api/UserApi';
+import { getUserPrivacitySettings, saveUserPrivacitySettings } from '@/api/User/UserApi';
 
 export const useUserPrivacitySettings = () => {
   const { user, setUser } = useUser();

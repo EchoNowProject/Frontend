@@ -3,7 +3,7 @@ import { useUser } from '@/hooks/user/useUser';
 import { Pencil, Trash, Upload, User } from '@/icons';
 import { phonePrefixes } from '@/hooks/user/data/phonePrefixes';
 import { useNavigate } from 'react-router';
-import { deleteUserImage, updateUserImage } from '@/api/UserApi';
+import { deleteUserImage, updateUserImage } from '@/api/User/UserApi';
 import { useToast } from '@/hooks/useToast';
 import { useFileImage } from '@/hooks/utils/useFileimage';
 import { useLoading } from '@/hooks/useLoading';
