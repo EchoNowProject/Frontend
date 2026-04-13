@@ -8,3 +8,4 @@ export {
   type UserAlert,
 } from './User';
 export { type FileImage, type UpdateUserImageResponse } from './FileImage';
+export { type FriendRequestResponseWebsocket } from './Websocket';

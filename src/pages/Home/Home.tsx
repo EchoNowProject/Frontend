@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft, Bell, MenuHamburger1, Plus } from '@icons/index';
+import { ArrowDoubleLeft, Bell, MenuHamburger1, Plus, UserMultiple4 } from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -9,12 +9,14 @@ import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
 import { Loading } from '@/components/UI/Loading/Loading';
 import useEcho from '@/websockets/useEcho';
 import { useUser } from '@/hooks/user/useUser';
+import { useFriendRequestWS } from '@/websockets/useFriendRequestWS';
 
 export const Home = () => {
   const [stateSidebar, setStateSidebar] = useState<boolean>(false);
   const { user } = useUser();
   const navigate = useNavigate();
   const echo = useEcho();
+  const { conectFriendRequestWebsocket } = useFriendRequestWS();
 
   useHotkeys('ctrl+k', (e: Event) => {
     e.preventDefault();
@@ -26,33 +28,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (!echo || !user?.id) return;
-
-    console.log('entra');
-
-    // 👇 IMPORTANTE: usar private en vez de channel
-    const channel = echo.private(`friend-request.${user.id}`);
-
-    channel.subscribed(() => {
-      console.log('✅ Suscrito al canal privado friend-request');
-
-      channel.listen('.TestEvent', (e: any) => {
-        console.log('📡 Evento:', e.message);
-      });
-    });
-
-    channel.error((err: any) => {
-      console.error('❌ Error en suscripción:', err);
-    });
-
-    channel.listenToAll((event: any, data: any) => {
-      console.log('📡 Evento recibido:', event, data);
-    });
-
-    // Limpieza al desmontar
-    return () => {
-      echo.leave(`private-friend-request.${user.id}`);
-    };
+    conectFriendRequestWebsocket();
   }, [echo, user?.id]);
 
   return (
@@ -82,8 +58,20 @@ export const Home = () => {
 
               {/* ================= CENTRO (SEARCH) ================= */}
               <ul className="hidden lg:flex flex-1 justify-center px-4">
-                <li className="w-full max-w-xl">
-                  <div className="relative">
+                <li className="w-full max-w-xl flex items-center gap-3">
+                  {/* Icono campana */}
+                  <button
+                    type="button"
+                    className="flex items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('alerts');
+                    }}
+                  >
+                    <UserMultiple4 size={20} color="#fff" />
+                  </button>
+
+                  {/* Input */}
+                  <div className="relative flex-1">
                     <input
                       type="search"
                       placeholder="Search"

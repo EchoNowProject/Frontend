@@ -12,7 +12,7 @@ export const SelectNewConversation = () => {
 
     return (
       <div className="mt-4 rounded-2xl border border-violet-500 bg-[#2b2b2b] shadow-2xl p-3">
-        {/* 📱 MOBILE: Cards */}
+        {/* MOBILE */}
         <div className="flex flex-col gap-3 md:hidden">
           {users.length === 0 ? (
             <p className="text-center text-gray-400 italic py-4">No se encontraron usuarios</p>
@@ -35,15 +35,17 @@ export const SelectNewConversation = () => {
           )}
         </div>
 
-        {/* 💻 DESKTOP: Tabla */}
+        {/* MD en adelante */}
         <div className="hidden md:block max-h-80 overflow-y-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-violet-500/10 text-violet-300 uppercase text-xs">
-              <tr>
-                <th className="px-6 py-3">Usuarios</th>
-                <th className="px-6 py-3 text-right">Acción</th>
-              </tr>
-            </thead>
+            {users.length !== 0 && (
+              <thead className="bg-violet-500/10 text-violet-300 uppercase text-xs">
+                <tr>
+                  <th className="px-6 py-3">Usuarios</th>
+                  <th className="px-6 py-3 text-right">Acción</th>
+                </tr>
+              </thead>
+            )}
 
             <tbody>
               {users.length === 0 ? (

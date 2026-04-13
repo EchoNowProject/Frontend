@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { searchManyUsers } from '@/api/FriendRequestsApi';
+import { searchManyUsers } from '@/api/Friends/FriendRequestsApi';
 import { User } from '@/types';
-import { sendFriendRequest } from '@/api/FriendRequestsApi';
+import { sendFriendRequest } from '@/api/Friends/FriendRequestsApi';
 import { useToast } from './useToast';
 
 export const useFriendRequest = () => {
