@@ -3,18 +3,22 @@ import { addNewFriend } from '@/api/Friends/FriendsApi';
 import { UserAlert } from '@/types';
 import React, { useState } from 'react';
 import { useToast } from './useToast';
+import { useLoading } from './useLoading';
 
 export const useAlerts = () => {
   const [userAlerts, setUserAlerts] = useState<UserAlert[]>();
   const { initiateToast } = useToast();
+  const { setShowLoading } = useLoading();
 
   /**
    * Funcion que recoge las alertas de un usuario
    */
   const getAlerts = async () => {
+    setShowLoading(true);
     try {
       let alerts = await getUserAlerts();
       setUserAlerts(alerts);
+      setShowLoading(false);
     } catch (error) {
       console.log(error);
     }

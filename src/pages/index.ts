@@ -16,6 +16,7 @@ import { PricingCard } from './LandingPage/Planes/PricingCards/PricingCard';
 import { CreateServerPage } from './Servers/CreateServerPage';
 import { SelectNewConversation } from './Home/SelectNewConversation';
 import { Alerts } from './Alerts/Alerts';
+import { Friends } from './Friends/Friends';
 
 export {
   LandingPage,
@@ -36,4 +37,5 @@ export {
   CreateServerPage,
   SelectNewConversation,
   Alerts,
+  Friends,
 };

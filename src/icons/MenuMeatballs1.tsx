@@ -1,10 +1,17 @@
 import React from 'react';
 
-export default function MenuMeatballs1() {
+interface MeatBallsProps {
+  className?: string;
+  color?: string;
+  size?: number;
+}
+
+export default function MenuMeatballs1(props: MeatBallsProps) {
   return (
     <svg
-      width="15"
-      height="15"
+      width={props.size ?? '15'}
+      height={props.size ?? '15'}
+      className={props.className}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +19,7 @@ export default function MenuMeatballs1() {
     >
       <path
         d="M12 9.86914C13.1736 9.86914 14.125 10.8205 14.125 11.9941V12.0041C14.125 13.1777 13.1736 14.1291 12 14.1291C10.8264 14.1291 9.875 13.1777 9.875 12.0041V11.9941C9.875 10.8205 10.8264 9.86914 12 9.86914ZM18 9.86914C19.1736 9.86914 20.125 10.8205 20.125 11.9941V12.0041C20.125 13.1777 19.1736 14.1291 18 14.1291C16.8264 14.1291 15.875 13.1777 15.875 12.0041V11.9941C15.875 10.8205 16.8264 9.86914 18 9.86914ZM6 9.86914C7.1736 9.86914 8.125 10.8205 8.125 11.9941V12.0041C8.125 13.1777 7.17361 14.1291 6 14.1291C4.8264 14.1291 3.875 13.1777 3.875 12.0041V11.9941C3.875 10.8205 4.82639 9.86914 6 9.86914Z"
-        fill="#ffffff"
+        fill={props.color ?? '#ffffff'}
       />
     </svg>
   );

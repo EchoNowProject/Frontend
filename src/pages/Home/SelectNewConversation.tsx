@@ -11,67 +11,63 @@ export const SelectNewConversation = () => {
     if (!users) return null;
 
     return (
-      <div className="mt-4 rounded-2xl border border-violet-500 bg-[#2b2b2b] shadow-2xl p-3">
-        {/* MOBILE */}
-        <div className="flex flex-col gap-3 md:hidden">
-          {users.length === 0 ? (
-            <p className="text-center text-gray-400 italic py-4">No se encontraron usuarios</p>
-          ) : (
-            users.map((user) => (
-              <div
-                key={user.username}
-                className="flex justify-between items-center bg-[#1f1f1f] p-3 rounded-xl"
-              >
-                <span className="text-white font-medium">{user.username}</span>
-
-                <button
-                  onClick={() => sendFriendRequestButton(user.id)}
-                  className="px-3 py-2 rounded-lg bg-violet-600 text-xs font-semibold active:scale-95"
+      <div>
+        {users.length === 0 ? (
+          <div className="py-10 text-center text-gray-400 italic">No se encontraron usuarios</div>
+        ) : (
+          <>
+            {/* MOBILE */}
+            <div className="flex flex-col gap-4 md:hidden max-h-[60vh] overflow-y-auto pr-1">
+              {users.map((user) => (
+                <div
+                  key={user.username}
+                  className="w-full flex justify-between items-center rounded-xl border border-violet-500/20 bg-[#1f1f1f] p-4"
                 >
-                  Añadir
-                </button>
-              </div>
-            ))
-          )}
-        </div>
+                  <span className="text-white font-medium wrap-break-word">{user.username}</span>
 
-        {/* MD en adelante */}
-        <div className="hidden md:block max-h-80 overflow-y-auto">
-          <table className="w-full text-sm text-left">
-            {users.length !== 0 && (
-              <thead className="bg-violet-500/10 text-violet-300 uppercase text-xs">
-                <tr>
-                  <th className="px-6 py-3">Usuarios</th>
-                  <th className="px-6 py-3 text-right">Acción</th>
-                </tr>
-              </thead>
-            )}
+                  <button
+                    onClick={() => sendFriendRequestButton(user.id)}
+                    className="px-3 py-2 rounded-lg bg-violet-600 text-xs font-semibold active:scale-95 transition"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              ))}
+            </div>
 
-            <tbody>
-              {users.length === 0 ? (
-                <tr>
-                  <td colSpan={2} className="px-6 py-6 text-center text-gray-400 italic">
-                    No se encontraron usuarios
-                  </td>
-                </tr>
-              ) : (
-                users.map((user) => (
-                  <tr key={user.username} className="border-t border-violet-500/20">
-                    <td className="px-6 py-4 text-white">{user.username}</td>
-                    <td className="px-6 py-4 text-right">
-                      <button
-                        onClick={() => sendFriendRequestButton(user.id)}
-                        className="px-4 py-2 rounded-lg bg-violet-600 text-xs font-semibold"
-                      >
-                        Solicitud
-                      </button>
-                    </td>
+            {/* DESKTOP / TABLET */}
+            <div className="hidden md:block max-h-[60vh] overflow-auto rounded-xl border border-violet-500/20">
+              <table className="w-full text-sm min-w-[500px]">
+                <thead className="top-0 z-10 bg-violet-500/10 text-violet-300 uppercase text-xs backdrop-blur">
+                  <tr>
+                    <th className="px-6 py-4 text-left">Usuarios</th>
+                    <th className="px-6 py-4 text-right">Acción</th>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+
+                <tbody>
+                  {users.map((user) => (
+                    <tr
+                      key={user.username}
+                      className="border-t border-violet-500/20 hover:bg-violet-500/5 transition"
+                    >
+                      <td className="px-6 py-4 text-white wrap-break-word">{user.username}</td>
+
+                      <td className="px-6 py-4 text-right">
+                        <button
+                          onClick={() => sendFriendRequestButton(user.id)}
+                          className="px-4 py-2 rounded-lg bg-violet-600 text-xs font-semibold hover:bg-violet-500 transition active:scale-95"
+                        >
+                          Solicitar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
     );
   };

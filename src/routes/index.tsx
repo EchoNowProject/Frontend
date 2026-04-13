@@ -9,6 +9,7 @@ import {
   Profile,
   SelectNewConversation,
   Alerts,
+  Friends,
 } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: 'alerts',
         element: <Alerts />,
+      },
+      {
+        path: 'friends',
+        element: <Friends />,
       },
     ],
   },
