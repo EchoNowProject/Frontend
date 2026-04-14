@@ -18,7 +18,23 @@ export const addNewFriend = async (idAlert: number): Promise<string> => {
 
 export const getFriends = async (): Promise<Friend[]> => {
   return axios
-    .get(`/friends/getFriends`)
+    .get(`/friends/get`)
+    .then((response: AxiosResponse) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};
+
+export const deleteFriend = async (friend: Friend): Promise<string> => {
+  return axios
+    .delete(`/friends/delete`, {
+      data: {
+        idFriend: friend.first_user_id,
+        usernameFriend: friend.first_user_username,
+      },
+    })
     .then((response: AxiosResponse) => {
       return response.data;
     })

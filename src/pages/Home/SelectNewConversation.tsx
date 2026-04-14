@@ -1,7 +1,7 @@
 import React from 'react';
 import { User as UserIcon, Server, UserMultiple4, LocationArrowRight, Search } from '@/icons';
 import { useNavigate } from 'react-router';
-import { useFriendRequest } from '@/hooks/useFriendRequest';
+import { useFriendRequest } from '@/hooks/friends/useFriendRequest';
 
 export const SelectNewConversation = () => {
   const navigate = useNavigate();

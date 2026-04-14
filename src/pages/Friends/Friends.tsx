@@ -1,9 +1,9 @@
-import { useFriends } from '@/hooks/useFriends';
-import { MenuMeatballs1, Message3Text } from '@/icons';
+import { useFriends } from '@/hooks/friends/useFriends';
+import { Message3Text, Trash } from '@/icons';
 import { useEffect } from 'react';
 
 export const Friends = () => {
-  const { friends, getFriends } = useFriends();
+  const { friends, getFriends, deleteFriend } = useFriends();
 
   useEffect(() => {
     getFriends();
@@ -45,12 +45,15 @@ export const Friends = () => {
 
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-3">
-                        <button className="p-2 rounded-md bg-violet-500/20 hover:bg-violet-500/30 transition">
+                        <button className="p-2 rounded-md bg-violet-500/20 hover:bg-violet-500/40 transition">
                           <Message3Text color="#fff" size={20} />
                         </button>
 
-                        <button className="p-2 rounded-md bg-violet-500/20 hover:bg-violet-500/30 transition">
-                          <MenuMeatballs1 size={20} color="#fff" />
+                        <button
+                          className="p-2 rounded-md bg-red-500/20 hover:bg-red-500/40 transition"
+                          onClick={() => deleteFriend(friend)}
+                        >
+                          <Trash color="#fff" size={20} />
                         </button>
                       </div>
                     </td>
@@ -76,8 +79,11 @@ export const Friends = () => {
                     <Message3Text color="#fff" size={20} />
                   </button>
 
-                  <button className="p-3 rounded-md bg-violet-500/20 active:scale-95 transition">
-                    <MenuMeatballs1 size={20} color="#fff" />
+                  <button
+                    className="p-3 rounded-md bg-red-500/20 active:scale-95 transition"
+                    onClick={() => deleteFriend(friend)}
+                  >
+                    <Trash color="#fff" size={20} />
                   </button>
                 </div>
               </div>
