@@ -36,12 +36,10 @@ export const Friends = () => {
               <tbody>
                 {friends.map((friend) => (
                   <tr
-                    key={friend.first_user_id}
+                    key={friend.id}
                     className="border-t border-violet-500/20 hover:bg-violet-500/5 transition"
                   >
-                    <td className="px-6 py-4 text-white wrap-break-word">
-                      {friend.first_user_username}
-                    </td>
+                    <td className="px-6 py-4 text-white wrap-break-word">{friend.username}</td>
 
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-3">
@@ -67,11 +65,11 @@ export const Friends = () => {
           <div className="md:hidden flex flex-col gap-4">
             {friends.map((friend) => (
               <div
-                key={friend.first_user_id}
+                key={friend.id}
                 className="flex justify-between items-center text-center w-full rounded-xl border border-violet-500/20 p-4 bg-black/10"
               >
                 <p className="text-white text-xs wrap-break-word justify-center ">
-                  {friend.first_user_username}
+                  {friend.username}
                 </p>
 
                 <div className="flex justify-end gap-3">

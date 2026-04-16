@@ -9,4 +9,4 @@ export {
 } from './User';
 export { type FileImage, type UpdateUserImageResponse } from './FileImage';
 export { type FriendRequestResponseWebsocket } from './Websocket';
-export { type Friend } from './Friend';
+export { type Friend, type FriendResponse } from './Friend';

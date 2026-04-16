@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
-import { Friend } from '@/types';
+import { FriendResponse } from '@/types';
 
 export const addNewFriend = async (idAlert: number): Promise<string> => {
   return axios
@@ -16,7 +16,7 @@ export const addNewFriend = async (idAlert: number): Promise<string> => {
     });
 };
 
-export const getFriends = async (): Promise<Friend[]> => {
+export const getFriends = async (): Promise<FriendResponse[]> => {
   return axios
     .get(`/friends/get`)
     .then((response: AxiosResponse) => {
@@ -27,12 +27,12 @@ export const getFriends = async (): Promise<Friend[]> => {
     });
 };
 
-export const deleteFriend = async (friend: Friend): Promise<string> => {
+export const deleteFriend = async (friend: FriendResponse): Promise<string> => {
   return axios
     .delete(`/friends/delete`, {
       data: {
-        idFriend: friend.first_user_id,
-        usernameFriend: friend.first_user_username,
+        idFriend: friend.id,
+        usernameFriend: friend.username,
       },
     })
     .then((response: AxiosResponse) => {
