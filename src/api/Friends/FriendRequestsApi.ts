@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from '@/api/axios';
-import { User } from '@/types';
+import { User, UserAlert } from '@/types';
 
 export const searchManyUsers = async (input: string): Promise<User[]> => {
   return axios
@@ -24,5 +24,20 @@ export const sendFriendRequest = async (idUser: number): Promise<string> => {
     })
     .catch((error: AxiosError) => {
       return error.response?.data;
+    });
+};
+
+export const declineFriendRequest = async (alert: UserAlert): Promise<string> => {
+  return axios
+    .delete('/friend-request/decline-friend-request', {
+      data: {
+        alert: alert,
+      },
+    })
+    .then((reponse: AxiosResponse) => {
+      return reponse.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
     });
 };

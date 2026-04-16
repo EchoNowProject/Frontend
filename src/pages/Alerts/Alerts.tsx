@@ -3,7 +3,7 @@ import { Xmark } from '@/icons';
 import React, { useEffect } from 'react';
 
 export const Alerts = () => {
-  const { userAlerts, getAlerts, acceptFriendRequest, declineFriendRequest } = useAlerts();
+  const { userAlerts, getAlerts, acceptFriendRequest, decline } = useAlerts();
 
   useEffect(() => {
     getAlerts();
@@ -37,7 +37,7 @@ export const Alerts = () => {
 
                     <button
                       className="px-3 py-2 rounded-lg bg-red-500 active:scale-95 transition"
-                      onClick={() => declineFriendRequest(alert)}
+                      onClick={() => decline(alert)}
                     >
                       <Xmark size={20} color="#fff" />
                     </button>
@@ -75,7 +75,7 @@ export const Alerts = () => {
 
                           <button
                             className="px-3 py-2 rounded-lg bg-red-500 active:scale-95 transition"
-                            onClick={() => declineFriendRequest(alert)}
+                            onClick={() => decline(alert)}
                           >
                             <Xmark size={20} color="#fff" />
                           </button>
