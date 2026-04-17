@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+* {
+  font-family: 'Space Mono', monospace;
+}
+
+button {
+  cursor: pointer;
+}

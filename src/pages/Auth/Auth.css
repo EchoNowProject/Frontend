@@ -1,0 +1,38 @@
+img.logoEchoNowLogin {
+  display: block; /* evita saltos por línea base */
+  margin: 0 auto; /* centrado si está en línea */
+  animation: mover 8s ease-in-out infinite alternate;
+  will-change: transform; /* mejora el rendimiento */
+}
+
+/* Efecto 3D */
+.perspective {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Cuando el reverso está visible */
+.auth-card.flipped > .back {
+  z-index: 2;
+}
+
+@keyframes mover {
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(-20px);
+  }
+}
