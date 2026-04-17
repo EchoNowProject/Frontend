@@ -1,20 +1,25 @@
 import { getUserAlerts } from '@/api/AlertsApi';
 import { addNewFriend } from '@/api/Friends/FriendsApi';
+import { declineFriendRequest } from '@/api/Friends/FriendRequestsApi';
 import { UserAlert } from '@/types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useToast } from './useToast';
+import { useLoading } from './useLoading';
 
 export const useAlerts = () => {
   const [userAlerts, setUserAlerts] = useState<UserAlert[]>();
   const { initiateToast } = useToast();
+  const { setShowLoading } = useLoading();
 
   /**
    * Funcion que recoge las alertas de un usuario
    */
   const getAlerts = async () => {
+    setShowLoading(true);
     try {
       let alerts = await getUserAlerts();
       setUserAlerts(alerts);
+      setShowLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -34,13 +39,18 @@ export const useAlerts = () => {
     }
   };
 
-  const declineFriendRequest = async (userAlert: UserAlert) => {
+  /**
+   * Funcion que elimina la solicitud de amistad
+   * @param userAlert
+   */
+  const decline = async (userAlert: UserAlert) => {
     try {
-      let data; // Await ...
+      await declineFriendRequest(userAlert);
+      setUserAlerts((prevAlert) => prevAlert?.filter((alert) => alert.id !== userAlert.id));
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { userAlerts, getAlerts, acceptFriendRequest, declineFriendRequest };
+  return { userAlerts, getAlerts, acceptFriendRequest, decline };
 };

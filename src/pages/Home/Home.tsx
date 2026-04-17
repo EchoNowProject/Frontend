@@ -64,7 +64,7 @@ export const Home = () => {
                     type="button"
                     className="flex items-center rounded-md p-1"
                     onClick={() => {
-                      navigate('alerts');
+                      navigate('friends');
                     }}
                   >
                     <UserMultiple4 size={20} color="#fff" />
@@ -201,8 +201,8 @@ export const Home = () => {
               p-2
               w-full
               min-w-10
-              wrap-break-word overflow-hidden
-              
+              wrap-break-word
+              overflow-auto
               "
             >
               <Loading />

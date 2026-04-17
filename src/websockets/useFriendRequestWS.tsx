@@ -28,7 +28,6 @@ export const useFriendRequestWS = () => {
     });
 
     channel.listenToAll((event: any, data: FriendRequestResponseWebsocket) => {
-      console.log(data);
       initiateToast(String(data.message), true);
     });
 

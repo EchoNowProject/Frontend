@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { searchManyUsers } from '@/api/Friends/FriendRequestsApi';
 import { User } from '@/types';
 import { sendFriendRequest } from '@/api/Friends/FriendRequestsApi';
-import { useToast } from './useToast';
+import { useToast } from '../useToast';
 
 export const useFriendRequest = () => {
   const requestIdRef = useRef(0);
