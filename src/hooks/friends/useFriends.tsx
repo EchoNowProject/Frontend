@@ -2,7 +2,7 @@ import {
   getFriends as getFriendsApi,
   deleteFriend as deleteFriendApi,
 } from '@/api/Friends/FriendsApi';
-import { FriendResponse } from '@/types';
+import { Friend, FriendResponse } from '@/types';
 import { useState } from 'react';
 import { useLoading } from '../useLoading';
 import { useToast } from '../useToast';
@@ -20,8 +20,7 @@ export const useFriends = () => {
 
     try {
       const friendsResponse = await getFriendsApi();
-      setFriends(friendsResponse);
-      console.log(friendsResponse[0].username);
+      setFriends(friendsResponse ?? ([] as FriendResponse[]));
       setShowLoading(false);
     } catch (error) {
       console.log(error);

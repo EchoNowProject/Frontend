@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { ArrowDoubleLeft, Bell, MenuHamburger1, Plus, UserMultiple4 } from '@icons/index';
+import {
+  ArrowDoubleLeft,
+  Bell,
+  MenuHamburger1,
+  Plus,
+  UserMultiple4,
+  Home as HomeIcon,
+} from '@icons/index';
 import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -12,10 +19,11 @@ import { useUser } from '@/hooks/user/useUser';
 import { useFriendRequestWS } from '@/websockets/useFriendRequestWS';
 
 export const Home = () => {
-  const [stateSidebar, setStateSidebar] = useState<boolean>(false);
-  const { user } = useUser();
   const navigate = useNavigate();
   const echo = useEcho();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [stateSidebar, setStateSidebar] = useState<boolean>(false);
+  const { user } = useUser();
   const { conectFriendRequestWebsocket } = useFriendRequestWS();
 
   useHotkeys('ctrl+k', (e: Event) => {
@@ -31,6 +39,20 @@ export const Home = () => {
     conectFriendRequestWebsocket();
   }, [echo, user?.id]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setStateSidebar(false); // 👈 cerrar sidebar
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <ServerProvider>
@@ -42,19 +64,33 @@ export const Home = () => {
               {/* ================= BOTÓN DE HAMBURGUESA (MÓVIL) ================= */}
               <button
                 type="button"
+                className="md:hidden text-white hidden lg:flex"
+                onClick={() => navigate('/home')}
+              >
+                <HomeIcon />
+              </button>
+              <button
+                type="button"
                 className="lg:hidden text-white"
                 onClick={toggleSidebar}
                 aria-label="Toggle Sidebar"
               >
-                <MenuHamburger1 className="size-5" /> {/* Usa un icono de menú/hamburguesa */}
+                <MenuHamburger1 />
               </button>
-
+              <button
+                type="button"
+                className="md:flex lg:hidden items-center rounded-md p-1"
+                onClick={() => {
+                  navigate('friends');
+                }}
+              >
+                <UserMultiple4 size={20} color="#000" />
+              </button>
               {/* ================= IZQUIERDA ================= */}
-              <ul className="flex items-center gap-1.5 shrink-0">
+              {/* <ul className="flex items-center gap-1.5 shrink-0">
                 <Server />
-                {/* Separadaor */}
                 <Group />
-              </ul>
+              </ul> */}
 
               {/* ================= CENTRO (SEARCH) ================= */}
               <ul className="hidden lg:flex flex-1 justify-center px-4">
@@ -67,7 +103,7 @@ export const Home = () => {
                       navigate('friends');
                     }}
                   >
-                    <UserMultiple4 size={20} color="#fff" />
+                    <UserMultiple4 size={20} color="#000" />
                   </button>
 
                   {/* Input */}
@@ -140,6 +176,7 @@ export const Home = () => {
           <div className="flex flex-col lg:flex-row h-full px-3 pb-3 gap-3">
             {/* ============ SIDEBAR ============ */}
             <section
+              ref={sidebarRef}
               className={`
               fixed top-10 bottom-0 left-0 z-40
               lg:static
@@ -155,34 +192,41 @@ export const Home = () => {
               transition-all duration-300 ease-in-out`}
             >
               {/* Contenedor */}
-              <div className="flex flex-col h-full w-full wrap-break-word overflow-hidden">
+              <div className="flex flex-col flex-1 w-full min-h-0">
                 {/* ============ Chats  y Servers ============ */}
 
-                <div className="h-full">
+                <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
                   {/* ============ Boton de mas servers ============ */}
                   <div className="flex flex-col">
                     <button
+                      onClick={() => navigate('/home')}
+                      className="flex lg:hidden justify-center items-center rounded-lg bg-violet-900/80 p-2 border-violet-700 border mb-2"
+                    >
+                      <HomeIcon color="#fff" />
+                      <span className="ms-2 text-[12px]">Navegar al Inicio</span>
+                    </button>
+
+                    <button
                       onClick={() => navigate('select-conversation')}
-                      className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
+                      className="flex justify-center items-center rounded-lg lg:border-0 lg:bg-neutral-900/80 bg-violet-700/80 p-2 md:border-violet-700 md:border"
                     >
                       <Plus color="#fff" />
                       <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
                         Nueva Conversación
                       </span>
                     </button>
-                    {/* ============ Servers ============ */}
-                    {/* <div className="my-2">Side</div> */}
+
+                    <div className="my-2 border-t border-white/20"></div>
                     <ServersSidebar />
                   </div>
                 </div>
 
-                {/* collapase del sidebar (solo visible en LG) */}
                 <button
-                  className="hidden lg:flex flex-row justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px] mb-2"
+                  className="hidden lg:flex justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px] mt-2"
                   onClick={toggleSidebar}
                 >
                   <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
-                  {stateSidebar && <span>Collapse sidebar</span>}
+                  {stateSidebar && <span className="ml-2">Collapse sidebar</span>}
                 </button>
               </div>
             </section>
