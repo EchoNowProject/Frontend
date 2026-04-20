@@ -16,18 +16,14 @@ export const ServersSidebar = () => {
 
   return (
     <>
-      <div className="flex flex-col max-w-65 my-2">
+      <div className="flex flex-col max-w-65 my-1 mb-10 gap-3">
         {servers &&
           servers.map((server) => (
             <button
               key={server.id}
               onClick={() => navigate('server/new')}
-              className="flex justify-center items-center rounded-lg bg-neutral-900/80 p-2"
+              className="flex justify-center items-center rounded-lg lg:bg-neutral-900/80 bg-neutral-800 p-2"
             >
-              {/*  <Plus color="#fff" />
-              <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
-                New Server
-              </span> */}
               {server.name}
             </button>
           ))}

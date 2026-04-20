@@ -7,3 +7,15 @@
 button {
   cursor: pointer;
 }
+
+.scrollbar-hide {
+  /* IE y Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  /* Chrome, Safari */
+  display: none;
+}
