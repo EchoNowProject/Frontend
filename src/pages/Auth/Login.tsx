@@ -1,4 +1,3 @@
-import React from 'react';
 import { useUser } from '@/hooks/user/useUser';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -7,7 +6,7 @@ export const Login = ({ onFlip }: { onFlip: () => void }) => {
   const { user } = useUser();
 
   return (
-    <div className="front absolute w-full h-full backface-hidden bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
+    <div className="front col-start-1 row-start-1 h-full flex flex-col justify-center backface-hidden bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
       <h1 className="mb-6 font-bold text-white text-2xl sm:text-3xl text-center">
         Iniciar Sesión en EchoNow
       </h1>

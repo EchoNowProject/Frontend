@@ -7,7 +7,7 @@ export const Register = ({ onFlip }: { onFlip: () => void }) => {
   const { handleChanges, handleSubmit } = useAuth();
 
   return (
-    <div className="back absolute w-full h-full backface-hidden rotate-y-180 bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
+    <div className="back col-start-1 row-start-1 h-full flex flex-col justify-center backface-hidden rotate-y-180 bg-violet-600 border border-violet-400 rounded-2xl shadow-2xl p-6 sm:p-8">
       <h1 className="mb-6 font-bold text-white text-2xl sm:text-3xl text-center">
         Crear cuenta en EchoNow
       </h1>
