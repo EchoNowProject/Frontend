@@ -1,15 +1,15 @@
 import './Template.css';
-import React from 'react';
-import Navbar from '@/components/UI/Navbar/Navbar';
+import { Navbar } from '@/components/UI/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 
 export const Template = () => {
   return (
-    <div id="main">
+    <div id="main" className="min-h-screen flex flex-col">
       <Navbar />
-      <div>
+
+      <main className="flex-1 flex flex-col">
         <Outlet /> {/* Aquí se renderiza la vista hija */}
-      </div>
+      </main>
     </div>
   );
 };
