@@ -1,23 +1,39 @@
 import { useChat } from '@/hooks/useChat';
 import { useUser } from '@/hooks/user/useUser';
+import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { User } from '@/icons';
 import { ToolBarChat } from '@/pages/Home/components';
 import { ChatLocationState } from '@/types';
+import useEcho from '@/websockets/useEcho';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 
 export const Chat = () => {
   const location = useLocation() as { state: ChatLocationState };
+  const echo = useEcho();
 
   const typeConversation = location.state.typeConversation;
   const userTargetId = location.state.userTargetId;
 
-  const { getChat, previousMessages, userInvolved, message, setMessage, sendMessageToolbar } = useChat();
+  const {
+    getChat,
+    previousMessages,
+    userInvolved,
+    message,
+    setMessage,
+    sendMessageToolbar,
+    setPreviousMessages,
+  } = useChat();
+  const { conectIndividualChatWebsocket } = useIndividualChatWS();
   const { user } = useUser();
 
   useEffect(() => {
     getChat(typeConversation!);
   }, []);
+
+  useEffect(() => {
+    conectIndividualChatWebsocket(setPreviousMessages);
+  }, [echo, user?.id]);
 
   // Componente Avatar
   const AvatarComponent = ({ isMine }: { isMine: boolean }) => {

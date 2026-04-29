@@ -10,7 +10,6 @@ export const useChat = () => {
 
   const { setShowLoading } = useLoading();
 
-  //! Crear un nuevo tipo de dato cy aplicarlo en un useState
   const getChat = async (typeChat: TypeConversation) => {
     try {
       setShowLoading(true);
@@ -42,5 +41,13 @@ export const useChat = () => {
       }
   };
 
-  return { getChat, setMessage, message, userInvolved, previousMessages, sendMessageToolbar };
+  return {
+    getChat,
+    setMessage,
+    message,
+    userInvolved,
+    previousMessages,
+    sendMessageToolbar,
+    setPreviousMessages,
+  };
 };
