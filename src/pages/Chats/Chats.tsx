@@ -5,12 +5,13 @@ import { User } from '@/icons';
 import { ToolBarChat } from '@/pages/Home/components';
 import { ChatLocationState } from '@/types';
 import useEcho from '@/websockets/useEcho';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 
 export const Chat = () => {
   const location = useLocation() as { state: ChatLocationState };
   const echo = useEcho();
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
   const typeConversation = location.state.typeConversation;
   const userTargetId = location.state.userTargetId;
@@ -34,6 +35,10 @@ export const Chat = () => {
   useEffect(() => {
     conectIndividualChatWebsocket(setPreviousMessages);
   }, [echo, user?.id]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [previousMessages]);
 
   // Componente Avatar
   const AvatarComponent = ({ isMine }: { isMine: boolean }) => {
@@ -65,40 +70,44 @@ export const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="flex flex-col h-full">
       {/* Mensajes */}
-      <div className="flex-1 overflow-y-auto flex flex-col justify-end mb-5 py-2">
-        <div className="flex flex-col gap-2 space-y-2 px-4 md:px-10 lg:px-60 break-all">
-          {previousMessages &&
-            previousMessages?.map((message) => {
-              const isMine = message.user_sender_id === user?.id;
+      <div className="flex-1 overflow-y-auto min-h-0 mb-5 py-2 scrollbar-hide">
+        <div className="min-h-full flex flex-col justify-end">
+          <div className="flex flex-col gap-2 space-y-2 px-4 md:px-10 lg:px-60 break-all">
+            {previousMessages &&
+              previousMessages?.map((message) => {
+                const isMine = message.user_sender_id === user?.id;
 
-              return (
-                <div
-                  key={message.id}
-                  className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
-                >
+                return (
                   <div
-                    className={`relative px-3 py-2 rounded-xl max-w-[75%] text-sm shadow ${
-                      isMine ? 'bg-violet-500 text-white' : 'bg-neutral-900 text-white'
-                    } ${isMine ? 'pr-18' : 'pl-18'}`} // más espacio
+                    key={message.id}
+                    className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
                   >
-                    {/* Avatar dentro */}
-                    <AvatarComponent isMine={isMine} />
-
-                    <p>{message.content}</p>
-
-                    <span
-                      className={`block text-[10px] mt-1 text-right ${
-                        isMine ? 'text-neutral-200' : 'text-neutral-400'
-                      }`}
+                    <div
+                      className={`relative px-3 py-2 rounded-xl max-w-[75%] text-sm shadow ${
+                        isMine ? 'bg-violet-500 text-white' : 'bg-neutral-900 text-white'
+                      } ${isMine ? 'pr-18' : 'pl-18'}`} // más espacio
                     >
-                      {message.shipping_time}
-                    </span>
+                      {/* Avatar dentro */}
+                      <AvatarComponent isMine={isMine} />
+
+                      <p>{message.content}</p>
+
+                      <span
+                        className={`block text-[10px] mt-1 text-right ${
+                          isMine ? 'text-neutral-200' : 'text-neutral-400'
+                        }`}
+                      >
+                        {message.shipping_time}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
+
+          <div id="referencieBootom" ref={bottomRef} />
         </div>
       </div>
 
