@@ -2,7 +2,7 @@ import { useChat } from '@/hooks/useChat';
 import { useUser } from '@/hooks/user/useUser';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { User } from '@/icons';
-import { ToolBarChat } from '@/pages/Home/components';
+import { ToolBarChat } from './ToolBarChat';
 import { ChatLocationState } from '@/types';
 import useEcho from '@/websockets/useEcho';
 import { useEffect, useRef } from 'react';
