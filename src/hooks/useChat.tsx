@@ -7,6 +7,7 @@ export const useChat = () => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setuserInvolved] = useState<ConversationParticipant>();
+  const [filesBase64, setFilesBase64] = useState<string[]>();
 
   const { setShowLoading } = useLoading();
 
@@ -30,15 +31,23 @@ export const useChat = () => {
   };
 
   const sendMessageToolbar = async (idFriend: number) => {
-    setMessage('');
-    setMessage((prev) => prev?.trim());
-    if (message != undefined)
-      try {
-        const lastMessage = await sendMessageApi(message, idFriend);
-        setPreviousMessages((prev) => [...(prev || []), lastMessage]);
-      } catch (error) {
-        console.error(error);
-      }
+    const trimmedMessage = message?.trim() || '';
+
+    const hasMessage = trimmedMessage.length > 0;
+    const hasFiles = (filesBase64?.length || 0) > 0;
+
+    if (!hasMessage && !hasFiles) return;
+
+    try {
+      const lastMessage = await sendMessageApi(idFriend, trimmedMessage, filesBase64);
+      setPreviousMessages((prev) => [...(prev || []), lastMessage]);
+
+      // limpiar después de enviar
+      setMessage('');
+      setFilesBase64([]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return {
@@ -49,5 +58,7 @@ export const useChat = () => {
     previousMessages,
     sendMessageToolbar,
     setPreviousMessages,
+    filesBase64,
+    setFilesBase64,
   };
 };

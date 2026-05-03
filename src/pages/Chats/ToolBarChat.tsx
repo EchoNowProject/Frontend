@@ -1,9 +1,14 @@
 import { LocationArrowRight, PaperClip1, Photos, EmojiSmileSunglass, Plus } from '@/icons';
+import { useFile } from '@/hooks/utils/useFile';
+import { useState } from 'react';
+import { useLoading } from '@/hooks/useLoading';
 
 interface ToolBarChatProps {
   idFriend: number;
   message: string | undefined;
+  filesBase64: string[] | undefined;
   setMessage: (msg: string) => void;
+  setFilesBase64: React.Dispatch<React.SetStateAction<string[] | undefined>>;
   sendMessageToolbar: (id: number) => void;
 }
 
@@ -11,8 +16,14 @@ export const ToolBarChat = ({
   idFriend,
   message,
   setMessage,
-  sendMessageToolbar,
+  filesBase64,
+  setFilesBase64,
+  sendMessageToolbar, // ! Puede que esta variable no la necesitemos realmente
 }: ToolBarChatProps) => {
+  //Variables
+  const { getBase64 } = useFile();
+  const { setShowLoading } = useLoading();
+
   /**
    * Funcion que abre el input de file y asigna que solo se recojan imagenes o todo tipo de ficheros
    * @param allowImage
@@ -25,6 +36,27 @@ export const ToolBarChat = ({
     fileInput.accept = allowImage ? 'image/*, video/*' : '*';
 
     fileInput.click();
+  };
+
+  /**
+   * Funcion que convierte cualquier archivo a base64
+   * @param event
+   */
+  const uploadFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowLoading(true);
+    try {
+      const file = event.target.files?.[0];
+
+      if (!file) return;
+
+      const base64 = await getBase64(file);
+      setFilesBase64((prev) => [...(prev || []), base64]);
+
+      console.table(filesBase64);
+    } catch (error) {
+      console.error(error);
+    }
+    setShowLoading(false);
   };
 
   return (
@@ -43,7 +75,6 @@ export const ToolBarChat = ({
           className="bg-neutral-800 rounded-lg p-2 flex-1 focus:outline-none"
           onChange={(e) => setMessage(e.target.value)}
         />
-
         <button
           type="submit"
           className="flex justify-center items-center bg-neutral-800 p-1 rounded-lg"
@@ -82,7 +113,7 @@ export const ToolBarChat = ({
         </button>
       </div>
 
-      <input type="file" id="file_chat" className="hidden" />
+      <input type="file" id="file_chat" className="hidden" onChange={(e) => uploadFiles(e)} />
     </div>
   );
 };

@@ -6,12 +6,17 @@ interface GetMessageResponse {
   userInvolved: ConversationParticipant;
 }
 
-export const sendMessageApi = async (message: string, friendId: number): Promise<Message> => {
+export const sendMessageApi = async (
+  friendId: number,
+  message?: string,
+  base64files?: string[]
+): Promise<Message> => {
   return axios
     .post('/individual-chat/send-message', {
       data: {
-        message: message,
+        message: message ?? null,
         friendId: friendId,
+        files: base64files ?? null,
       },
     })
     .then((reponse: AxiosResponse) => {

@@ -24,6 +24,8 @@ export const Chat = () => {
     setMessage,
     sendMessageToolbar,
     setPreviousMessages,
+    filesBase64,
+    setFilesBase64,
   } = useChat();
   const { conectIndividualChatWebsocket } = useIndividualChatWS();
   const { user } = useUser();
@@ -117,6 +119,8 @@ export const Chat = () => {
           idFriend={userTargetId}
           message={message}
           setMessage={setMessage}
+          filesBase64={filesBase64}
+          setFilesBase64={setFilesBase64}
           sendMessageToolbar={sendMessageToolbar}
         />
       </div>
