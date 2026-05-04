@@ -1,7 +1,7 @@
 import { getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
 import { ConversationParticipant, Message, TypeConversation, FileData } from '@/types';
 import { useState } from 'react';
-import { useLoading } from './useLoading';
+import { useLoading } from '../useLoading';
 
 export const useChat = () => {
   const [message, setMessage] = useState<string>();

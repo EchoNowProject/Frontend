@@ -2,6 +2,7 @@ import { LocationArrowRight, PaperClip1, Photos, EmojiSmileSunglass, Plus } from
 import { useFile } from '@/hooks/utils/useFile';
 import { useLoading } from '@/hooks/useLoading';
 import { FileData } from '@/types';
+import { useToolBarChat } from '@/hooks/chat/useToolBarChat';
 
 interface ToolBarChatProps {
   idFriend: number;
@@ -20,52 +21,7 @@ export const ToolBarChat = ({
   setFiles,
   sendMessageToolbar,
 }: ToolBarChatProps) => {
-  //Variables
-  const { getBase64 } = useFile();
-  const { setShowLoading } = useLoading();
-
-  /**
-   * Funcion que abre el input de file y asigna que solo se recojan imagenes o todo tipo de ficheros
-   * @param allowImage
-   */
-  const openFileInput = (allowImage: boolean = false) => {
-    const fileInput = document.getElementById('file_chat') as HTMLInputElement | null;
-
-    if (!fileInput) return;
-
-    fileInput.accept = allowImage ? 'image/*, video/*' : '*';
-
-    fileInput.click();
-  };
-
-  /**
-   * Funcion que convierte cualquier archivo a base64
-   * @param event
-   */
-  const uploadFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShowLoading(true);
-    let existFile = false;
-
-    try {
-      const file = event.target.files?.[0];
-
-      files?.forEach((exitingFile) => {
-        if (exitingFile.name === file?.name) {
-          existFile = true;
-        }
-      });
-
-      if (!file || existFile) return;
-
-      const base64 = await getBase64(file);
-      setFiles((prev) => [...(prev || []), base64]);
-      setShowLoading(false);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setShowLoading(false);
-    }
-  };
+  const { openFileInput, uploadFiles } = useToolBarChat();
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -121,7 +77,12 @@ export const ToolBarChat = ({
         </button>
       </div>
 
-      <input type="file" id="file_chat" className="hidden" onChange={(e) => uploadFiles(e)} />
+      <input
+        type="file"
+        id="file_chat"
+        className="hidden"
+        onChange={(e) => uploadFiles(e, files, setFiles)}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useChat } from '@/hooks/useChat';
+import { useChat } from '@/hooks/chat/useChat';
 import { useUser } from '@/hooks/user/useUser';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { User, Xmark, Download } from '@/icons';
