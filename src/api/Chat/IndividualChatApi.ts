@@ -1,4 +1,4 @@
-import { ConversationParticipant, Message } from '@/types';
+import { ConversationParticipant, FileData, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
 interface GetMessageResponse {
@@ -9,14 +9,14 @@ interface GetMessageResponse {
 export const sendMessageApi = async (
   friendId: number,
   message?: string,
-  base64files?: string[]
+  files?: FileData[]
 ): Promise<Message> => {
   return axios
     .post('/individual-chat/send-message', {
       data: {
         message: message ?? null,
         friendId: friendId,
-        files: base64files ?? null,
+        files: files ?? null,
       },
     })
     .then((reponse: AxiosResponse) => {

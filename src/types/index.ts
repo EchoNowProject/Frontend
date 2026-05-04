@@ -15,5 +15,6 @@ export {
   type ChatLocationState,
   type IndividualChatResponseWebsocket,
 } from './Chat';
-export { type Message } from './Message';
+export { type Message, type FilesMessage } from './Message';
 export { type ConversationParticipant } from './ConversationParticipant';
+export { type FileData } from './FileData';

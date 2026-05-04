@@ -9,4 +9,12 @@ export interface Message {
   created_at: string;
   updated_at: string;
   shipping_time: string; // Atribute
+  files_message: FilesMessage[];
+}
+
+export interface FilesMessage {
+  id: number;
+  message_id: number;
+  file_name: string;
+  path_file: string;
 }

@@ -1,5 +1,5 @@
 import { getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
-import { ConversationParticipant, Message, TypeConversation, User } from '@/types';
+import { ConversationParticipant, Message, TypeConversation, FileData } from '@/types';
 import { useState } from 'react';
 import { useLoading } from './useLoading';
 
@@ -7,7 +7,7 @@ export const useChat = () => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setuserInvolved] = useState<ConversationParticipant>();
-  const [filesBase64, setFilesBase64] = useState<string[]>();
+  const [files, setFiles] = useState<FileData[]>();
 
   const { setShowLoading } = useLoading();
 
@@ -34,17 +34,17 @@ export const useChat = () => {
     const trimmedMessage = message?.trim() || '';
 
     const hasMessage = trimmedMessage.length > 0;
-    const hasFiles = (filesBase64?.length || 0) > 0;
+    const hasFiles = (files?.length || 0) > 0;
 
     if (!hasMessage && !hasFiles) return;
 
     try {
-      const lastMessage = await sendMessageApi(idFriend, trimmedMessage, filesBase64);
+      const lastMessage = await sendMessageApi(idFriend, trimmedMessage, files);
       setPreviousMessages((prev) => [...(prev || []), lastMessage]);
 
       // limpiar después de enviar
       setMessage('');
-      setFilesBase64([]);
+      setFiles([]);
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +58,7 @@ export const useChat = () => {
     previousMessages,
     sendMessageToolbar,
     setPreviousMessages,
-    filesBase64,
-    setFilesBase64,
+    files,
+    setFiles,
   };
 };

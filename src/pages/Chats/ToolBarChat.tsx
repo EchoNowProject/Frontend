@@ -1,14 +1,14 @@
 import { LocationArrowRight, PaperClip1, Photos, EmojiSmileSunglass, Plus } from '@/icons';
 import { useFile } from '@/hooks/utils/useFile';
-import { useState } from 'react';
 import { useLoading } from '@/hooks/useLoading';
+import { FileData } from '@/types';
 
 interface ToolBarChatProps {
   idFriend: number;
   message: string | undefined;
-  filesBase64: string[] | undefined;
+  files: FileData[] | undefined;
   setMessage: (msg: string) => void;
-  setFilesBase64: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+  setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
   sendMessageToolbar: (id: number) => void;
 }
 
@@ -16,9 +16,9 @@ export const ToolBarChat = ({
   idFriend,
   message,
   setMessage,
-  filesBase64,
-  setFilesBase64,
-  sendMessageToolbar, // ! Puede que esta variable no la necesitemos realmente
+  files,
+  setFiles,
+  sendMessageToolbar,
 }: ToolBarChatProps) => {
   //Variables
   const { getBase64 } = useFile();
@@ -44,19 +44,27 @@ export const ToolBarChat = ({
    */
   const uploadFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setShowLoading(true);
+    let existFile = false;
+
     try {
       const file = event.target.files?.[0];
 
-      if (!file) return;
+      files?.forEach((exitingFile) => {
+        if (exitingFile.name === file?.name) {
+          existFile = true;
+        }
+      });
+
+      if (!file || existFile) return;
 
       const base64 = await getBase64(file);
-      setFilesBase64((prev) => [...(prev || []), base64]);
-
-      console.table(filesBase64);
+      setFiles((prev) => [...(prev || []), base64]);
+      setShowLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setShowLoading(false);
     }
-    setShowLoading(false);
   };
 
   return (
