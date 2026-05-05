@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFile } from '../utils/useFile';
 import { useLoading } from '../useLoading';
 import { FileData } from '@/types';
@@ -7,6 +7,7 @@ export const useToolBarChat = () => {
   //Variables
   const { getBase64 } = useFile();
   const { setShowLoading } = useLoading();
+  const [openEmojiSelector, setOpenEmojiSelector] = useState<boolean>(false);
 
   /**
    * Funcion que abre el input de file y asigna que solo se recojan imagenes o todo tipo de ficheros
@@ -55,5 +56,5 @@ export const useToolBarChat = () => {
     }
   };
 
-  return { openFileInput, uploadFiles };
+  return { openFileInput, uploadFiles, openEmojiSelector, setOpenEmojiSelector };
 };

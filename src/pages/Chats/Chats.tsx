@@ -177,7 +177,7 @@ export const Chat = () => {
       <FilePreviewComponent />
 
       {/* Toolbar (sin cambios) */}
-      <div className="bg-neutral-900 p-2.5 rounded-md text-[10px] shadow-lg mt-2">
+      <div className="bg-neutral-900 p-2.5 rounded-md shadow-lg mt-2 text-sm">
         <ToolBarChat
           idFriend={userTargetId}
           message={message}

@@ -1,8 +1,7 @@
 import { LocationArrowRight, PaperClip1, Photos, EmojiSmileSunglass, Plus } from '@/icons';
-import { useFile } from '@/hooks/utils/useFile';
-import { useLoading } from '@/hooks/useLoading';
 import { FileData } from '@/types';
 import { useToolBarChat } from '@/hooks/chat/useToolBarChat';
+import { EmojiSelector } from './EmojiSelector';
 
 interface ToolBarChatProps {
   idFriend: number;
@@ -21,7 +20,7 @@ export const ToolBarChat = ({
   setFiles,
   sendMessageToolbar,
 }: ToolBarChatProps) => {
-  const { openFileInput, uploadFiles } = useToolBarChat();
+  const { openFileInput, uploadFiles, setOpenEmojiSelector, openEmojiSelector } = useToolBarChat();
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -65,7 +64,10 @@ export const ToolBarChat = ({
         </button>
 
         {/* para emoticonos */}
-        <button className="flex justify-center items-center hover:bg-neutral-800 p-1 rounded-lg hover:scale-110 transition-all ease-in-out">
+        <button
+          className="flex justify-center items-center hover:bg-neutral-800 p-1 rounded-lg hover:scale-110 transition-all ease-in-out"
+          onClick={() => setOpenEmojiSelector(!openEmojiSelector)}
+        >
           <EmojiSmileSunglass size={23} />
         </button>
       </div>
@@ -82,6 +84,11 @@ export const ToolBarChat = ({
         id="file_chat"
         className="hidden"
         onChange={(e) => uploadFiles(e, files, setFiles)}
+      />
+
+      <EmojiSelector
+        open={openEmojiSelector}
+        onEmojiClick={(emoji) => setMessage((message || '') + emoji)}
       />
     </div>
   );
