@@ -27,9 +27,13 @@ export const sendMessageApi = async (
     });
 };
 
-export const getMessagesApi = async (): Promise<GetMessageResponse> => {
+export const getMessagesApi = async (userTarget: number): Promise<GetMessageResponse> => {
   return axios
-    .get('/individual-chat/get-messages')
+    .get('/individual-chat/get-messages', {
+      params: {
+        userTarget: userTarget,
+      },
+    })
     .then((reponse: AxiosResponse) => {
       return reponse.data;
     })

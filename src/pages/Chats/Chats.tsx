@@ -34,7 +34,7 @@ export const Chat = () => {
   const { donwloadMessageFile } = useFile();
 
   useEffect(() => {
-    getChat(typeConversation!);
+    getChat(typeConversation!, userTargetId);
 
     return () => {
       setUserInvolved(undefined);

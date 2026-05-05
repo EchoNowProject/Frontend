@@ -12,12 +12,12 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
   const { setShowLoading } = useLoading();
 
-  const getChat = async (typeChat: TypeConversation) => {
+  const getChat = async (typeChat: TypeConversation, userTarget: number) => {
     try {
       setShowLoading(true);
       switch (typeChat) {
         case TypeConversation.IndividualChat:
-          let response = await getMessagesApi();
+          let response = await getMessagesApi(userTarget); // ! reocgerlo $request-query('taltal')
           setPreviousMessages(response.messages);
           setUserInvolved(response.userInvolved);
           break;

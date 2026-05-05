@@ -10,7 +10,7 @@ export interface ChatContextProps {
   setUserInvolved: React.Dispatch<React.SetStateAction<ConversationParticipant | undefined>>;
   files: FileData[] | undefined;
   setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
-  getChat: (typeChat: TypeConversation) => Promise<void>;
+  getChat: (typeChat: TypeConversation, userTarget: number) => Promise<void>;
   sendMessageToolbar: (idFriend: number) => Promise<void>;
 }
 
