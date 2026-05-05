@@ -27,6 +27,7 @@ export const Chat = () => {
     setPreviousMessages,
     files,
     setFiles,
+    setUserInvolved,
   } = useChat();
   const { conectIndividualChatWebsocket } = useIndividualChatWS();
   const { user } = useUser();
@@ -34,6 +35,10 @@ export const Chat = () => {
 
   useEffect(() => {
     getChat(typeConversation!);
+
+    return () => {
+      setUserInvolved(undefined);
+    };
   }, []);
 
   useEffect(() => {
