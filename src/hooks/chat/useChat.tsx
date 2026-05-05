@@ -1,12 +1,13 @@
 import { getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
-import { ConversationParticipant, Message, TypeConversation, User } from '@/types';
+import { ConversationParticipant, Message, TypeConversation, FileData } from '@/types';
 import { useState } from 'react';
-import { useLoading } from './useLoading';
+import { useLoading } from '../useLoading';
 
 export const useChat = () => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setuserInvolved] = useState<ConversationParticipant>();
+  const [files, setFiles] = useState<FileData[]>();
 
   const { setShowLoading } = useLoading();
 
@@ -30,15 +31,23 @@ export const useChat = () => {
   };
 
   const sendMessageToolbar = async (idFriend: number) => {
-    setMessage('');
-    setMessage((prev) => prev?.trim());
-    if (message != undefined)
-      try {
-        const lastMessage = await sendMessageApi(message, idFriend);
-        setPreviousMessages((prev) => [...(prev || []), lastMessage]);
-      } catch (error) {
-        console.error(error);
-      }
+    const trimmedMessage = message?.trim() || '';
+
+    const hasMessage = trimmedMessage.length > 0;
+    const hasFiles = (files?.length || 0) > 0;
+
+    if (!hasMessage && !hasFiles) return;
+
+    try {
+      const lastMessage = await sendMessageApi(idFriend, trimmedMessage, files);
+      setPreviousMessages((prev) => [...(prev || []), lastMessage]);
+
+      // limpiar después de enviar
+      setMessage('');
+      setFiles([]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return {
@@ -49,5 +58,7 @@ export const useChat = () => {
     previousMessages,
     sendMessageToolbar,
     setPreviousMessages,
+    files,
+    setFiles,
   };
 };

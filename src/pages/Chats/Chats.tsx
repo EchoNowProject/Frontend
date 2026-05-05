@@ -1,12 +1,13 @@
-import { useChat } from '@/hooks/useChat';
+import { useChat } from '@/hooks/chat/useChat';
 import { useUser } from '@/hooks/user/useUser';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
-import { User } from '@/icons';
-import { ToolBarChat } from '@/pages/Home/components';
+import { User, Xmark, Download } from '@/icons';
+import { ToolBarChat } from './ToolBarChat';
 import { ChatLocationState } from '@/types';
 import useEcho from '@/websockets/useEcho';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
+import { useFile } from '@/hooks/utils/useFile';
 
 export const Chat = () => {
   const location = useLocation() as { state: ChatLocationState };
@@ -24,9 +25,12 @@ export const Chat = () => {
     setMessage,
     sendMessageToolbar,
     setPreviousMessages,
+    files,
+    setFiles,
   } = useChat();
   const { conectIndividualChatWebsocket } = useIndividualChatWS();
   const { user } = useUser();
+  const { donwloadMessageFile } = useFile();
 
   useEffect(() => {
     getChat(typeConversation!);
@@ -69,6 +73,50 @@ export const Chat = () => {
     );
   };
 
+  // Componente de previsualización de archivos
+  const FilePreviewComponent = () => {
+    if (!files || files.length === 0) return null;
+
+    return (
+      <div className="flex gap-4 overflow-x-auto p-3 bg-neutral-900 rounded-md mt-2 shadow-lg scrollbar-hide">
+        {files.map((file, index) => {
+          const isImage = file.base64.startsWith('data:image/');
+          return (
+            <div
+              key={index}
+              className="flex flex-col items-center justify-center relative bg-neutral-800 rounded-md p-2 min-w-22.5 w-22.5 h-22.5 shrink-0 border border-neutral-700"
+            >
+              <button
+                className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-colors"
+                onClick={() => setFiles((prev) => prev?.filter((_, i) => i !== index))}
+                title="Quitar archivo"
+              >
+                <Xmark size={12} color="#fff" />
+              </button>
+              {isImage ? (
+                <img
+                  src={file.base64}
+                  alt={file.name}
+                  className="w-12 h-12 object-cover rounded-md mb-1"
+                />
+              ) : (
+                <div className="w-12 h-12 flex items-center justify-center bg-neutral-700 rounded-md mb-1">
+                  <span className="text-[10px] text-neutral-400 font-semibold">DOC</span>
+                </div>
+              )}
+              <span
+                className="text-[10px] text-neutral-300 w-full truncate text-center"
+                title={file.name}
+              >
+                {file.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col h-full">
       {/* Mensajes */}
@@ -94,6 +142,21 @@ export const Chat = () => {
 
                       <p>{message.content}</p>
 
+                      {message.files_message?.map((file) => (
+                        <button
+                          className={`flex items-center gap-2 mt-2 p-2 rounded-lg w-fit cursor-pointer transition-colors shadow-sm border border-transparent ${
+                            isMine
+                              ? 'bg-violet-600 hover:bg-violet-700 border-violet-500'
+                              : 'bg-neutral-800 hover:bg-neutral-700 border-neutral-700'
+                          }`}
+                          title="Descargar archivo"
+                          onClick={() => donwloadMessageFile(file.path_file)}
+                        >
+                          <Download size={16} color="#ffffff" />
+                          <span className="text-xs text-white font-medium">{file.file_name}</span>
+                        </button>
+                      ))}
+
                       <span
                         className={`block text-[10px] mt-1 text-right ${
                           isMine ? 'text-neutral-200' : 'text-neutral-400'
@@ -111,12 +174,16 @@ export const Chat = () => {
         </div>
       </div>
 
+      <FilePreviewComponent />
+
       {/* Toolbar (sin cambios) */}
-      <div className="bg-neutral-900 p-2.5 rounded-md text-[10px] shadow-lg mt-2">
+      <div className="bg-neutral-900 p-2.5 rounded-md shadow-lg mt-2 text-sm">
         <ToolBarChat
           idFriend={userTargetId}
           message={message}
           setMessage={setMessage}
+          files={files}
+          setFiles={setFiles}
           sendMessageToolbar={sendMessageToolbar}
         />
       </div>
