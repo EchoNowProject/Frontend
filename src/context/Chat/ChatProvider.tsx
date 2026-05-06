@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { ChatContext } from './ChatContext';
-import { getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
+import { getIntividualChats, getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
 import { ConversationParticipant, Message, TypeConversation, FileData } from '@/types';
 import { useLoading } from '@/hooks/useLoading';
 
@@ -9,8 +9,18 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setUserInvolved] = useState<ConversationParticipant>();
   const [files, setFiles] = useState<FileData[]>();
+  const [openedChats, setOpenedChats] = useState<ConversationParticipant[]>();
 
   const { setShowLoading } = useLoading();
+
+  const loadOpenedChats = async () => {
+    try {
+      const chats = await getIntividualChats();
+      setOpenedChats(chats);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getChat = async (typeChat: TypeConversation, userTarget: number) => {
     try {
@@ -64,6 +74,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         setPreviousMessages,
         files,
         setFiles,
+        openedChats,
+        setOpenedChats,
+        loadOpenedChats,
       }}
     >
       {children}

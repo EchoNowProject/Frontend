@@ -15,8 +15,9 @@ import {
   Profile,
   Microphone,
   Headphone,
-  ServersSidebar,
+  //ServersSidebar,
   ShowActiveUser,
+  Sidebar,
 } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -215,7 +216,6 @@ export const Home = () => {
                         <HomeIcon color="#fff" />
                         <span className="ms-2 text-[12px]">Navegar al Inicio</span>
                       </button>
-
                       <button
                         onClick={() => navigate('select-conversation')}
                         className="flex justify-center items-center rounded-lg lg:border-0 lg:bg-neutral-900/80 bg-violet-700/80 p-2 md:border-violet-700 md:border"
@@ -225,9 +225,9 @@ export const Home = () => {
                           Nueva Conversación
                         </span>
                       </button>
-
-                      <div className="my-2 border-t border-white/20"></div>
-                      <ServersSidebar />
+                      <div className="my-2 border-t border-white/20"> {/* Separador */} </div>
+                      {/* <ServersSidebar /> */}
+                      <Sidebar stateSidebar={stateSidebar} />
                     </div>
                   </div>
 
@@ -236,7 +236,7 @@ export const Home = () => {
                     onClick={toggleSidebar}
                   >
                     <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
-                    {stateSidebar && <span className="ml-2">Collapse sidebar</span>}
+                    {stateSidebar && <span className="ml-2">Reducir barra lateral</span>}
                   </button>
                 </div>
               </section>

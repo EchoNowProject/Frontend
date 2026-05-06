@@ -34,12 +34,14 @@ export const Chat = () => {
   const { donwloadMessageFile } = useFile();
 
   useEffect(() => {
-    getChat(typeConversation!, userTargetId);
+    if (!typeConversation || !userTargetId) return;
+
+    getChat(typeConversation, userTargetId);
 
     return () => {
       setUserInvolved(undefined);
     };
-  }, []);
+  }, [typeConversation, userTargetId]);
 
   useEffect(() => {
     conectIndividualChatWebsocket(setPreviousMessages);
