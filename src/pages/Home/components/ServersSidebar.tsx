@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useServer } from '@/hooks/useServer';
 
+// TODO: Deprecated
 export const ServersSidebar = () => {
   const { getServers, servers } = useServer();
   const navigate = useNavigate();

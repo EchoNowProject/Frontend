@@ -4,8 +4,9 @@ export interface ConversationParticipant {
   id: number;
   conversation_id: number;
   user_id: number;
-  participant_role: null;
-  last_read_at: null;
+  username: string;
+  //participant_role: null;
+  last_read_at: string;
   avatar_image: string;
   joined_at: string;
   file_avatar_image: FileImage | null;

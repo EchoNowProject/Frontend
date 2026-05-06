@@ -4,3 +4,5 @@ export { Group } from './GroupNavbar';
 export { Microphone } from './Microphone';
 export { Headphone } from './Headphone';
 export { ServersSidebar } from './ServersSidebar';
+export { ShowActiveUser } from './ShowActiveUser';
+export { Sidebar } from './Sidebar';
