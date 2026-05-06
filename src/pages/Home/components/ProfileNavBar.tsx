@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Exit, Xmark } from '@/icons';
+import { Exit, User, Xmark } from '@/icons';
 import { useAuth } from '@/hooks/useAuth';
 import { useStatusUser } from '@/hooks/useStatusUser';
 import { useNavigate } from 'react-router';
+import { useUser } from '@/hooks/user/useUser';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export const Profile = () => {
   const { logout } = useAuth();
   const { getAllUserStatus, statusUser, statusUserAll, getUserStatus, changeStatusUser } =
     useStatusUser();
+  const { user } = useUser();
 
   //Usamos HTMLLIElement porque el ref irá en la etiqueta <li>
   const containerRef = useRef<HTMLLIElement>(null);
@@ -71,14 +73,20 @@ export const Profile = () => {
       <div className="relative inline-flex text-start">
         <button
           type="button"
-          className="p-0.5 inline-flex items-center rounded-full"
+          className="p-0.5 inline-flex items-center rounded-full transition-transform hover:scale-105"
           onClick={() => setActive(!active)}
         >
-          <img
-            className="shrink-0 size-7 rounded-full"
-            src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
-            alt="Avatar"
-          />
+          {user?.file_avatar_image ? (
+            <img
+              src={`data:${user.file_avatar_image.mime_type};base64,${user.file_avatar_image.base64}`}
+              alt="User Image"
+              className="shrink-0 size-9 rounded-full object-cover shadow-sm border border-violet-500/50"
+            />
+          ) : (
+            <div className="shrink-0 size-8 rounded-full bg-violet-600 flex items-center justify-center shadow-sm border border-violet-500/50">
+              <User className="size-6" />
+            </div>
+          )}
         </button>
       </div>
 
