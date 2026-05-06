@@ -9,7 +9,16 @@ import {
   UserMultiple4,
   Home as HomeIcon,
 } from '@icons/index';
-import { Server, Group, Profile, Microphone, Headphone, ServersSidebar } from './components';
+import {
+  Server,
+  Group,
+  Profile,
+  Microphone,
+  Headphone,
+  //ServersSidebar,
+  ShowActiveUser,
+  Sidebar,
+} from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
 import { StatusUserProvider } from '@/context/StatusUser/StatusUserProvider';
@@ -17,6 +26,7 @@ import { Loading } from '@/components/UI/Loading/Loading';
 import useEcho from '@/websockets/useEcho';
 import { useUser } from '@/hooks/user/useUser';
 import { useFriendRequestWS } from '@/websockets/useFriendRequestWS';
+import { ChatProvider } from '@/context/Chat/ChatProvider';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -56,128 +66,129 @@ export const Home = () => {
   return (
     <>
       <ServerProvider>
-        <Toast />
+        <ChatProvider>
+          <Toast />
 
-        <header className="fixed top-0 inset-x-0 z-50 bg-violet-700 h-10 flex items-center text-sm">
-          <nav className="px-4 sm:px-6 flex items-center h-full w-full">
-            <div className="w-full flex items-center gap-x-2">
-              {/* ================= BOTÓN DE HAMBURGUESA (MÓVIL) ================= */}
-              <button
-                type="button"
-                className="md:hidden text-white hidden lg:flex"
-                onClick={() => navigate('/home')}
-              >
-                <HomeIcon />
-              </button>
-              <button
-                type="button"
-                className="lg:hidden text-white"
-                onClick={toggleSidebar}
-                aria-label="Toggle Sidebar"
-              >
-                <MenuHamburger1 />
-              </button>
-              <button
-                type="button"
-                className="md:flex lg:hidden items-center rounded-md p-1"
-                onClick={() => {
-                  navigate('friends');
-                }}
-              >
-                <UserMultiple4 size={20} color="#000" />
-              </button>
-              {/* ================= IZQUIERDA ================= */}
-              {/* <ul className="flex items-center gap-1.5 shrink-0">
+          <header className="fixed top-0 inset-x-0 z-50 bg-violet-700 h-10 flex items-center text-sm">
+            <nav className="px-4 sm:px-6 flex items-center h-full w-full">
+              <div className="w-full flex items-center gap-x-2">
+                {/* ================= BOTÓN DE HAMBURGUESA (MÓVIL) ================= */}
+                <button
+                  type="button"
+                  className="md:hidden text-white hidden lg:flex"
+                  onClick={() => navigate('/home')}
+                >
+                  <HomeIcon />
+                </button>
+                <button
+                  type="button"
+                  className="lg:hidden text-white"
+                  onClick={toggleSidebar}
+                  aria-label="Toggle Sidebar"
+                >
+                  <MenuHamburger1 />
+                </button>
+                <button
+                  type="button"
+                  className="md:flex lg:hidden items-center rounded-md p-1"
+                  onClick={() => {
+                    navigate('friends');
+                  }}
+                >
+                  <UserMultiple4 size={20} color="#000" />
+                </button>
+                {/* ================= IZQUIERDA ================= */}
+                {/* <ul className="flex items-center gap-1.5 shrink-0">
                 <Server />
                 <Group />
               </ul> */}
 
-              {/* ================= CENTRO (SEARCH) ================= */}
-              <ul className="hidden lg:flex flex-1 justify-center px-4">
-                <li className="w-full max-w-xl flex items-center gap-3">
-                  {/* Icono campana */}
-                  <button
-                    type="button"
-                    className="flex items-center rounded-md p-1"
-                    onClick={() => {
-                      navigate('friends');
-                    }}
-                  >
-                    <UserMultiple4 size={20} color="#000" />
-                  </button>
+                <ShowActiveUser />
 
-                  {/* Input */}
-                  <div className="relative flex-1">
-                    <input
-                      type="search"
-                      placeholder="Search"
-                      className="h-7 w-full px-2 pr-16 text-xs text-white bg-violet-800 border border-neutral-800 rounded-md focus:outline-none"
-                    />
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] uppercase px-1.5 py-0.5 rounded bg-violet-400/50 text-black">
-                      Ctrl + K
-                    </span>
-                  </div>
-                </li>
-              </ul>
-
-              {/* ================= DERECHA ================= */}
-
-              <ul className="flex flex-row items-center gap-x-3 ms-auto">
-                <div className="relative mx-2">
-                  <button
-                    type="button"
-                    className="flex items-center rounded-md p-1"
-                    onClick={() => {
-                      navigate('alerts');
-                    }}
-                  >
-                    <Bell size={20} color="#000" />
-                  </button>
-
-                  {/* Círculo rojo */}
-                  <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-                </div>
-
-                <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
-                  <button
-                    type="button"
-                    className="flex items-center gap-x-1.5 py-2 px-2.5 font-medium text-xs bg-gray-200 text-black rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none"
-                  >
-                    <svg
-                      className="shrink-0 size-4 text-indigo-700"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
+                {/* ================= CENTRO (SEARCH) ================= */}
+                <ul className="hidden lg:flex flex-1 justify-center px-4">
+                  <li className="w-full max-w-xl flex items-center gap-3">
+                    {/* Icono campana */}
+                    <button
+                      type="button"
+                      className="flex items-center rounded-md p-1"
+                      onClick={() => {
+                        navigate('friends');
+                      }}
                     >
-                      <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z" />
-                    </svg>
-                    Ask AI
-                  </button>
-                </li>
+                      <UserMultiple4 size={20} color="#000" />
+                    </button>
 
-                {/* Microfono */}
-                <Microphone />
+                    {/* Input */}
+                    <div className="relative flex-1">
+                      <input
+                        type="search"
+                        placeholder="Search"
+                        className="h-7 w-full px-2 pr-16 text-xs text-white bg-violet-800 border border-neutral-800 rounded-md focus:outline-none"
+                      />
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] uppercase px-1.5 py-0.5 rounded bg-violet-400/50 text-black">
+                        Ctrl + K
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                {/* ================= DERECHA ================= */}
+                <ul className="flex flex-row items-center gap-x-3 ms-auto">
+                  <div className="relative mx-2">
+                    <button
+                      type="button"
+                      className="flex items-center rounded-md p-1"
+                      onClick={() => {
+                        navigate('alerts');
+                      }}
+                    >
+                      <Bell size={20} color="#000" />
+                    </button>
 
-                {/* HeadPhone */}
-                <Headphone />
+                    {/* Círculo rojo */}
+                    <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
+                  </div>
 
-                {/* Profile */}
-                <StatusUserProvider>
-                  <Profile />
-                </StatusUserProvider>
-              </ul>
-            </div>
-          </nav>
-        </header>
+                  <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
+                    <button
+                      type="button"
+                      className="flex items-center gap-x-1.5 py-2 px-2.5 font-medium text-xs bg-gray-200 text-black rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none"
+                    >
+                      <svg
+                        className="shrink-0 size-4 text-indigo-700"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z" />
+                      </svg>
+                      Ask AI
+                    </button>
+                  </li>
 
-        <div className="pt-12 h-screen bg-neutral-900 text-white">
-          <div className="flex flex-col lg:flex-row h-full px-3 pb-3 gap-3">
-            {/* ============ SIDEBAR ============ */}
-            <section
-              ref={sidebarRef}
-              className={`
+                  {/* Microfono */}
+                  <Microphone />
+
+                  {/* HeadPhone */}
+                  <Headphone />
+
+                  {/* Profile */}
+                  <StatusUserProvider>
+                    <Profile />
+                  </StatusUserProvider>
+                </ul>
+              </div>
+            </nav>
+          </header>
+
+          <div className="pt-12 h-screen bg-neutral-900 text-white">
+            <div className="flex flex-col lg:flex-row h-full px-3 pb-3 gap-3">
+              {/* ============ SIDEBAR ============ */}
+              <section
+                ref={sidebarRef}
+                className={`
               fixed top-10 bottom-0 left-0 z-40
               lg:static
               flex flex-col
@@ -190,50 +201,49 @@ export const Home = () => {
               lg:rounded-lg
               lg:border-2 lg:border-violet-600   
               transition-all duration-300 ease-in-out`}
-            >
-              {/* Contenedor */}
-              <div className="flex flex-col flex-1 w-full min-h-0">
-                {/* ============ Chats  y Servers ============ */}
+              >
+                {/* Contenedor */}
+                <div className="flex flex-col flex-1 w-full min-h-0">
+                  {/* ============ Chats  y Servers ============ */}
 
-                <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
-                  {/* ============ Boton de mas servers ============ */}
-                  <div className="flex flex-col">
-                    <button
-                      onClick={() => navigate('/home')}
-                      className="flex lg:hidden justify-center items-center rounded-lg bg-violet-900/80 p-2 border-violet-700 border mb-2"
-                    >
-                      <HomeIcon color="#fff" />
-                      <span className="ms-2 text-[12px]">Navegar al Inicio</span>
-                    </button>
-
-                    <button
-                      onClick={() => navigate('select-conversation')}
-                      className="flex justify-center items-center rounded-lg lg:border-0 lg:bg-neutral-900/80 bg-violet-700/80 p-2 md:border-violet-700 md:border"
-                    >
-                      <Plus color="#fff" />
-                      <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
-                        Nueva Conversación
-                      </span>
-                    </button>
-
-                    <div className="my-2 border-t border-white/20"></div>
-                    <ServersSidebar />
+                  <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide">
+                    {/* ============ Boton de mas servers ============ */}
+                    <div className="flex flex-col">
+                      <button
+                        onClick={() => navigate('/home')}
+                        className="flex lg:hidden justify-center items-center rounded-lg bg-violet-900/80 p-2 border-violet-700 border mb-2"
+                      >
+                        <HomeIcon color="#fff" />
+                        <span className="ms-2 text-[12px]">Navegar al Inicio</span>
+                      </button>
+                      <button
+                        onClick={() => navigate('select-conversation')}
+                        className="flex justify-center items-center rounded-lg lg:border-0 lg:bg-neutral-900/80 bg-violet-700/80 p-2 md:border-violet-700 md:border"
+                      >
+                        <Plus color="#fff" />
+                        <span className={`ms-2 text-[12px] ${stateSidebar ? 'flex' : 'hidden'}`}>
+                          Nueva Conversación
+                        </span>
+                      </button>
+                      <div className="my-2 border-t border-white/20"> {/* Separador */} </div>
+                      {/* <ServersSidebar /> */}
+                      <Sidebar stateSidebar={stateSidebar} />
+                    </div>
                   </div>
+
+                  <button
+                    className="hidden lg:flex justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px] mt-2"
+                    onClick={toggleSidebar}
+                  >
+                    <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
+                    {stateSidebar && <span className="ml-2">Reducir barra lateral</span>}
+                  </button>
                 </div>
+              </section>
 
-                <button
-                  className="hidden lg:flex justify-center items-center bg-neutral-900 p-2 rounded-lg text-[10px] mt-2"
-                  onClick={toggleSidebar}
-                >
-                  <ArrowDoubleLeft rotate={stateSidebar ? 0 : 180} />
-                  {stateSidebar && <span className="ml-2">Collapse sidebar</span>}
-                </button>
-              </div>
-            </section>
-
-            {/* ============ MAIN ============ */}
-            <main
-              className="
+              {/* ============ MAIN ============ */}
+              <main
+                className="
               flex-1
               flex
               flex-col
@@ -248,13 +258,14 @@ export const Home = () => {
               wrap-break-word
               overflow-auto
               "
-            >
-              <Loading />
+              >
+                <Loading />
 
-              <Outlet />
-            </main>
+                <Outlet />
+              </main>
+            </div>
           </div>
-        </div>
+        </ChatProvider>
       </ServerProvider>
     </>
   );
