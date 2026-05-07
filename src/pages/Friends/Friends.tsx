@@ -1,9 +1,10 @@
 import { useFriends } from '@/hooks/friends/useFriends';
 import { Message3Text, Trash } from '@/icons';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export const Friends = () => {
-  const { friends, getFriends, deleteFriend } = useFriends();
+  const { friends, getFriends, deleteFriend, navigateToIndividualChat } = useFriends();
 
   useEffect(() => {
     getFriends();
@@ -43,7 +44,10 @@ export const Friends = () => {
 
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-3">
-                        <button className="p-2 rounded-md bg-violet-500/20 hover:bg-violet-500/40 transition">
+                        <button
+                          className="p-2 rounded-md bg-violet-500/20 hover:bg-violet-500/40 transition"
+                          onClick={() => navigateToIndividualChat(friend.id)}
+                        >
                           <Message3Text color="#fff" size={20} />
                         </button>
 
@@ -73,7 +77,10 @@ export const Friends = () => {
                 </p>
 
                 <div className="flex justify-end gap-3">
-                  <button className="p-3 rounded-md bg-violet-500/20 active:scale-95 transition">
+                  <button
+                    className="p-3 rounded-md bg-violet-500/20 active:scale-95 transition"
+                    onClick={() => navigateToIndividualChat(friend.id)}
+                  >
                     <Message3Text color="#fff" size={20} />
                   </button>
 

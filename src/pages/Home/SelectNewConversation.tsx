@@ -1,4 +1,3 @@
-import React from 'react';
 import { User as UserIcon, Server, UserMultiple4, LocationArrowRight, Search } from '@/icons';
 import { useNavigate } from 'react-router';
 import { useFriendRequest } from '@/hooks/friends/useFriendRequest';
@@ -112,7 +111,12 @@ export const SelectNewConversation = () => {
 
           <p className="text-gray-400 text-sm">Conversa directamente con un amigo.</p>
 
-          <button className="mt-auto w-full py-3 bg-violet-600 rounded-xl font-semibold active:scale-95">
+          <button
+            className="mt-auto w-full py-3 bg-violet-600 rounded-xl font-semibold active:scale-95"
+            onClick={() => {
+              navigate('/home/friends');
+            }}
+          >
             Enviar Mensaje
           </button>
         </section>
