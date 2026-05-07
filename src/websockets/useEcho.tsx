@@ -18,7 +18,8 @@ export default function useEcho() {
       client: new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
         wsHost: import.meta.env.VITE_PUSHER_HOST,
         wsPort: Number(import.meta.env.VITE_PUSHER_PORT),
-        forceTLS: false,
+        wssPort: Number(import.meta.env.VITE_PUSHER_PORT),
+        forceTLS: Number(import.meta.env.VITE_PUSHER_PORT) === 443,
         enabledTransports: ['ws', 'wss'],
         cluster: 'mt1',
         authEndpoint: `${import.meta.env.VITE_API_URL?.replace('/api', '')}/broadcasting/auth`,
