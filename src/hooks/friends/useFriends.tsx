@@ -2,15 +2,18 @@ import {
   getFriends as getFriendsApi,
   deleteFriend as deleteFriendApi,
 } from '@/api/Friends/FriendsApi';
-import { Friend, FriendResponse } from '@/types';
+import { FriendResponse, TypeConversation } from '@/types';
 import { useState } from 'react';
 import { useLoading } from '../useLoading';
 import { useToast } from '../useToast';
+import { createConversationIfNeccesary } from '@/api/Chat/IndividualChatApi';
+import { useNavigate } from 'react-router';
 
 export const useFriends = () => {
   const [friends, setFriends] = useState<FriendResponse[]>();
   const { setShowLoading } = useLoading();
   const { initiateToast } = useToast();
+  const navigate = useNavigate();
 
   /**
    * Funcion que obtiene todos los amigos que tenemos en ese instante
@@ -41,9 +44,25 @@ export const useFriends = () => {
     }
   };
 
+  const navigateToIndividualChat = async (friendId: number) => {
+    try {
+      await createConversationIfNeccesary(friendId);
+
+      navigate('/home/chat', {
+        state: {
+          typeConversation: TypeConversation.IndividualChat,
+          userTargetId: friendId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     friends,
     getFriends,
     deleteFriend,
+    navigateToIndividualChat,
   };
 };

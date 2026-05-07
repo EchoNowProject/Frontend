@@ -44,8 +44,9 @@ export const Chat = () => {
   }, [typeConversation, userTargetId]);
 
   useEffect(() => {
-    conectIndividualChatWebsocket(setPreviousMessages);
-  }, [echo, user?.id]);
+    const cleanup = conectIndividualChatWebsocket(setPreviousMessages, userTargetId);
+    return cleanup; // Limpia la conexión cuando el componente se desmonta o cuando las dependencias cambian
+  }, [echo, user?.id, userTargetId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

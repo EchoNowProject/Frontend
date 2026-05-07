@@ -1,5 +1,6 @@
 import { ConversationParticipant, FileData, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
+import { data } from 'react-router';
 
 interface GetMessageResponse {
   messages: Message[];
@@ -43,6 +44,21 @@ export const getMessagesApi = async (userTarget: number): Promise<GetMessageResp
     .get('/individual-chat/get-messages', {
       params: {
         userTarget: userTarget,
+      },
+    })
+    .then((reponse: AxiosResponse) => {
+      return reponse.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};
+
+export const createConversationIfNeccesary = async (friendId: number): Promise<void> => {
+  return axios
+    .post('/individual-chat/create-conversation', {
+      data: {
+        friendId: friendId,
       },
     })
     .then((reponse: AxiosResponse) => {
