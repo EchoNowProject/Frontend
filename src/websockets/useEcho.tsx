@@ -21,7 +21,7 @@ export default function useEcho() {
         forceTLS: false,
         enabledTransports: ['ws', 'wss'],
         cluster: 'mt1',
-        authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+        authEndpoint: `${import.meta.env.VITE_API_URL?.replace('/api', '')}/broadcasting/auth`,
 
         auth: {
           headers: {
