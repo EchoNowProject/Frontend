@@ -47,7 +47,15 @@ export const EditProfile = () => {
     const target = event.target as HTMLInputElement;
 
     if (user && target.files && target.files[0]) {
-      const file = await convertToBase64(target.files[0]);
+      const selectedFile = target.files[0];
+      const MAX_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
+
+      if (selectedFile.size > MAX_SIZE_BYTES) {
+        initiateToast('La imagen supera el peso máximo recomendado (2MB)', false);
+        return;
+      }
+
+      const file = await convertToBase64(selectedFile);
       try {
         setShowLoading(true);
         const newImage = await updateUserImage(file);

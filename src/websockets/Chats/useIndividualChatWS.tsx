@@ -12,7 +12,8 @@ export const useIndividualChatWS = () => {
    * @returns Toast en el dispositivo destinatario
    */
   const conectIndividualChatWebsocket = (
-    setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>
+    setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>,
+    idUserInvolved: number
   ) => {
     if (!echo || !user?.id) return;
 
@@ -29,9 +30,11 @@ export const useIndividualChatWS = () => {
     });
 
     channel.listenToAll((event: any, response: IndividualChatResponseWebsocket) => {
-      setPreviousMessages((prev) => {
-        return [...(prev || []), response.message];
-      });
+      if (response?.message?.user_sender_id == idUserInvolved) {
+        setPreviousMessages((prev) => {
+          return [...(prev || []), response.message];
+        });
+      }
     });
 
     // Limpieza al desmontar
