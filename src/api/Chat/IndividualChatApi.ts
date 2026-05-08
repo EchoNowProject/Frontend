@@ -1,6 +1,5 @@
 import { ConversationParticipant, FileData, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
-import { data } from 'react-router';
 
 interface GetMessageResponse {
   messages: Message[];
