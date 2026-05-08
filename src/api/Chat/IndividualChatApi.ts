@@ -1,12 +1,17 @@
-import { ConversationParticipant, FileData, Message } from '@/types';
+import {
+  IndividualChatConversationParticipant,
+  FileData,
+  Message,
+  IndividualChatConversation,
+} from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
 interface GetMessageResponse {
   messages: Message[];
-  userInvolved: ConversationParticipant;
+  userInvolved: IndividualChatConversationParticipant;
 }
 
-export const getIntividualChats = async (): Promise<ConversationParticipant[]> => {
+export const getIntividualChats = async (): Promise<IndividualChatConversationParticipant[]> => {
   return axios
     .get('/individual-chat/get-chats')
     .then((reponse: AxiosResponse) => {
@@ -18,7 +23,7 @@ export const getIntividualChats = async (): Promise<ConversationParticipant[]> =
 };
 
 export const sendMessageApi = async (
-  friendId: number,
+  conversationId: number,
   message?: string,
   files?: FileData[]
 ): Promise<Message> => {
@@ -26,7 +31,7 @@ export const sendMessageApi = async (
     .post('/individual-chat/send-message', {
       data: {
         message: message ?? null,
-        friendId: friendId,
+        conversationId: conversationId,
         files: files ?? null,
       },
     })
@@ -38,11 +43,11 @@ export const sendMessageApi = async (
     });
 };
 
-export const getMessagesApi = async (userTarget: number): Promise<GetMessageResponse> => {
+export const getMessagesApi = async (conversationId: number): Promise<GetMessageResponse> => {
   return axios
     .get('/individual-chat/get-messages', {
       params: {
-        userTarget: userTarget,
+        conversation_id: conversationId,
       },
     })
     .then((reponse: AxiosResponse) => {
@@ -53,7 +58,9 @@ export const getMessagesApi = async (userTarget: number): Promise<GetMessageResp
     });
 };
 
-export const createConversationIfNeccesary = async (friendId: number): Promise<void> => {
+export const createConversationIfNeccesary = async (
+  friendId: number
+): Promise<IndividualChatConversation> => {
   return axios
     .post('/individual-chat/create-conversation', {
       data: {

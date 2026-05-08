@@ -24,6 +24,7 @@ export const Sidebar = ({ stateSidebar }: { stateSidebar: boolean }) => {
                   state: {
                     typeConversation: TypeConversation.IndividualChat,
                     userTargetId: participant.user_id,
+                    conversationId: participant.conversation_id,
                   },
                 })
               }

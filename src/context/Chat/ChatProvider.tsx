@@ -1,17 +1,25 @@
 import React, { ReactNode, useState } from 'react';
 import { ChatContext } from './ChatContext';
 import { getIntividualChats, getMessagesApi, sendMessageApi } from '@/api/Chat/IndividualChatApi';
-import { ConversationParticipant, Message, TypeConversation, FileData } from '@/types';
+import {
+  IndividualChatConversationParticipant,
+  Message,
+  TypeConversation,
+  FileData,
+} from '@/types';
 import { useLoading } from '@/hooks/useLoading';
+import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
-  const [userInvolved, setUserInvolved] = useState<ConversationParticipant>();
+  const [userInvolved, setUserInvolved] = useState<IndividualChatConversationParticipant>();
   const [files, setFiles] = useState<FileData[]>();
-  const [openedChats, setOpenedChats] = useState<ConversationParticipant[]>();
+  const [openedChats, setOpenedChats] = useState<IndividualChatConversationParticipant[]>();
 
   const { setShowLoading } = useLoading();
+
+  useIndividualChatWS(setPreviousMessages, userInvolved?.user_id);
 
   const loadOpenedChats = async () => {
     try {
@@ -22,12 +30,14 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const getChat = async (typeChat: TypeConversation, userTarget: number) => {
+  const getChat = async (typeChat: TypeConversation, conversationId: number) => {
     try {
       setShowLoading(true);
+      setPreviousMessages(undefined);
+      setUserInvolved(undefined);
       switch (typeChat) {
         case TypeConversation.IndividualChat:
-          let response = await getMessagesApi(userTarget); // ! reocgerlo $request-query('taltal')
+          let response = await getMessagesApi(conversationId);
           setPreviousMessages(response.messages);
           setUserInvolved(response.userInvolved);
           break;
@@ -41,7 +51,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     setShowLoading(false);
   };
 
-  const sendMessageToolbar = async (idFriend: number) => {
+  const sendMessageToolbar = async (conversationId: number) => {
     const trimmedMessage = message?.trim() || '';
 
     const hasMessage = trimmedMessage.length > 0;
@@ -50,7 +60,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     if (!hasMessage && !hasFiles) return;
 
     try {
-      const lastMessage = await sendMessageApi(idFriend, trimmedMessage, files);
+      const lastMessage = await sendMessageApi(conversationId, trimmedMessage, files);
       setPreviousMessages((prev) => [...(prev || []), lastMessage]);
 
       // limpiar después de enviar

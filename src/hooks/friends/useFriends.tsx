@@ -46,12 +46,13 @@ export const useFriends = () => {
 
   const navigateToIndividualChat = async (friendId: number) => {
     try {
-      await createConversationIfNeccesary(friendId);
+      const conversation = await createConversationIfNeccesary(friendId);
 
       navigate('/home/chat', {
         state: {
           typeConversation: TypeConversation.IndividualChat,
           userTargetId: friendId,
+          conversationId: conversation.id,
         },
       });
     } catch (error) {

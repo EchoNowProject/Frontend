@@ -9,6 +9,7 @@ export enum TypeConversation {
 export type ChatLocationState = {
   typeConversation: TypeConversation;
   userTargetId: number;
+  conversationId?: number;
 };
 
 export interface IndividualChatResponseWebsocket {

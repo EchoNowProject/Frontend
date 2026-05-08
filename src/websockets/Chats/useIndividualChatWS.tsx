@@ -2,20 +2,17 @@ import useEcho from '../useEcho';
 import { useUser } from '@/hooks/user/useUser';
 import { IndividualChatResponseWebsocket, Message } from '@/types';
 
-export const useIndividualChatWS = () => {
+import { useEffect } from 'react';
+
+export const useIndividualChatWS = (
+  setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>,
+  idUserInvolved?: number
+) => {
   const echo = useEcho();
   const { user } = useUser();
 
-  /**
-   * Conexion de websocket para las solicitudes de amistad
-   * ? Es necesario utilizar el setPreviousMessages que se le pasa por parametro porque si usamos el del hook de useChats no actualiza los datos
-   * @returns Toast en el dispositivo destinatario
-   */
-  const conectIndividualChatWebsocket = (
-    setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>,
-    idUserInvolved: number
-  ) => {
-    if (!echo || !user?.id) return;
+  useEffect(() => {
+    if (!echo || !user?.id || !idUserInvolved) return;
 
     const channel = echo.private(`individual-chat.${user.id}`);
 
@@ -41,7 +38,5 @@ export const useIndividualChatWS = () => {
     return () => {
       echo.leave(`individual-chat.${user.id}`);
     };
-  };
-
-  return { conectIndividualChatWebsocket };
+  }, [echo, user?.id, idUserInvolved, setPreviousMessages]);
 };

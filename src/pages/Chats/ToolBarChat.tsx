@@ -4,7 +4,7 @@ import { useToolBarChat } from '@/hooks/chat/useToolBarChat';
 import { EmojiSelector } from './EmojiSelector';
 
 interface ToolBarChatProps {
-  idFriend: number;
+  conversationId: number;
   message: string | undefined;
   files: FileData[] | undefined;
   setMessage: (msg: string) => void;
@@ -13,7 +13,7 @@ interface ToolBarChatProps {
 }
 
 export const ToolBarChat = ({
-  idFriend,
+  conversationId,
   message,
   setMessage,
   files,
@@ -28,7 +28,7 @@ export const ToolBarChat = ({
         className="flex items-center gap-2 flex-1"
         onSubmit={(e) => {
           e.preventDefault();
-          sendMessageToolbar(idFriend);
+          sendMessageToolbar(conversationId);
         }}
       >
         <input

@@ -1,4 +1,3 @@
-import { ConversationParticipant, FriendResponse, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
 /* interface GetMessageResponse {
