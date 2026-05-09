@@ -3,6 +3,7 @@ import {
   Message,
   TypeConversation,
   FileData,
+  SidebarChat,
 } from '@/types';
 import { createContext } from 'react';
 
@@ -17,12 +18,10 @@ export interface ChatContextProps {
   >;
   files: FileData[] | undefined;
   setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
-  openedChats: IndividualChatConversationParticipant[] | undefined;
-  setOpenedChats: React.Dispatch<
-    React.SetStateAction<IndividualChatConversationParticipant[] | undefined>
-  >;
+  openedChats: SidebarChat[] | undefined;
+  setOpenedChats: React.Dispatch<React.SetStateAction<SidebarChat[] | undefined>>;
   getChat: (typeChat: TypeConversation, conversationId: number) => Promise<void>;
-  sendMessageToolbar: (conversationId: number) => Promise<void>;
+  sendMessageToolbar: (conversationId: number, typeConversation: TypeConversation) => Promise<void>;
   loadOpenedChats: () => void;
 }
 

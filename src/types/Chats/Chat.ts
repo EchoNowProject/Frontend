@@ -16,3 +16,8 @@ export interface IndividualChatResponseWebsocket {
   message: Message;
   targetUser: number;
 }
+
+import { IndividualChatConversationParticipant } from './IndividualChats/IndividualChatConversationParticipant';
+import { GroupsChatConversation } from './GroupsChats/GroupsChatConversation';
+
+export type SidebarChat = IndividualChatConversationParticipant | GroupsChatConversation;

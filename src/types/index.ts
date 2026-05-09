@@ -14,8 +14,11 @@ export {
   TypeConversation,
   type ChatLocationState,
   type IndividualChatResponseWebsocket,
+  type SidebarChat,
 } from './Chats/Chat';
 export { type Message, type FilesMessage } from './Message';
-export { type IndividualChatConversationParticipant } from './Chats/IndividualChatConversationParticipant';
+export { type IndividualChatConversationParticipant } from './Chats/IndividualChats/IndividualChatConversationParticipant';
 export { type FileData } from './FileData';
-export { type IndividualChatConversation } from './Chats/IndividualChatConversation';
+export { type IndividualChatConversation } from './Chats/IndividualChats/IndividualChatConversation';
+export { type GroupsChatConversation } from './Chats/GroupsChats/GroupsChatConversation';
+export { type GroupsChatConversationParticipant } from './Chats/GroupsChats/GroupsChatConversationParticipant';

@@ -1,3 +1,4 @@
+import { GroupsChatConversation } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
 /* interface GetMessageResponse {
@@ -5,9 +6,9 @@ import axios, { AxiosError, AxiosResponse } from '../axios';
   userInvolved: ConversationParticipant;
 } */
 
-/* export const getIntividualChats = async (): Promise<ConversationParticipant[]> => {
+export const getGroupChats = async (): Promise<GroupsChatConversation[]> => {
   return axios
-    .get('/individual-chat/get-chats')
+    .get('/groups-chat/get-chats')
     .then((reponse: AxiosResponse) => {
       return reponse.data;
     })
@@ -15,12 +16,11 @@ import axios, { AxiosError, AxiosResponse } from '../axios';
       throw error.response?.data;
     });
 };
- */
 
 export const createConversationIfNeccesary = async (
   friendsIds: number[],
   groupName: string
-): Promise<void> => {
+): Promise<GroupsChatConversation> => {
   return axios
     .post('/groups-chat/create-conversation', {
       data: {

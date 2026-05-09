@@ -178,6 +178,7 @@ export const Chat = () => {
           message={message}
           setMessage={setMessage}
           files={files}
+          typeConversation={typeConversation}
           setFiles={setFiles}
           sendMessageToolbar={sendMessageToolbar}
         />

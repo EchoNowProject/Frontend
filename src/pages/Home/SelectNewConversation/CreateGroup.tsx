@@ -1,14 +1,16 @@
 import { useFriends } from '@/hooks/friends/useFriends';
 import { useEffect, useState } from 'react';
+import { useChat } from '@/hooks/chat/useChat';
 import { useNavigate } from 'react-router';
 import { CheckCircle1 } from '@/icons';
-import { Friend, FriendResponse } from '@/types';
+import { Friend, FriendResponse, TypeConversation } from '@/types';
 import { createConversationIfNeccesary } from '@/api/Chat/GroupsChatApi';
 
 export const CreateGroup = () => {
   const { friends, getFriends } = useFriends();
   const [selectedFriendsId, setSelectedFriendsId] = useState<number[]>([]);
   const [groupName, setGroupName] = useState('');
+  const { setOpenedChats } = useChat();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +27,16 @@ export const CreateGroup = () => {
     if (!groupName.trim() || selectedFriendsId.length <= 1) return;
 
     try {
-      await createConversationIfNeccesary(selectedFriendsId, groupName);
-      // ! navigate donde sea
+      const conversation = await createConversationIfNeccesary(selectedFriendsId, groupName);
+
+      setOpenedChats((prev) => [conversation, ...(prev || [])]);
+
+      navigate('/home/chat', {
+        state: {
+          typeConversation: TypeConversation.Group,
+          conversationId: conversation.id,
+        },
+      });
     } catch (error) {
       console.log(error);
     }

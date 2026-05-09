@@ -22,27 +22,6 @@ export const getIntividualChats = async (): Promise<IndividualChatConversationPa
     });
 };
 
-export const sendMessageApi = async (
-  conversationId: number,
-  message?: string,
-  files?: FileData[]
-): Promise<Message> => {
-  return axios
-    .post('/individual-chat/send-message', {
-      data: {
-        message: message ?? null,
-        conversationId: conversationId,
-        files: files ?? null,
-      },
-    })
-    .then((reponse: AxiosResponse) => {
-      return reponse.data;
-    })
-    .catch((error: AxiosError) => {
-      throw error.response?.data;
-    });
-};
-
 export const getMessagesApi = async (conversationId: number): Promise<GetMessageResponse> => {
   return axios
     .get('/individual-chat/get-messages', {
