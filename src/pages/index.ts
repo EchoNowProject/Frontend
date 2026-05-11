@@ -14,9 +14,10 @@ import { Chat } from './Chats/Chats';
 import { Empty } from './Home/Empty';
 import { PricingCard } from './LandingPage/Planes/PricingCards/PricingCard';
 import { CreateServerPage } from './Servers/CreateServerPage';
-import { SelectNewConversation } from './Home/SelectNewConversation';
+import { SelectNewConversation } from './Home/SelectNewConversation/SelectNewConversation';
 import { Alerts } from './Alerts/Alerts';
 import { Friends } from './Friends/Friends';
+import { CreateGroup } from './Home/SelectNewConversation/CreateGroup';
 
 export {
   LandingPage,
@@ -38,4 +39,5 @@ export {
   SelectNewConversation,
   Alerts,
   Friends,
+  CreateGroup,
 };

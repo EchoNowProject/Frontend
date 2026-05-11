@@ -1,20 +1,20 @@
 import useEcho from '../useEcho';
 import { useUser } from '@/hooks/user/useUser';
-import { IndividualChatResponseWebsocket, Message } from '@/types';
+import { GroupChatResponseWebsocket, Message } from '@/types';
 
 import { useEffect } from 'react';
 
-export const useIndividualChatWS = (
+export const useGroupChatWS = (
   setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>,
-  idUserInvolved?: number
+  idConversation?: number
 ) => {
   const echo = useEcho();
   const { user } = useUser();
 
   useEffect(() => {
-    if (!echo || !user?.id || !idUserInvolved) return;
+    if (!echo || !idConversation || !user?.id) return;
 
-    const channel = echo.private(`individual-chat.${user.id}`);
+    const channel = echo.private(`group-chat.${idConversation}`);
 
     channel.subscribed(() => {
       channel.listen('.TestEvent', (e: any) => {
@@ -26,8 +26,12 @@ export const useIndividualChatWS = (
       console.error('Error en suscripción:', err);
     });
 
-    channel.listen('.individual-chat', (response: IndividualChatResponseWebsocket) => {
-      if (response?.message?.user_sender_id == idUserInvolved) {
+    channel.listen('.group-chat', (response: GroupChatResponseWebsocket) => {
+      console.log(response);
+      if (
+        response?.conversationId == idConversation &&
+        response?.message?.user_sender_id !== user?.id
+      ) {
         setPreviousMessages((prev) => {
           return [...(prev || []), response.message];
         });
@@ -36,7 +40,7 @@ export const useIndividualChatWS = (
 
     // Limpieza al desmontar
     return () => {
-      echo.leave(`individual-chat.${user.id}`);
+      echo.leave(`group-chat.${idConversation}`);
     };
-  }, [echo, user?.id, idUserInvolved, setPreviousMessages]);
+  }, [echo, idConversation, setPreviousMessages, user?.id]);
 };

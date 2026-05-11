@@ -1,19 +1,14 @@
-import {
-  IndividualChatConversationParticipant,
-  FileData,
-  Message,
-  IndividualChatConversation,
-} from '@/types';
+import { GroupsChatConversation, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
 interface GetMessageResponse {
   messages: Message[];
-  userInvolved: IndividualChatConversationParticipant;
+  conversation: GroupsChatConversation;
 }
 
-export const getIntividualChats = async (): Promise<IndividualChatConversationParticipant[]> => {
+export const getGroupChats = async (): Promise<GroupsChatConversation[]> => {
   return axios
-    .get('/individual-chat/get-chats')
+    .get('/groups-chat/get-chats')
     .then((reponse: AxiosResponse) => {
       return reponse.data;
     })
@@ -22,11 +17,11 @@ export const getIntividualChats = async (): Promise<IndividualChatConversationPa
     });
 };
 
-export const getIndividualChatMessagesApi = async (
+export const getGroupChatMessagesApi = async (
   conversationId: number
 ): Promise<GetMessageResponse> => {
   return axios
-    .get('/individual-chat/get-messages', {
+    .get('/groups-chat/get-messages', {
       params: {
         conversation_id: conversationId,
       },
@@ -40,16 +35,19 @@ export const getIndividualChatMessagesApi = async (
 };
 
 export const createConversationIfNeccesary = async (
-  friendId: number
-): Promise<IndividualChatConversation> => {
+  friendsIds: number[],
+  groupName: string
+): Promise<GroupsChatConversation> => {
   return axios
-    .post('/individual-chat/create-conversation', {
+    .post('/groups-chat/create-conversation', {
       data: {
-        friendId: friendId,
+        friendsIds: friendsIds,
+        groupName: groupName,
       },
     })
-    .then((reponse: AxiosResponse) => {
-      return reponse.data;
+    .then((response: AxiosResponse) => {
+      console.log(response.data);
+      return response.data;
     })
     .catch((error: AxiosError) => {
       throw error.response?.data;

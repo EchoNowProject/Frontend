@@ -1,22 +1,24 @@
 import { LocationArrowRight, PaperClip1, Photos, EmojiSmileSunglass, Plus } from '@/icons';
-import { FileData } from '@/types';
+import { FileData, TypeConversation } from '@/types';
 import { useToolBarChat } from '@/hooks/chat/useToolBarChat';
 import { EmojiSelector } from './EmojiSelector';
 
 interface ToolBarChatProps {
-  idFriend: number;
+  conversationId: number;
   message: string | undefined;
   files: FileData[] | undefined;
-  setMessage: (msg: string) => void;
+  typeConversation: TypeConversation;
   setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
-  sendMessageToolbar: (id: number) => void;
+  setMessage: (msg: string) => void;
+  sendMessageToolbar: (id: number, typeConversation: TypeConversation) => void;
 }
 
 export const ToolBarChat = ({
-  idFriend,
+  conversationId,
   message,
   setMessage,
   files,
+  typeConversation,
   setFiles,
   sendMessageToolbar,
 }: ToolBarChatProps) => {
@@ -28,7 +30,7 @@ export const ToolBarChat = ({
         className="flex items-center gap-2 flex-1"
         onSubmit={(e) => {
           e.preventDefault();
-          sendMessageToolbar(idFriend);
+          sendMessageToolbar(conversationId, typeConversation);
         }}
       >
         <input
