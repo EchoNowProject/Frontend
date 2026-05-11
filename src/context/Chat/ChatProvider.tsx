@@ -12,17 +12,20 @@ import {
 } from '@/types';
 import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
+import { useGroupChatWS } from '@/websockets/Chats/useGroupChatWS';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setUserInvolved] = useState<IndividualChatConversationParticipant>();
+  const [groupConversationId, setGroupConversationId] = useState<number>();
   const [files, setFiles] = useState<FileData[]>();
   const [openedChats, setOpenedChats] = useState<SidebarChat[]>();
 
   const { setShowLoading } = useLoading();
 
   useIndividualChatWS(setPreviousMessages, userInvolved?.user_id);
+  useGroupChatWS(setPreviousMessages, groupConversationId);
 
   /**
    * Carga los chats abiertos del usuario.
@@ -55,6 +58,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       setShowLoading(true);
       setPreviousMessages(undefined);
       setUserInvolved(undefined);
+      setGroupConversationId(undefined);
       switch (typeChat) {
         case TypeConversation.IndividualChat:
           let response = await getIndividualChatMessagesApi(conversationId);
@@ -64,7 +68,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         case TypeConversation.Group:
           let messages = await getGroupChatMessagesApi(conversationId);
           setPreviousMessages(messages);
-
+          setGroupConversationId(conversationId);
+          break;
         default:
           break;
       }

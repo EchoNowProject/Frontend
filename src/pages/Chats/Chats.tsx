@@ -137,8 +137,9 @@ export const Chat = () => {
 
                       <p>{message.content}</p>
 
-                      {message.files_message?.map((file) => (
+                      {message.files_message?.map((file, index) => (
                         <button
+                          key={index}
                           className={`flex items-center gap-2 mt-2 p-2 rounded-lg w-fit cursor-pointer transition-colors shadow-sm border border-transparent ${
                             isMine
                               ? 'bg-violet-600 hover:bg-violet-700 border-violet-500'

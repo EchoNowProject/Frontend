@@ -17,6 +17,11 @@ export interface IndividualChatResponseWebsocket {
   targetUser: number;
 }
 
+export interface GroupChatResponseWebsocket {
+  message: Message;
+  conversationId: number;
+}
+
 import { IndividualChatConversationParticipant } from './IndividualChats/IndividualChatConversationParticipant';
 import { GroupsChatConversation } from './GroupsChats/GroupsChatConversation';
 
