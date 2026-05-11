@@ -89,15 +89,6 @@ export const Home = () => {
                 >
                   <MenuHamburger1 />
                 </button>
-                <button
-                  type="button"
-                  className="md:flex lg:hidden items-center rounded-md p-1"
-                  onClick={() => {
-                    navigate('friends');
-                  }}
-                >
-                  <UserMultiple4 size={20} color="#000" />
-                </button>
                 {/* ================= IZQUIERDA ================= */}
                 {/* <ul className="flex items-center gap-1.5 shrink-0">
                 <Server />
@@ -136,6 +127,15 @@ export const Home = () => {
                 </ul>
                 {/* ================= DERECHA ================= */}
                 <ul className="flex flex-row items-center gap-x-3 ms-auto">
+                  <button
+                    type="button"
+                    className="md:flex lg:hidden items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('friends');
+                    }}
+                  >
+                    <UserMultiple4 size={20} color="#000" />
+                  </button>
                   <div className="relative mx-2">
                     <button
                       type="button"

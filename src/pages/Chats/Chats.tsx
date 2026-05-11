@@ -134,7 +134,7 @@ export const Chat = () => {
                     >
                       {/* Avatar dentro */}
                       <AvatarComponent isMine={isMine} />
-
+                      {!isMine && <p className="text-xs my-2">{message?.user_sender_name}</p>}
                       <p>{message.content}</p>
 
                       {message.files_message?.map((file, index) => (

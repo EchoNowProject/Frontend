@@ -9,9 +9,10 @@ export const useGroupChatWS = (
   idConversation?: number
 ) => {
   const echo = useEcho();
+  const { user } = useUser();
 
   useEffect(() => {
-    if (!echo || !idConversation) return;
+    if (!echo || !idConversation || !user?.id) return;
 
     const channel = echo.private(`group-chat.${idConversation}`);
 
@@ -27,7 +28,10 @@ export const useGroupChatWS = (
 
     channel.listen('.group-chat', (response: GroupChatResponseWebsocket) => {
       console.log(response);
-      if (response?.conversationId == idConversation) {
+      if (
+        response?.conversationId == idConversation &&
+        response?.message?.user_sender_id !== user?.id
+      ) {
         setPreviousMessages((prev) => {
           return [...(prev || []), response.message];
         });
@@ -38,5 +42,5 @@ export const useGroupChatWS = (
     return () => {
       echo.leave(`group-chat.${idConversation}`);
     };
-  }, [echo, idConversation, setPreviousMessages]);
+  }, [echo, idConversation, setPreviousMessages, user?.id]);
 };
