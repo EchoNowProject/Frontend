@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { ChatContext } from './ChatContext';
-import { getIntividualChats, getMessagesApi } from '@/api/Chat/IndividualChatApi';
+import { getIntividualChats, getIndividualChatMessagesApi } from '@/api/Chat/IndividualChatApi';
+import { getGroupChats, getGroupChatMessagesApi } from '@/api/Chat/GroupsChatApi';
 import { sendMessageApi } from '@/api/Chat/ChatGeneralApi';
 import {
   IndividualChatConversationParticipant,
@@ -11,7 +12,6 @@ import {
 } from '@/types';
 import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
-import { getGroupChats } from '@/api/Chat/GroupsChatApi';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
@@ -32,13 +32,13 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       // Ejecuta ambas peticiones en paralelo y espera a que terminen (ya sea con éxito o error)
       const [individualChatsResult, groupChatsResult] = await Promise.allSettled([
         getIntividualChats(), // Petición a la API para obtener los chats individuales
-        getGroupChats(),      // Petición a la API para obtener los chats de grupo
+        getGroupChats(), // Petición a la API para obtener los chats de grupo
       ]);
 
       // Si la petición de chats individuales fue exitosa, extrae su valor; de lo contrario, asigna un array vacío
       const individualChats =
         individualChatsResult.status === 'fulfilled' ? individualChatsResult.value : [];
-        
+
       // Si la petición de chats de grupo fue exitosa, extrae su valor; de lo contrario, asigna un array vacío
       const groupChats = groupChatsResult.status === 'fulfilled' ? groupChatsResult.value : [];
 
@@ -57,10 +57,13 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       setUserInvolved(undefined);
       switch (typeChat) {
         case TypeConversation.IndividualChat:
-          let response = await getMessagesApi(conversationId);
+          let response = await getIndividualChatMessagesApi(conversationId);
           setPreviousMessages(response.messages);
           setUserInvolved(response.userInvolved);
           break;
+        case TypeConversation.Group:
+          let messages = await getGroupChatMessagesApi(conversationId);
+          setPreviousMessages(messages);
 
         default:
           break;
@@ -86,6 +89,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         trimmedMessage,
         files
       );
+
       setPreviousMessages((prev) => [...(prev || []), lastMessage]);
 
       // limpiar después de enviar

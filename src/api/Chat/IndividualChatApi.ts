@@ -22,7 +22,9 @@ export const getIntividualChats = async (): Promise<IndividualChatConversationPa
     });
 };
 
-export const getMessagesApi = async (conversationId: number): Promise<GetMessageResponse> => {
+export const getIndividualChatMessagesApi = async (
+  conversationId: number
+): Promise<GetMessageResponse> => {
   return axios
     .get('/individual-chat/get-messages', {
       params: {

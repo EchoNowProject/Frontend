@@ -7,24 +7,12 @@ export const sendMessageApi = async (
   message?: string,
   files?: FileData[]
 ): Promise<Message> => {
-  let urlMessage = null;
-
-  switch (typeConversation) {
-    case TypeConversation.IndividualChat:
-      urlMessage = '/individual-chat/send-message';
-      break;
-    case TypeConversation.Group:
-      urlMessage = '/group-chat/send-message';
-      break;
-  }
-
-  if (!urlMessage) throw Error('Error al enviar el mensaje, ruta no indicada');
-
   return axios
-    .post(urlMessage, {
+    .post('general-chat/send-message', {
       data: {
-        message: message ?? null,
         conversationId: conversationId,
+        typeConversation: typeConversation,
+        message: message ?? null,
         files: files ?? null,
       },
     })

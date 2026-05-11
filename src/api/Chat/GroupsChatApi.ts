@@ -1,14 +1,24 @@
-import { GroupsChatConversation } from '@/types';
+import { GroupsChatConversation, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
-
-/* interface GetMessageResponse {
-  messages: Message[];
-  userInvolved: ConversationParticipant;
-} */
 
 export const getGroupChats = async (): Promise<GroupsChatConversation[]> => {
   return axios
     .get('/groups-chat/get-chats')
+    .then((reponse: AxiosResponse) => {
+      return reponse.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};
+
+export const getGroupChatMessagesApi = async (conversationId: number): Promise<Message[]> => {
+  return axios
+    .get('/groups-chat/get-messages', {
+      params: {
+        conversation_id: conversationId,
+      },
+    })
     .then((reponse: AxiosResponse) => {
       return reponse.data;
     })
