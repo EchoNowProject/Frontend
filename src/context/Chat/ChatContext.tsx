@@ -4,6 +4,7 @@ import {
   TypeConversation,
   FileData,
   SidebarChat,
+  GroupsChatConversation,
 } from '@/types';
 import { createContext } from 'react';
 
@@ -13,6 +14,7 @@ export interface ChatContextProps {
   previousMessages: Message[] | undefined;
   setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>;
   userInvolved: IndividualChatConversationParticipant | undefined;
+  conversation: GroupsChatConversation | undefined;
   setUserInvolved: React.Dispatch<
     React.SetStateAction<IndividualChatConversationParticipant | undefined>
   >;

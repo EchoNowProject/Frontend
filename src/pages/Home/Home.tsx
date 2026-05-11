@@ -18,6 +18,7 @@ import {
   //ServersSidebar,
   ShowActiveUser,
   Sidebar,
+  ShowActiveGroupChat,
 } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -104,6 +105,7 @@ export const Home = () => {
               </ul> */}
 
                 <ShowActiveUser />
+                <ShowActiveGroupChat />
 
                 {/* ================= CENTRO (SEARCH) ================= */}
                 <ul className="hidden lg:flex flex-1 justify-center px-4">

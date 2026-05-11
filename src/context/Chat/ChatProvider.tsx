@@ -9,6 +9,7 @@ import {
   TypeConversation,
   FileData,
   SidebarChat,
+  GroupsChatConversation,
 } from '@/types';
 import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
@@ -18,14 +19,14 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setUserInvolved] = useState<IndividualChatConversationParticipant>();
-  const [groupConversationId, setGroupConversationId] = useState<number>();
+  const [conversation, setConversation] = useState<GroupsChatConversation>();
   const [files, setFiles] = useState<FileData[]>();
   const [openedChats, setOpenedChats] = useState<SidebarChat[]>();
 
   const { setShowLoading } = useLoading();
 
   useIndividualChatWS(setPreviousMessages, userInvolved?.user_id);
-  useGroupChatWS(setPreviousMessages, groupConversationId);
+  useGroupChatWS(setPreviousMessages, conversation?.id);
 
   /**
    * Carga los chats abiertos del usuario.
@@ -54,21 +55,22 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getChat = async (typeChat: TypeConversation, conversationId: number) => {
+    let response = undefined;
     try {
       setShowLoading(true);
       setPreviousMessages(undefined);
       setUserInvolved(undefined);
-      setGroupConversationId(undefined);
+      setConversation(undefined);
       switch (typeChat) {
         case TypeConversation.IndividualChat:
-          let response = await getIndividualChatMessagesApi(conversationId);
+          response = await getIndividualChatMessagesApi(conversationId);
           setPreviousMessages(response.messages);
           setUserInvolved(response.userInvolved);
           break;
         case TypeConversation.Group:
-          let messages = await getGroupChatMessagesApi(conversationId);
-          setPreviousMessages(messages);
-          setGroupConversationId(conversationId);
+          response = await getGroupChatMessagesApi(conversationId);
+          setPreviousMessages(response.messages);
+          setConversation(response.conversation);
           break;
         default:
           break;
@@ -112,6 +114,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         setMessage,
         message,
         userInvolved,
+        conversation,
         setUserInvolved,
         previousMessages,
         sendMessageToolbar,

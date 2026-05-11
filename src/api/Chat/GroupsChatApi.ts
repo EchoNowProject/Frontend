@@ -1,6 +1,11 @@
 import { GroupsChatConversation, Message } from '@/types';
 import axios, { AxiosError, AxiosResponse } from '../axios';
 
+interface GetMessageResponse {
+  messages: Message[];
+  conversation: GroupsChatConversation;
+}
+
 export const getGroupChats = async (): Promise<GroupsChatConversation[]> => {
   return axios
     .get('/groups-chat/get-chats')
@@ -12,7 +17,9 @@ export const getGroupChats = async (): Promise<GroupsChatConversation[]> => {
     });
 };
 
-export const getGroupChatMessagesApi = async (conversationId: number): Promise<Message[]> => {
+export const getGroupChatMessagesApi = async (
+  conversationId: number
+): Promise<GetMessageResponse> => {
   return axios
     .get('/groups-chat/get-messages', {
       params: {

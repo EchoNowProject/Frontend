@@ -4,5 +4,6 @@ export { Group } from './GroupNavbar';
 export { Microphone } from './Microphone';
 export { Headphone } from './Headphone';
 export { ServersSidebar } from './ServersSidebar';
-export { ShowActiveUser } from './ShowActiveUser';
+export { ShowActiveUser } from './CurrentsConversations/ShowActiveIndividualChat';
+export { ShowActiveGroupChat } from './CurrentsConversations/ShowActiveGroupChat';
 export { Sidebar } from './Sidebar';
