@@ -10,6 +10,7 @@ import {
   SelectNewConversation,
   Alerts,
   Friends,
+  CreateGroup,
 } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: 'friends',
         element: <Friends />,
+      },
+      {
+        path: 'group/new',
+        element: <CreateGroup />,
       },
     ],
   },

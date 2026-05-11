@@ -27,7 +27,7 @@ export const useFriendRequestWS = () => {
       console.error('Error en suscripción:', err);
     });
 
-    channel.listenToAll((event: any, data: FriendRequestResponseWebsocket) => {
+    channel.listen('.friend-request', (data: FriendRequestResponseWebsocket) => {
       initiateToast(String(data.message), true);
     });
 

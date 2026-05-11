@@ -1,6 +1,6 @@
 import { type FileImage } from '@/types';
 
-export interface ConversationParticipant {
+export interface IndividualChatConversationParticipant {
   id: number;
   conversation_id: number;
   user_id: number;

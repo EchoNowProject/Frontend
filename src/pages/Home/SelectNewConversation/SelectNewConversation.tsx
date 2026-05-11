@@ -131,7 +131,10 @@ export const SelectNewConversation = () => {
 
           <p className="text-gray-400 text-sm">Crea grupos pequeños fácilmente.</p>
 
-          <button className="mt-auto w-full py-3 bg-violet-600 rounded-xl font-semibold active:scale-95">
+          <button
+            className="mt-auto w-full py-3 bg-violet-600 rounded-xl font-semibold active:scale-95"
+            onClick={() => navigate('/home/group/new')}
+          >
             Crear Grupo
           </button>
         </section>

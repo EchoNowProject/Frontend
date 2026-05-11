@@ -2,6 +2,7 @@ export interface Message {
   id: number;
   conversation_id: number;
   user_sender_id: number;
+  user_sender_name: string;
   content: string;
   type_msg: number;
   has_file: boolean;

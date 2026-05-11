@@ -1,21 +1,18 @@
 import { useChat } from '@/hooks/chat/useChat';
 import { useUser } from '@/hooks/user/useUser';
-import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { User, Xmark, Download } from '@/icons';
 import { ToolBarChat } from './ToolBarChat';
 import { ChatLocationState } from '@/types';
-import useEcho from '@/websockets/useEcho';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { useFile } from '@/hooks/utils/useFile';
 
 export const Chat = () => {
   const location = useLocation() as { state: ChatLocationState };
-  const echo = useEcho();
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   const typeConversation = location.state.typeConversation;
-  const userTargetId = location.state.userTargetId;
+  const conversationId = location.state.conversationId;
 
   const {
     getChat,
@@ -27,26 +24,16 @@ export const Chat = () => {
     setPreviousMessages,
     files,
     setFiles,
-    setUserInvolved,
   } = useChat();
-  const { conectIndividualChatWebsocket } = useIndividualChatWS();
+
   const { user } = useUser();
   const { donwloadMessageFile } = useFile();
 
   useEffect(() => {
-    if (!typeConversation || !userTargetId) return;
+    if (!typeConversation || !conversationId) return;
 
-    getChat(typeConversation, userTargetId);
-
-    return () => {
-      setUserInvolved(undefined);
-    };
-  }, [typeConversation, userTargetId]);
-
-  useEffect(() => {
-    const cleanup = conectIndividualChatWebsocket(setPreviousMessages, userTargetId);
-    return cleanup; // Limpia la conexión cuando el componente se desmonta o cuando las dependencias cambian
-  }, [echo, user?.id, userTargetId]);
+    getChat(typeConversation, conversationId);
+  }, [typeConversation, conversationId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -147,11 +134,12 @@ export const Chat = () => {
                     >
                       {/* Avatar dentro */}
                       <AvatarComponent isMine={isMine} />
-
+                      {!isMine && <p className="text-xs my-2">{message?.user_sender_name}</p>}
                       <p>{message.content}</p>
 
-                      {message.files_message?.map((file) => (
+                      {message.files_message?.map((file, index) => (
                         <button
+                          key={index}
                           className={`flex items-center gap-2 mt-2 p-2 rounded-lg w-fit cursor-pointer transition-colors shadow-sm border border-transparent ${
                             isMine
                               ? 'bg-violet-600 hover:bg-violet-700 border-violet-500'
@@ -187,10 +175,11 @@ export const Chat = () => {
       {/* Toolbar (sin cambios) */}
       <div className="bg-neutral-900 p-2.5 rounded-md shadow-lg mt-2 text-sm">
         <ToolBarChat
-          idFriend={userTargetId}
+          conversationId={conversationId!}
           message={message}
           setMessage={setMessage}
           files={files}
+          typeConversation={typeConversation}
           setFiles={setFiles}
           sendMessageToolbar={sendMessageToolbar}
         />

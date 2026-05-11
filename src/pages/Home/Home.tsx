@@ -18,6 +18,7 @@ import {
   //ServersSidebar,
   ShowActiveUser,
   Sidebar,
+  ShowActiveGroupChat,
 } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -88,15 +89,6 @@ export const Home = () => {
                 >
                   <MenuHamburger1 />
                 </button>
-                <button
-                  type="button"
-                  className="md:flex lg:hidden items-center rounded-md p-1"
-                  onClick={() => {
-                    navigate('friends');
-                  }}
-                >
-                  <UserMultiple4 size={20} color="#000" />
-                </button>
                 {/* ================= IZQUIERDA ================= */}
                 {/* <ul className="flex items-center gap-1.5 shrink-0">
                 <Server />
@@ -104,6 +96,7 @@ export const Home = () => {
               </ul> */}
 
                 <ShowActiveUser />
+                <ShowActiveGroupChat />
 
                 {/* ================= CENTRO (SEARCH) ================= */}
                 <ul className="hidden lg:flex flex-1 justify-center px-4">
@@ -134,6 +127,15 @@ export const Home = () => {
                 </ul>
                 {/* ================= DERECHA ================= */}
                 <ul className="flex flex-row items-center gap-x-3 ms-auto">
+                  <button
+                    type="button"
+                    className="md:flex lg:hidden items-center rounded-md p-1"
+                    onClick={() => {
+                      navigate('friends');
+                    }}
+                  >
+                    <UserMultiple4 size={20} color="#000" />
+                  </button>
                   <div className="relative mx-2">
                     <button
                       type="button"
