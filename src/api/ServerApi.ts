@@ -1,7 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from './axios';
 import { Server } from '@/types';
 
-export const createNewServer = async (newServer: Server): Promise<string> => {
+interface CreateNewServerResponse {
+  message: string;
+  server: Server;
+  server_chat_conversation: ServerChatConversation;
+}
+
+export const createNewServer = async (newServer: Server): Promise<CreateNewServerResponse> => {
   return axios
     .post('/servers', newServer)
     .then((reponse: AxiosResponse) => {

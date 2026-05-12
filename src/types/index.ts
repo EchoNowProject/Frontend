@@ -1,4 +1,4 @@
-export { type Server, TypeServer } from './Server';
+export { type Server, TypeServer } from './Chats/Servers/Server';
 export { type RelationShipDefault } from './RelationShipDefault';
 export {
   type User,

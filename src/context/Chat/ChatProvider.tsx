@@ -61,6 +61,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       setPreviousMessages(undefined);
       setUserInvolved(undefined);
       setConversation(undefined);
+
       switch (typeChat) {
         case TypeConversation.IndividualChat:
           response = await getIndividualChatMessagesApi(conversationId);
@@ -72,6 +73,10 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           setPreviousMessages(response.messages);
           setConversation(response.conversation);
           break;
+        case TypeConversation.Server:
+          console.log(conversationId);
+          break;
+
         default:
           break;
       }

@@ -1,5 +1,5 @@
 import { getServersByUser } from '@/api/ServerApi';
-import { Server, TypeServer } from '@/types';
+import { Server, TypeConversation, TypeServer } from '@/types';
 import React, { ReactNode, useState } from 'react';
 import { createNewServer } from '@/api/ServerApi';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +18,14 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
   /* Crear Servidor */
   const createServer = async () => {
     try {
-      await createNewServer(server);
-      navigate('/home');
+      let response = await createNewServer(server);
+      setServers((prev) => [...prev, response.server]);
+      navigate('/home/chat', {
+        state: {
+          typeConversation: TypeConversation.Server,
+          conversationId: response.server_chat_conversation.id,
+        },
+      });
       getServers();
     } catch (error) {
       initiateToast(String(error), false);

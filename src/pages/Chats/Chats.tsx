@@ -21,7 +21,6 @@ export const Chat = () => {
     message,
     setMessage,
     sendMessageToolbar,
-    setPreviousMessages,
     files,
     setFiles,
   } = useChat();
