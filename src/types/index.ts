@@ -1,4 +1,3 @@
-export { type Server, TypeServer } from './Chats/Servers/Server';
 export { type RelationShipDefault } from './RelationShipDefault';
 export {
   type User,
@@ -23,3 +22,6 @@ export { type FileData } from './FileData';
 export { type IndividualChatConversation } from './Chats/IndividualChats/IndividualChatConversation';
 export { type GroupsChatConversation } from './Chats/GroupsChats/GroupsChatConversation';
 export { type GroupsChatConversationParticipant } from './Chats/GroupsChats/GroupsChatConversationParticipant';
+export { type ServerChatConversation } from './Chats/Servers/ServerChatConversation';
+export { type Server, TypeServer } from './Chats/Servers/Server';
+export { type MainConversation } from './Chats/Servers/MainConversation';

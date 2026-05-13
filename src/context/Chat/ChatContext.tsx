@@ -5,6 +5,7 @@ import {
   FileData,
   SidebarChat,
   GroupsChatConversation,
+  ServerChatConversation,
 } from '@/types';
 import { createContext } from 'react';
 
@@ -14,7 +15,7 @@ export interface ChatContextProps {
   previousMessages: Message[] | undefined;
   setPreviousMessages: React.Dispatch<React.SetStateAction<Message[] | undefined>>;
   userInvolved: IndividualChatConversationParticipant | undefined;
-  conversation: GroupsChatConversation | undefined;
+  conversation: GroupsChatConversation | ServerChatConversation | undefined;
   setUserInvolved: React.Dispatch<
     React.SetStateAction<IndividualChatConversationParticipant | undefined>
   >;
@@ -22,7 +23,7 @@ export interface ChatContextProps {
   setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
   openedChats: SidebarChat[] | undefined;
   setOpenedChats: React.Dispatch<React.SetStateAction<SidebarChat[] | undefined>>;
-  getChat: (typeChat: TypeConversation, conversationId: number) => Promise<void>;
+  getChat: (typeChat: TypeConversation, conversationId: number, serverId?: number) => Promise<void>;
   sendMessageToolbar: (conversationId: number, typeConversation: TypeConversation) => Promise<void>;
   loadOpenedChats: () => void;
 }

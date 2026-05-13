@@ -10,16 +10,20 @@ import {
   FileData,
   SidebarChat,
   GroupsChatConversation,
+  ServerChatConversation,
 } from '@/types';
 import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { useGroupChatWS } from '@/websockets/Chats/useGroupChatWS';
+import { getServerChatMessagesApi } from '@/api/Chat/ServerChatApi';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
   const [previousMessages, setPreviousMessages] = useState<Message[]>();
   const [userInvolved, setUserInvolved] = useState<IndividualChatConversationParticipant>();
-  const [conversation, setConversation] = useState<GroupsChatConversation>();
+  const [conversation, setConversation] = useState<
+    GroupsChatConversation | ServerChatConversation
+  >();
   const [files, setFiles] = useState<FileData[]>();
   const [openedChats, setOpenedChats] = useState<SidebarChat[]>();
 
@@ -54,7 +58,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const getChat = async (typeChat: TypeConversation, conversationId: number) => {
+  const getChat = async (typeChat: TypeConversation, conversationId: number, serverId?: number) => {
     let response = undefined;
     try {
       setShowLoading(true);
@@ -74,7 +78,10 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           setConversation(response.conversation);
           break;
         case TypeConversation.Server:
-          console.log(conversationId);
+          if (!serverId) return;
+          response = await getServerChatMessagesApi(conversationId, serverId);
+          setPreviousMessages(response.messages);
+          setConversation(response.conversation);
           break;
 
         default:

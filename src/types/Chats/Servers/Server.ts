@@ -1,3 +1,5 @@
+import { MainConversation } from './MainConversation';
+
 export enum TypeServer {
   PUBLIC = 'public',
   PRIVATE = 'private',
@@ -14,4 +16,5 @@ export interface Server {
   updated_at: string;
   created_at: string;
   audience: string; //no se usa
+  main_conversation: MainConversation;
 }

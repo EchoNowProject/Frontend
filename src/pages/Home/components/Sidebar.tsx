@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router';
 
 export const Sidebar = ({ stateSidebar }: { stateSidebar: boolean }) => {
   const { openedChats, loadOpenedChats } = useChat();
-  const { servers } = useServer();
+  const { servers, getServers } = useServer();
   const navigate = useNavigate();
 
   useEffect(() => {
     loadOpenedChats();
+    getServers();
   }, []);
 
   return (
@@ -80,8 +81,9 @@ export const Sidebar = ({ stateSidebar }: { stateSidebar: boolean }) => {
           onClick={() =>
             navigate('/home/chat', {
               state: {
-                //!terminar
                 typeConversation: TypeConversation.Server,
+                conversationId: server.main_conversation.id,
+                serverId: server.id,
               },
             })
           }

@@ -10,15 +10,13 @@ import {
   Home as HomeIcon,
 } from '@icons/index';
 import {
-  Server,
-  Group,
   Profile,
   Microphone,
   Headphone,
-  //ServersSidebar,
   ShowActiveUser,
   Sidebar,
   ShowActiveGroupChat,
+  ShowActiveServer,
 } from './components';
 import { ServerProvider } from '@/context/Server/ServerProvider';
 import Toast from '@/components/UI/Toast/Toast';
@@ -90,13 +88,12 @@ export const Home = () => {
                   <MenuHamburger1 />
                 </button>
                 {/* ================= IZQUIERDA ================= */}
-                {/* <ul className="flex items-center gap-1.5 shrink-0">
-                <Server />
-                <Group />
-              </ul> */}
 
-                <ShowActiveUser />
-                <ShowActiveGroupChat />
+                <div>
+                  <ShowActiveServer />
+                  <ShowActiveUser />
+                  <ShowActiveGroupChat />
+                </div>
 
                 {/* ================= CENTRO (SEARCH) ================= */}
                 <ul className="hidden lg:flex flex-1 justify-center px-4">

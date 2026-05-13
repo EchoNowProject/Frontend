@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from './axios';
-import { Server } from '@/types';
+import { Server, ServerChatConversation } from '@/types';
 
 interface CreateNewServerResponse {
   message: string;
@@ -25,6 +25,6 @@ export const getServersByUser = async (): Promise<Server[]> => {
       return reponse.data;
     })
     .catch((error: AxiosError) => {
-      throw error.message;
+      throw error.response?.data;
     });
 };

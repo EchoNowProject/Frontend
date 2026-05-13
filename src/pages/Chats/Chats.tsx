@@ -13,6 +13,7 @@ export const Chat = () => {
 
   const typeConversation = location.state.typeConversation;
   const conversationId = location.state.conversationId;
+  const serverId = location.state.serverId;
 
   const {
     getChat,
@@ -31,8 +32,8 @@ export const Chat = () => {
   useEffect(() => {
     if (!typeConversation || !conversationId) return;
 
-    getChat(typeConversation, conversationId);
-  }, [typeConversation, conversationId]);
+    getChat(typeConversation, conversationId, serverId);
+  }, [typeConversation, conversationId, serverId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

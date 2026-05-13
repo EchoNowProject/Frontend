@@ -10,6 +10,7 @@ export type ChatLocationState = {
   typeConversation: TypeConversation;
   userTargetId: number;
   conversationId?: number;
+  serverId?: number;
 };
 
 export interface IndividualChatResponseWebsocket {

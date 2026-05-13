@@ -6,4 +6,5 @@ export { Headphone } from './Headphone';
 export { ServersSidebar } from './ServersSidebar';
 export { ShowActiveUser } from './CurrentsConversations/ShowActiveIndividualChat';
 export { ShowActiveGroupChat } from './CurrentsConversations/ShowActiveGroupChat';
+export { ShowActiveServer } from './CurrentsConversations/ShowActiveServer';
 export { Sidebar } from './Sidebar';
