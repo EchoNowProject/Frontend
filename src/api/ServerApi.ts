@@ -28,3 +28,14 @@ export const getServersByUser = async (): Promise<Server[]> => {
       throw error.response?.data;
     });
 };
+
+export const getServer = async (idServer: number): Promise<Server> => {
+  return axios
+    .get(`/servers/${idServer}`)
+    .then((reponse: AxiosResponse) => {
+      return reponse.data;
+    })
+    .catch((error: AxiosError) => {
+      throw error.response?.data;
+    });
+};

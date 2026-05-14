@@ -23,6 +23,7 @@ export interface ChatContextProps {
   setFiles: React.Dispatch<React.SetStateAction<FileData[] | undefined>>;
   openedChats: SidebarChat[] | undefined;
   setOpenedChats: React.Dispatch<React.SetStateAction<SidebarChat[] | undefined>>;
+  typeConversation: TypeConversation | undefined;
   getChat: (typeChat: TypeConversation, conversationId: number, serverId?: number) => Promise<void>;
   sendMessageToolbar: (conversationId: number, typeConversation: TypeConversation) => Promise<void>;
   loadOpenedChats: () => void;

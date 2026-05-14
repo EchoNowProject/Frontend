@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
+import { Server as ServerType } from '@/types';
 
-export const Server = () => {
+export const Server = ({ server }: { server: ServerType }) => {
   const [open, setOpen] = useState(false);
 
   const menuRef = useRef(null);
@@ -23,7 +24,7 @@ export const Server = () => {
                 className="p-1.5 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
                 onClick={() => setOpen(!open)}
               >
-                Server
+                {server.name}
                 <MenuMeatballs1 />
               </button>
             </div>

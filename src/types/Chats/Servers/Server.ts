@@ -1,4 +1,4 @@
-import { MainConversation } from './MainConversation';
+import { ServerChatConversation } from './ServerChatConversation';
 
 export enum TypeServer {
   PUBLIC = 'public',
@@ -16,5 +16,6 @@ export interface Server {
   updated_at: string;
   created_at: string;
   audience: string; //no se usa
-  main_conversation: MainConversation;
+  main_conversation: ServerChatConversation;
+  conversations: ServerChatConversation[];
 }

@@ -62,6 +62,7 @@ export const ServerProvider = ({ children }: { children: ReactNode }) => {
       value={{
         servers,
         server,
+        setServer,
         audience,
         getServers,
         createServer,

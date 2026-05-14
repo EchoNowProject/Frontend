@@ -24,4 +24,3 @@ export { type GroupsChatConversation } from './Chats/GroupsChats/GroupsChatConve
 export { type GroupsChatConversationParticipant } from './Chats/GroupsChats/GroupsChatConversationParticipant';
 export { type ServerChatConversation } from './Chats/Servers/ServerChatConversation';
 export { type Server, TypeServer } from './Chats/Servers/Server';
-export { type MainConversation } from './Chats/Servers/MainConversation';

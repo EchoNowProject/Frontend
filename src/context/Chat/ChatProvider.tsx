@@ -16,6 +16,8 @@ import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { useGroupChatWS } from '@/websockets/Chats/useGroupChatWS';
 import { getServerChatMessagesApi } from '@/api/Chat/ServerChatApi';
+import { getServer } from '@/api/ServerApi';
+import { useServer } from '@/hooks/useServer';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string>();
@@ -26,8 +28,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   >();
   const [files, setFiles] = useState<FileData[]>();
   const [openedChats, setOpenedChats] = useState<SidebarChat[]>();
+  const [typeConversation, setTypeConversation] = useState<TypeConversation>();
+  //! crear variable para guardar el tipo de chat y usarlo en los ShowActive
 
   const { setShowLoading } = useLoading();
+  const { setServer } = useServer();
 
   useIndividualChatWS(setPreviousMessages, userInvolved?.user_id);
   useGroupChatWS(setPreviousMessages, conversation?.id);
@@ -59,34 +64,14 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getChat = async (typeChat: TypeConversation, conversationId: number, serverId?: number) => {
-    let response = undefined;
     try {
       setShowLoading(true);
       setPreviousMessages(undefined);
       setUserInvolved(undefined);
       setConversation(undefined);
+      setTypeConversation(undefined);
 
-      switch (typeChat) {
-        case TypeConversation.IndividualChat:
-          response = await getIndividualChatMessagesApi(conversationId);
-          setPreviousMessages(response.messages);
-          setUserInvolved(response.userInvolved);
-          break;
-        case TypeConversation.Group:
-          response = await getGroupChatMessagesApi(conversationId);
-          setPreviousMessages(response.messages);
-          setConversation(response.conversation);
-          break;
-        case TypeConversation.Server:
-          if (!serverId) return;
-          response = await getServerChatMessagesApi(conversationId, serverId);
-          setPreviousMessages(response.messages);
-          setConversation(response.conversation);
-          break;
-
-        default:
-          break;
-      }
+      await assignTasks(typeChat, conversationId, serverId);
     } catch (error) {
       console.log(error);
     }
@@ -119,6 +104,37 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const assignTasks = async (
+    typeChat: TypeConversation,
+    conversationId: number,
+    serverId?: number
+  ) => {
+    let response = null;
+
+    switch (typeChat) {
+      case TypeConversation.IndividualChat:
+        response = await getIndividualChatMessagesApi(conversationId);
+        setPreviousMessages(response.messages);
+        setUserInvolved(response.userInvolved);
+        setTypeConversation(TypeConversation.IndividualChat);
+        break;
+      case TypeConversation.Group:
+        response = await getGroupChatMessagesApi(conversationId);
+        setPreviousMessages(response.messages);
+        setConversation(response.conversation);
+        setTypeConversation(TypeConversation.Group);
+        break;
+      case TypeConversation.Server:
+        if (!serverId) return;
+        response = await getServerChatMessagesApi(conversationId, serverId);
+        let server = await getServer(serverId);
+        setServer(server);
+        setConversation(response.conversation);
+        setTypeConversation(TypeConversation.Server);
+        break;
+    }
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -136,6 +152,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         openedChats,
         setOpenedChats,
         loadOpenedChats,
+        typeConversation,
       }}
     >
       {children}

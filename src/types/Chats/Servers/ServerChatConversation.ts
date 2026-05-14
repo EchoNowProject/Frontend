@@ -1,7 +1,9 @@
 export interface ServerChatConversation {
+  id: number;
   id_server: number;
   channel_text_name: string;
-  updated_at: string;
+  description: string;
+  is_main: boolean;
   created_at: string;
-  id: number;
+  updated_at: string;
 }

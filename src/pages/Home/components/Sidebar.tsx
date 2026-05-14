@@ -99,7 +99,7 @@ export const Sidebar = ({ stateSidebar }: { stateSidebar: boolean }) => {
             server.name.charAt(0)
           ) : (
             <div className="flex items-center gap-3">
-              <Server />
+              <Server size={18} />
               <span className="truncate">{server.name}</span>
             </div>
           )}

@@ -6,6 +6,7 @@ export type ServerAudience = 'community' | 'friends' | null;
 type ServerContextType = {
   servers: Server[];
   server: Server;
+  setServer: React.Dispatch<React.SetStateAction<Server>>;
   audience?: ServerAudience;
 
   getServers: () => Promise<void>;

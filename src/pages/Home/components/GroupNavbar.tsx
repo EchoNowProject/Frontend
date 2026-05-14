@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MenuMeatballs1 } from '@icons/index';
+import { ServerChatConversation } from '@/types';
 
-export const Group = () => {
+export const Group = ({ conversation }: { conversation: ServerChatConversation }) => {
   const menuRef = useRef(null);
 
   const [open, setOpen] = useState<boolean>(false);
@@ -24,7 +25,7 @@ export const Group = () => {
                 className="p-1.5 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
                 onClick={() => setOpen(!open)}
               >
-                Group
+                {conversation.channel_text_name}
                 <MenuMeatballs1 />
               </button>
             </div>
