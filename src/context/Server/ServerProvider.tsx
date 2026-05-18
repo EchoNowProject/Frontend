@@ -1,7 +1,7 @@
-import { getServersByUser } from '@/api/ServerApi';
+import { getServersByUser } from '@/api/Servers/ServerApi';
 import { Server, TypeConversation, TypeServer } from '@/types';
 import React, { ReactNode, useState } from 'react';
-import { createNewServer } from '@/api/ServerApi';
+import { createNewServer } from '@/api/Servers/ServerApi';
 import { useNavigate } from 'react-router-dom';
 import { ServerAudience, ServerContext } from './ServerContext';
 import { useToast } from '@/hooks/useToast';

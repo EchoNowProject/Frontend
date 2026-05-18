@@ -14,6 +14,7 @@ import { Chat } from './Chats/Chats';
 import { Empty } from './Home/Empty';
 import { PricingCard } from './LandingPage/Planes/PricingCards/PricingCard';
 import { CreateServerPage } from './Servers/CreateServerPage';
+import { InviteUserServer } from './Servers/InviteUserServer';
 import { SelectNewConversation } from './Home/SelectNewConversation/SelectNewConversation';
 import { Alerts } from './Alerts/Alerts';
 import { Friends } from './Friends/Friends';
@@ -36,6 +37,7 @@ export {
   Empty,
   PricingCard,
   CreateServerPage,
+  InviteUserServer,
   SelectNewConversation,
   Alerts,
   Friends,

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from './axios';
+import axios, { AxiosError, AxiosResponse } from '../axios';
 import { Server, ServerChatConversation } from '@/types';
 
 interface CreateNewServerResponse {

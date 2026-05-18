@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import React from 'react';
 import {
   Template as LandingPageTemplate,
   LandingPage,
@@ -11,6 +10,7 @@ import {
   Alerts,
   Friends,
   CreateGroup,
+  InviteUserServer,
 } from '@/pages';
 import { Empty } from '@/pages/Home/Empty';
 import { Chat } from '@/pages/Chats/Chats';
@@ -56,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: 'server/new',
         element: <CreateServerPage />,
+      },
+      {
+        path: 'server/invite-users',
+        element: <InviteUserServer />,
       },
       {
         path: 'profile',

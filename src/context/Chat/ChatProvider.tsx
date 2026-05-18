@@ -17,7 +17,7 @@ import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { useGroupChatWS } from '@/websockets/Chats/useGroupChatWS';
 import { useServerChatWS } from '@/websockets/Chats/useServerChatWS';
 import { getServerChatMessagesApi } from '@/api/Chat/ServerChatApi';
-import { getServer } from '@/api/ServerApi';
+import { getServer } from '@/api/Servers/ServerApi';
 import { useServer } from '@/hooks/useServer';
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {

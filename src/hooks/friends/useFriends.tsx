@@ -62,6 +62,7 @@ export const useFriends = () => {
 
   return {
     friends,
+    setFriends,
     getFriends,
     deleteFriend,
     navigateToIndividualChat,

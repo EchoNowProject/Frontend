@@ -1,81 +1,78 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MenuMeatballs1 } from '@icons/index';
-import { Server as ServerType } from '@/types';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-export const Server = ({ server }: { server: ServerType }) => {
-  const [open, setOpen] = useState(false);
+import { MenuMeatballs1, Plus, Settings } from '@icons/index';
 
-  const menuRef = useRef(null);
+import type { Server as ServerType } from '@/types';
+
+interface Props {
+  server: ServerType;
+}
+
+export const Server = ({ server }: Props) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    document.addEventListener('mousedown', () => {
-      setOpen(false);
-    });
-  }, [menuRef]);
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <>
-      <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
-        <div className="inline-flex justify-center w-full">
-          <div className="relative inline-flex">
-            <div className="flex justify-center">
-              <button
-                type="button"
-                className="p-1.5 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
-                onClick={() => setOpen(!open)}
-              >
-                {server.name}
-                <MenuMeatballs1 />
-              </button>
-            </div>
+    <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12">
+      <div className="inline-flex justify-center w-full">
+        <div ref={menuRef} className="relative inline-flex">
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="p-1.5 flex items-center gap-x-1 font-medium text-sm rounded-lg hover:bg-violet-900 focus:outline-none text-gray-200"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              {server.name}
+              <MenuMeatballs1 />
+            </button>
+          </div>
 
-            {/* Mas Opciones */}
-            {open && (
-              <div
-                className="absolute top-full start-0 mt-2 w-50 z-10 bg-violet-700 border border-violet-700 rounded-xl shadow-xl"
-                ref={menuRef}
-              >
-                <div className="p-1">
-                  <div className="flex flex-col gap-y-1">
-                    <label
-                      htmlFor="project-1"
-                      className="py-2 px-2.5 group flex justify-start items-center gap-x-3 rounded-lg cursor-pointer text-[13px] text-gray-200 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                    >
-                      <span className="grow block text-sm font-medium text-neutral-200">
-                        Ajustes del Server
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="p-1 border-t border-gray-200">
+          {open && (
+            <div className="absolute top-full left-0 mt-2 z-10 w-56 overflow-hidden rounded-xl border border-violet-600 bg-violet-700 shadow-xl">
+              <div className="p-1">
+                <div className="border-b border-violet-600 pb-1 mb-1">
                   <button
                     type="button"
-                    className="w-full flex items-center gap-x-3 py-2 px-2.5 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                    className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-gray-200 transition-colors hover:bg-violet-900"
                   >
-                    <svg
-                      className="shrink-0 size-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    Manage projects
+                    <Settings size={18} />
+                    <span>Ajustes del servidor</span>
                   </button>
                 </div>
+
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-gray-200 transition-colors hover:bg-violet-900 focus:outline-none"
+                  onClick={() => {
+                    navigate('/home/server/invite-users');
+                  }}
+                >
+                  <Plus size={18} color="#fff" />
+                  <span>Invitar usuario</span>
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      </li>
-    </>
+      </div>
+    </li>
   );
 };
