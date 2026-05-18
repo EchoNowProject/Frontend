@@ -23,6 +23,12 @@ export interface GroupChatResponseWebsocket {
   conversationId: number;
 }
 
+export interface ServerChatResponseWebsocket {
+  message: Message;
+  idServer: number;
+  idConversation: number;
+}
+
 import { IndividualChatConversationParticipant } from './IndividualChats/IndividualChatConversationParticipant';
 import { GroupsChatConversation } from './GroupsChats/GroupsChatConversation';
 

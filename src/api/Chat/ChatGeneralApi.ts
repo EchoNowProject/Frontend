@@ -4,6 +4,7 @@ import axios, { AxiosError, AxiosResponse } from '../axios';
 export const sendMessageApi = async (
   conversationId: number,
   typeConversation: TypeConversation,
+  serverId?: number,
   message?: string,
   files?: FileData[]
 ): Promise<Message> => {
@@ -12,6 +13,7 @@ export const sendMessageApi = async (
       data: {
         conversationId: conversationId,
         typeConversation: typeConversation,
+        serverId: serverId,
         message: message ?? null,
         files: files ?? null,
       },

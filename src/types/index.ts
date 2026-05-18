@@ -14,6 +14,7 @@ export {
   type ChatLocationState,
   type IndividualChatResponseWebsocket,
   type GroupChatResponseWebsocket,
+  type ServerChatResponseWebsocket,
   type SidebarChat,
 } from './Chats/Chat';
 export { type Message, type FilesMessage } from './Message';

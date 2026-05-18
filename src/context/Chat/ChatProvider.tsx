@@ -15,6 +15,7 @@ import {
 import { useLoading } from '@/hooks/useLoading';
 import { useIndividualChatWS } from '@/websockets/Chats/useIndividualChatWS';
 import { useGroupChatWS } from '@/websockets/Chats/useGroupChatWS';
+import { useServerChatWS } from '@/websockets/Chats/useServerChatWS';
 import { getServerChatMessagesApi } from '@/api/Chat/ServerChatApi';
 import { getServer } from '@/api/ServerApi';
 import { useServer } from '@/hooks/useServer';
@@ -32,10 +33,21 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   //! crear variable para guardar el tipo de chat y usarlo en los ShowActive
 
   const { setShowLoading } = useLoading();
-  const { setServer } = useServer();
+  const { server, setServer } = useServer();
 
-  useIndividualChatWS(setPreviousMessages, userInvolved?.user_id);
-  useGroupChatWS(setPreviousMessages, conversation?.id);
+  useIndividualChatWS(
+    setPreviousMessages,
+    typeConversation === TypeConversation.IndividualChat ? userInvolved?.user_id : undefined
+  );
+  useGroupChatWS(
+    setPreviousMessages,
+    typeConversation === TypeConversation.Group ? conversation?.id : undefined
+  );
+  useServerChatWS(
+    setPreviousMessages,
+    typeConversation === TypeConversation.Server ? server?.id : undefined,
+    typeConversation === TypeConversation.Server ? conversation?.id : undefined
+  );
 
   /**
    * Carga los chats abiertos del usuario.
@@ -90,6 +102,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       const lastMessage = await sendMessageApi(
         conversationId,
         typeConversation,
+        server.id ?? null,
         trimmedMessage,
         files
       );
@@ -129,6 +142,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         response = await getServerChatMessagesApi(conversationId, serverId);
         let server = await getServer(serverId);
         setServer(server);
+        setPreviousMessages(response.messages);
         setConversation(response.conversation);
         setTypeConversation(TypeConversation.Server);
         break;
